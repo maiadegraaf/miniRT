@@ -6,13 +6,13 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/22 14:44:26 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/04/26 13:41:33 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/05/03 16:09:01 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_sphere	sphere_init(t_vec3 cen, double r)
+t_sphere	sphere_init(t_vec4 cen, float r)
 {
 	t_sphere	sphere;
 
@@ -24,16 +24,16 @@ t_sphere	sphere_init(t_vec3 cen, double r)
 
 bool	sphere_hit(t_hittable *hit, t_sphere *sphere)
 {
-	t_vec3	oc;
-	double	a;
-	double	half_b;
-	double	c;
-	double	disc;
-	double	sqrtd;
-	double	root;
-	t_vec3	outward_normal;
+	t_vec4	oc;
+	float	a;
+	float	half_b;
+	float	c;
+	float	disc;
+	float	sqrtd;
+	float	root;
+	t_vec4	outward_normal;
 
-	oc = vec3_sub(hit->r.origin, sphere->cen);
+	oc = hit->r.origin - sphere->cen;
 	a = length_sqrd(hit->r.direction);
 	half_b = dot(oc, hit->r.direction);
 	c = length_sqrd(oc) - (sphere->r * sphere->r);
@@ -50,20 +50,20 @@ bool	sphere_hit(t_hittable *hit, t_sphere *sphere)
 	}
 	hit->rec.t = root;
 	hit->rec.p = ray_at(hit->r, hit->rec.t);
-	outward_normal = vec3_div(sphere->r, vec3_sub(hit->rec.p, sphere->cen));
+	outward_normal = sphere->r / (hit->rec.p - sphere->cen);
 	set_face_normal(hit->r, outward_normal, &hit->rec);
 	return (true);
 }
 
-double	hit_sphere(t_vec3 center, double radius, t_ray *r)
+float	hit_sphere(t_vec4 center, float radius, t_ray *r)
 {
-	t_vec3	oc;
-	double	a;
-	double	half_b;
-	double	c;
-	double	disc;
+	t_vec4	oc;
+	float	a;
+	float	half_b;
+	float	c;
+	float	disc;
 
-	oc = vec3_sub(r->origin, center);
+	oc = r->origin - center;
 	a = length_sqrd(r->direction);
 	half_b = dot(oc, r->direction);
 	c = length_sqrd(oc) - (radius * radius);

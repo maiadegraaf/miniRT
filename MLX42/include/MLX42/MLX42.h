@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/20 09:46:11 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/05/03 15:36:17 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ typedef struct mlx
 	void*		context;
 	int32_t		width;
 	int32_t		height;
-	double		delta_time;
+	float		delta_time;
 }	mlx_t;
 
 // The error codes used to idenfity the correct error message.
@@ -185,7 +185,7 @@ extern bool mlx_decorated;
  * @param[in] ydelta The mouse y delta.
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*mlx_scrollfunc)(double xdelta, double ydelta, void* param);
+typedef void (*mlx_scrollfunc)(float xdelta, float ydelta, void* param);
 
 /**
  * Callback function used to handle mouse actions.
@@ -204,7 +204,7 @@ typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action, modifier_key_
  * @param[in] ydelta The mouse y position.
  * @param[in] param Additional parameter to pass onto the function.
  */
-typedef void (*mlx_cursorfunc)(double xpos, double ypos, void* param);
+typedef void (*mlx_cursorfunc)(float xpos, float ypos, void* param);
 
 /**
  * Callback function used to handle key presses.

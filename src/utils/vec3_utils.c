@@ -6,25 +6,25 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 14:04:24 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/04/22 15:15:04 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/05/03 15:51:32 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	length_sqrd(t_vec3 v)
+float	length_sqrd(t_vec4 v)
 {
-	return ((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
+	return ((v[0] * v[0]) + (v[1] * v[1]) + (v[2] * v[2]));
 }
 
-double	length(t_vec3 v)
+float	length(t_vec4 v)
 {
 	return (sqrt(length_sqrd(v)));
 }
 
-t_vec3	unit_vector(t_vec3 v)
+t_vec4	unit_vector(t_vec4 v)
 {
-	return (vec3_div(length(v), v));
+	return (v / length(v));
 }
 
 t_vec3	vec3_neg(t_vec3 v)
@@ -32,7 +32,7 @@ t_vec3	vec3_neg(t_vec3 v)
 	return (vec3_init(-v.x, -v.y, -v.z));
 }
 
-t_vec3	vec3_init(double x, double y, double z)
+t_vec3	vec3_init(float x, float y, float z)
 {
 	t_vec3	v;
 

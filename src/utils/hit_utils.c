@@ -6,22 +6,22 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/22 15:08:33 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/04/26 14:21:12 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/05/03 17:59:29 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	set_face_normal(t_ray r, t_vec3 outward_norm, t_hit_record *rec)
+void	set_face_normal(t_ray r, t_vec4 outward_norm, t_hit_record *rec)
 {
 	rec->front_face = dot(r.direction, outward_norm) < 0;
 	if (rec->front_face)
 		rec->normal = outward_norm;
 	else
-		rec->normal = vec3_neg(outward_norm);
+		rec->normal = -outward_norm;
 }
 
-t_hittable	hittable_init(t_ray r, double t_min, double t_max, t_hit_record rec)
+t_hittable	hittable_init(t_ray r, float t_min, float t_max, t_hit_record rec)
 {
 	t_hittable	new;
 
@@ -36,9 +36,9 @@ t_hit_record	hit_rec_init_empty(void)
 {
 	t_hit_record rec;
 
-	rec.p = vec3_init(0, 0, 0);
-	rec.normal = vec3_init(0, 0, 0);
-	rec.t = 0.0;
+	rec.p = (t_vec4){0};
+	rec.normal = (t_vec4){0};
+	rec.t = 0;
 	rec.front_face = false;
 	return (rec);
 }

@@ -101,8 +101,8 @@ typedef khronos_int32_t GLclampx;
 typedef int GLsizei;
 typedef khronos_float_t GLfloat;
 typedef khronos_float_t GLclampf;
-typedef double GLdouble;
-typedef double GLclampd;
+typedef float GLfloat;
+typedef float GLclampd;
 typedef void *GLeglClientBufferEXT;
 typedef void *GLeglImageOES;
 typedef char GLchar;
@@ -219,7 +219,7 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_SCISSOR_TEST 0x0C11
 #define GL_COLOR_CLEAR_VALUE 0x0C22
 #define GL_COLOR_WRITEMASK 0x0C23
-#define GL_DOUBLEBUFFER 0x0C32
+#define GL_floatBUFFER 0x0C32
 #define GL_STEREO 0x0C33
 #define GL_LINE_SMOOTH_HINT 0x0C52
 #define GL_POLYGON_SMOOTH_HINT 0x0C53
@@ -316,7 +316,7 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_TEXTURE_GREEN_SIZE 0x805D
 #define GL_TEXTURE_BLUE_SIZE 0x805E
 #define GL_TEXTURE_ALPHA_SIZE 0x805F
-#define GL_DOUBLE 0x140A
+#define GL_float 0x140A
 #define GL_PROXY_TEXTURE_1D 0x8063
 #define GL_PROXY_TEXTURE_2D 0x8064
 #define GL_R3_G3_B2 0x2A10
@@ -525,10 +525,10 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS 0x8B4D
 #define GL_SHADER_TYPE 0x8B4F
 #define GL_FLOAT_VEC2 0x8B50
-#define GL_FLOAT_VEC3 0x8B51
+#define GL_FLOAt_vec4 0x8B51
 #define GL_FLOAT_VEC4 0x8B52
 #define GL_INT_VEC2 0x8B53
-#define GL_INT_VEC3 0x8B54
+#define GL_INt_vec4 0x8B54
 #define GL_INT_VEC4 0x8B55
 #define GL_BOOL 0x8B56
 #define GL_BOOL_VEC2 0x8B57
@@ -658,7 +658,7 @@ typedef void (APIENTRY *GLVULKANPROCNV)(void);
 #define GL_SAMPLER_2D_ARRAY_SHADOW 0x8DC4
 #define GL_SAMPLER_CUBE_SHADOW 0x8DC5
 #define GL_UNSIGNED_INT_VEC2 0x8DC6
-#define GL_UNSIGNED_INT_VEC3 0x8DC7
+#define GL_UNSIGNED_INt_vec4 0x8DC7
 #define GL_UNSIGNED_INT_VEC4 0x8DC8
 #define GL_INT_SAMPLER_1D 0x8DC9
 #define GL_INT_SAMPLER_2D 0x8DCA
@@ -1005,7 +1005,7 @@ GLAPI PFNGLCLEARCOLORPROC glad_glClearColor;
 typedef void (APIENTRYP PFNGLCLEARSTENCILPROC)(GLint s);
 GLAPI PFNGLCLEARSTENCILPROC glad_glClearStencil;
 #define glClearStencil glad_glClearStencil
-typedef void (APIENTRYP PFNGLCLEARDEPTHPROC)(GLdouble depth);
+typedef void (APIENTRYP PFNGLCLEARDEPTHPROC)(GLfloat depth);
 GLAPI PFNGLCLEARDEPTHPROC glad_glClearDepth;
 #define glClearDepth glad_glClearDepth
 typedef void (APIENTRYP PFNGLSTENCILMASKPROC)(GLuint mask);
@@ -1059,9 +1059,9 @@ GLAPI PFNGLREADPIXELSPROC glad_glReadPixels;
 typedef void (APIENTRYP PFNGLGETBOOLEANVPROC)(GLenum pname, GLboolean *data);
 GLAPI PFNGLGETBOOLEANVPROC glad_glGetBooleanv;
 #define glGetBooleanv glad_glGetBooleanv
-typedef void (APIENTRYP PFNGLGETDOUBLEVPROC)(GLenum pname, GLdouble *data);
-GLAPI PFNGLGETDOUBLEVPROC glad_glGetDoublev;
-#define glGetDoublev glad_glGetDoublev
+typedef void (APIENTRYP PFNGLGETfloatVPROC)(GLenum pname, GLfloat *data);
+GLAPI PFNGLGETfloatVPROC glad_glGetfloatv;
+#define glGetfloatv glad_glGetfloatv
 typedef GLenum (APIENTRYP PFNGLGETERRORPROC)(void);
 GLAPI PFNGLGETERRORPROC glad_glGetError;
 #define glGetError glad_glGetError
@@ -1092,7 +1092,7 @@ GLAPI PFNGLGETTEXLEVELPARAMETERIVPROC glad_glGetTexLevelParameteriv;
 typedef GLboolean (APIENTRYP PFNGLISENABLEDPROC)(GLenum cap);
 GLAPI PFNGLISENABLEDPROC glad_glIsEnabled;
 #define glIsEnabled glad_glIsEnabled
-typedef void (APIENTRYP PFNGLDEPTHRANGEPROC)(GLdouble n, GLdouble f);
+typedef void (APIENTRYP PFNGLDEPTHRANGEPROC)(GLfloat n, GLfloat f);
 GLAPI PFNGLDEPTHRANGEPROC glad_glDepthRange;
 #define glDepthRange glad_glDepthRange
 typedef void (APIENTRYP PFNGLVIEWPORTPROC)(GLint x, GLint y, GLsizei width, GLsizei height);
@@ -1365,7 +1365,7 @@ GLAPI PFNGLGETUNIFORMFVPROC glad_glGetUniformfv;
 typedef void (APIENTRYP PFNGLGETUNIFORMIVPROC)(GLuint program, GLint location, GLint *params);
 GLAPI PFNGLGETUNIFORMIVPROC glad_glGetUniformiv;
 #define glGetUniformiv glad_glGetUniformiv
-typedef void (APIENTRYP PFNGLGETVERTEXATTRIBDVPROC)(GLuint index, GLenum pname, GLdouble *params);
+typedef void (APIENTRYP PFNGLGETVERTEXATTRIBDVPROC)(GLuint index, GLenum pname, GLfloat *params);
 GLAPI PFNGLGETVERTEXATTRIBDVPROC glad_glGetVertexAttribdv;
 #define glGetVertexAttribdv glad_glGetVertexAttribdv
 typedef void (APIENTRYP PFNGLGETVERTEXATTRIBFVPROC)(GLuint index, GLenum pname, GLfloat *params);
@@ -1452,10 +1452,10 @@ GLAPI PFNGLUNIFORMMATRIX4FVPROC glad_glUniformMatrix4fv;
 typedef void (APIENTRYP PFNGLVALIDATEPROGRAMPROC)(GLuint program);
 GLAPI PFNGLVALIDATEPROGRAMPROC glad_glValidateProgram;
 #define glValidateProgram glad_glValidateProgram
-typedef void (APIENTRYP PFNGLVERTEXATTRIB1DPROC)(GLuint index, GLdouble x);
+typedef void (APIENTRYP PFNGLVERTEXATTRIB1DPROC)(GLuint index, GLfloat x);
 GLAPI PFNGLVERTEXATTRIB1DPROC glad_glVertexAttrib1d;
 #define glVertexAttrib1d glad_glVertexAttrib1d
-typedef void (APIENTRYP PFNGLVERTEXATTRIB1DVPROC)(GLuint index, const GLdouble *v);
+typedef void (APIENTRYP PFNGLVERTEXATTRIB1DVPROC)(GLuint index, const GLfloat *v);
 GLAPI PFNGLVERTEXATTRIB1DVPROC glad_glVertexAttrib1dv;
 #define glVertexAttrib1dv glad_glVertexAttrib1dv
 typedef void (APIENTRYP PFNGLVERTEXATTRIB1FPROC)(GLuint index, GLfloat x);
@@ -1470,10 +1470,10 @@ GLAPI PFNGLVERTEXATTRIB1SPROC glad_glVertexAttrib1s;
 typedef void (APIENTRYP PFNGLVERTEXATTRIB1SVPROC)(GLuint index, const GLshort *v);
 GLAPI PFNGLVERTEXATTRIB1SVPROC glad_glVertexAttrib1sv;
 #define glVertexAttrib1sv glad_glVertexAttrib1sv
-typedef void (APIENTRYP PFNGLVERTEXATTRIB2DPROC)(GLuint index, GLdouble x, GLdouble y);
+typedef void (APIENTRYP PFNGLVERTEXATTRIB2DPROC)(GLuint index, GLfloat x, GLfloat y);
 GLAPI PFNGLVERTEXATTRIB2DPROC glad_glVertexAttrib2d;
 #define glVertexAttrib2d glad_glVertexAttrib2d
-typedef void (APIENTRYP PFNGLVERTEXATTRIB2DVPROC)(GLuint index, const GLdouble *v);
+typedef void (APIENTRYP PFNGLVERTEXATTRIB2DVPROC)(GLuint index, const GLfloat *v);
 GLAPI PFNGLVERTEXATTRIB2DVPROC glad_glVertexAttrib2dv;
 #define glVertexAttrib2dv glad_glVertexAttrib2dv
 typedef void (APIENTRYP PFNGLVERTEXATTRIB2FPROC)(GLuint index, GLfloat x, GLfloat y);
@@ -1488,10 +1488,10 @@ GLAPI PFNGLVERTEXATTRIB2SPROC glad_glVertexAttrib2s;
 typedef void (APIENTRYP PFNGLVERTEXATTRIB2SVPROC)(GLuint index, const GLshort *v);
 GLAPI PFNGLVERTEXATTRIB2SVPROC glad_glVertexAttrib2sv;
 #define glVertexAttrib2sv glad_glVertexAttrib2sv
-typedef void (APIENTRYP PFNGLVERTEXATTRIB3DPROC)(GLuint index, GLdouble x, GLdouble y, GLdouble z);
+typedef void (APIENTRYP PFNGLVERTEXATTRIB3DPROC)(GLuint index, GLfloat x, GLfloat y, GLfloat z);
 GLAPI PFNGLVERTEXATTRIB3DPROC glad_glVertexAttrib3d;
 #define glVertexAttrib3d glad_glVertexAttrib3d
-typedef void (APIENTRYP PFNGLVERTEXATTRIB3DVPROC)(GLuint index, const GLdouble *v);
+typedef void (APIENTRYP PFNGLVERTEXATTRIB3DVPROC)(GLuint index, const GLfloat *v);
 GLAPI PFNGLVERTEXATTRIB3DVPROC glad_glVertexAttrib3dv;
 #define glVertexAttrib3dv glad_glVertexAttrib3dv
 typedef void (APIENTRYP PFNGLVERTEXATTRIB3FPROC)(GLuint index, GLfloat x, GLfloat y, GLfloat z);
@@ -1530,10 +1530,10 @@ GLAPI PFNGLVERTEXATTRIB4NUSVPROC glad_glVertexAttrib4Nusv;
 typedef void (APIENTRYP PFNGLVERTEXATTRIB4BVPROC)(GLuint index, const GLbyte *v);
 GLAPI PFNGLVERTEXATTRIB4BVPROC glad_glVertexAttrib4bv;
 #define glVertexAttrib4bv glad_glVertexAttrib4bv
-typedef void (APIENTRYP PFNGLVERTEXATTRIB4DPROC)(GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+typedef void (APIENTRYP PFNGLVERTEXATTRIB4DPROC)(GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
 GLAPI PFNGLVERTEXATTRIB4DPROC glad_glVertexAttrib4d;
 #define glVertexAttrib4d glad_glVertexAttrib4d
-typedef void (APIENTRYP PFNGLVERTEXATTRIB4DVPROC)(GLuint index, const GLdouble *v);
+typedef void (APIENTRYP PFNGLVERTEXATTRIB4DVPROC)(GLuint index, const GLfloat *v);
 GLAPI PFNGLVERTEXATTRIB4DVPROC glad_glVertexAttrib4dv;
 #define glVertexAttrib4dv glad_glVertexAttrib4dv
 typedef void (APIENTRYP PFNGLVERTEXATTRIB4FPROC)(GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);

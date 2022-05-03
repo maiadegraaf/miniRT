@@ -6,7 +6,7 @@
 /*   By: fpolycar <fpolycar@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 11:16:40 by fpolycar      #+#    #+#                 */
-/*   Updated: 2022/04/28 12:53:57 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/05/03 18:06:16 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,20 @@
 
 void	color_img(t_mlx_win	*win, t_cam *cam, t_hittable_lst *world)
 {
-	double	u;
-	double	v;
+	float	u;
+	float	v;
 	t_ray	ray;
-	t_vec3	color;
-	int		samples_per_pixel;
-	double	s;
-	double	t;
+	t_vec4	color;
+	float	s;
+	float	t;
 
-	samples_per_pixel = 100;
 	win->y = win->height - 1;
 	while (win->y >= 0)
 	{
 		win->x = 0;
 		while (win->x < win->width)
 		{
-			color = vec3_init(0, 0, 0);
+			color = (t_vec4){0};
 			s = 0.1;
 			while (s < 1)
 			{
@@ -39,42 +37,54 @@ void	color_img(t_mlx_win	*win, t_cam *cam, t_hittable_lst *world)
 				{
 					v = (win->y + t) / (win->height - 1);
 					ray = get_ray(*cam, u, v);
-					color = vec3_add(ray_color(&ray, world, 10), color);
+					color += ray_color(&ray, world, 10);
 					t += 0.1;
 				}
 				s += 0.1;
 			}
-			write_color(&color, win, 100);
+			write_color(color, win, 100);
 			win->x++;
 		}
 		win->y--;
 	}
 }
 
-t_cam	setup_cam(t_mlx_win *win)
+t_cam	setup_cam(t_vec4 look_frm, t_vec4 look_at, t_vec4 vup, float vfov)
 {
 	t_cam	cam;
+	float	theta;
+	float	h;
+	t_vec4	w;
+	t_vec4	u;
+	t_vec4	v;
 
-	(void) win;
-	cam.vp_h = 2.0;
+	theta = deg_to_rad(vfov);
+	h = tan(theta / 2);
+	// cam.vp_h = (float)2.0 * h;
+	cam.vp_h = (float)2;
 	cam.vp_w = ASPECT_RATIO * cam.vp_h;
-	cam.foc_l = 1.0;
-	cam.origin = vec3_init(0, 0, 0);
-	cam.hor = vec3_init(cam.vp_w, 0, 0);
-	cam.vert = vec3_init(0, cam.vp_h, 0);
-	cam.btm_l_corner = vec3_sub(vec3_sub(vec3_sub(
-					cam.origin,
-					(vec3_div(2, cam.hor))),
-				(vec3_div(2, cam.vert))),
-			vec3_init(0, 0, cam.foc_l));
+	w = unit_vector(look_frm - look_at);
+	u = unit_vector(cross(vup, w));
+	v = cross(w, u);
+	cam.foc_l = (float)1;
+	cam.origin = (t_vec4){0};
+	cam.hor = (t_vec4){cam.vp_w, 0, 0, 0};
+	cam.vert = (t_vec4){0, cam.vp_h, 0, 0};
+	cam.btm_l_corner = cam.origin - (cam.hor / 2) - (cam.vert / 2)
+		- (t_vec4){0, 0, cam.foc_l, 0};
+	// cam.foc_l = 1.0;
+	// cam.origin = look_frm;
+	// cam.hor = cam.vp_w * u;
+	// cam.vert = cam.vp_h * v;
+	// cam.btm_l_corner = cam.origin - (cam.hor / 2) - (cam.vert / 2) - w;
 	return (cam);
 }
 
-void	create_obj(t_hittable_lst **world, t_sphere sphere)
+void	create_obj(t_hittable_lst **world, t_sphere sphere, t_vec4 color)
 {
 	t_hittable_lst	*node;
 
-	node = hittable_lst_new(sphere, SPHERE);
+	node = hittable_lst_new(sphere, SPHERE, color);
 	if (!node)
 		perror("malloc ");
 	hittable_lst_add_back(world, node);
@@ -92,11 +102,18 @@ int32_t	main(void)
 	mlx = mlx_init(win.width, win.height, "miniRT", true);
 	if (!mlx)
 		exit(EXIT_FAILURE);
-	cam = setup_cam(&win);
+	cam = setup_cam((t_vec4){-2, 2, 1, 0}, (t_vec4){0, 0, -1, 0},
+			(t_vec4){0, 1, 0, 0}, 90);
 	g_img = mlx_new_image(mlx, win.width, win.height);
 	world = NULL;
-	create_obj(&world, sphere_init(vec3_init(0, 0, -1), 0.5));
-	create_obj(&world, sphere_init(vec3_init(0, -10.5, -1), 10));
+	create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
+		(t_vec4){1, 0.4, 0, 0});
+	// create_obj(&world, sphere_init((t_vec4){-1, 0, -1, 0}, 0.5),
+	// 	(t_vec4){0.8, 0.5, 1, 0});
+	// create_obj(&world, sphere_init((t_vec4){1, 0, -1, 0}, 0.5),
+	// 	(t_vec4){0.55, 0.55, 0.55, 0});
+	// create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
+	// 	(t_vec4){0.8, 1, 0.2, 0});
 	color_img(&win, &cam, world);
 	mlx_image_to_window(mlx, g_img, 0, 0);
 	mlx_loop(mlx);

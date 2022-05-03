@@ -6,20 +6,24 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/22 11:32:53 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/04/22 11:37:44 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/05/03 15:57:59 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	dot(t_vec3 u, t_vec3 v)
+float	dot(t_vec4 u, t_vec4 v)
 {
-	return ((u.x * v.x) + (u.y * v.y) + (u.z * v.z));
+	return ((u[0] * v[0]) + (u[1] * v[1]) + (u[2] * v[2]));
 }
 
-t_vec3	cross(t_vec3 u, t_vec3 v)
+t_vec4	cross(t_vec4 u, t_vec4 v)
 {
-	return (vec3_init((u.y * v.z) - (u.z * u.y),
-			(u.z * v.x) - (u.x * u.z),
-			(u.x * v.y) - (u.y * u.x)));
+	t_vec4	ret;
+
+	ret[0] = (u[1] * v[2]) - (u[2] * u[1]);
+	ret[1] = (u[2] * v[0]) - (u[0] * u[2]);
+	ret[2] = (u[0] * v[1]) - (u[1] * u[0]);
+	ret[3] = 0;
+	return (ret);
 }
