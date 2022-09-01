@@ -6,7 +6,7 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/02/26 22:12:31 by W2Wizard      ########   odam.nl          #
+#    Updated: 2022/07/05 14:53:23 by jobvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,11 @@ RESET	:= \033[0m
 
 #//= Make Rules =//#
 $(NAME): $(OBJS)
-	@ar rc $(NAME) $(OBJS)
+	@ar rc $@ $^
 	@echo "$(GREEN)$(BOLD)Done$(RESET)"
 
-%.o: %.c
-	@echo "$(GREEN)$(BOLD)Compiling: $(notdir $<)$(RESET)"
+%.o: %.c $(HDRS)
+	@echo "$(GREEN)$(BOLD)Compiling:$(RESET) $(notdir $<)"
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 # Convert shaders to .c files

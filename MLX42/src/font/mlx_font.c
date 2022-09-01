@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/22 12:01:37 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/04/13 00:34:10 by w2wizard      ########   odam.nl         */
+/*   Updated: 2022/06/27 19:53:36 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 #include "MLX42/MLX42_Int.h"
 
 //= Private =//
-
-/**
- * Retrieves the X offset of the given char in the font texture strip.
- * 
- * @param c The char to find.
- * @return Non-negative if found or -1 if not found.
- */
-static int32_t mlx_get_texoffset(char c)
-{
-	const bool _isprint = isprint(c);
-
-	// NOTE: Cheesy branchless operation :D
-	return (-1 * !_isprint + ((FONT_WIDTH + 2) * (c - 32)) * _isprint);
-}
 
 /**
  * Does the actual copying of pixels form the atlas buffer to the
@@ -57,18 +43,35 @@ static void mlx_draw_char(mlx_image_t* image, int32_t texoffset, int32_t imgoffs
 
 //= Public =//
 
+const mlx_texture_t* mlx_get_font(void)
+{
+    return ((const mlx_texture_t*)&font_atlas);
+}
+
+int32_t mlx_get_texoffset(char c)
+{
+    const bool _isprint = isprint(c);
+
+    // NOTE: Cheesy branchless operation :D
+    // +2 To skip line separator in texture
+    return (-1 * !_isprint + ((FONT_WIDTH + 2) * (c - 32)) * _isprint);
+}
+
 mlx_image_t* mlx_put_string(mlx_t* mlx, const char* str, int32_t x, int32_t y)
 {
-	MLX_ASSERT(!mlx);
-	MLX_ASSERT(!str);
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(str);
 
 	mlx_image_t* strimage;
-	if (!(strimage = mlx_new_image(mlx, strlen(str) * FONT_WIDTH, FONT_HEIGHT)))
+	const size_t len = strlen(str);
+	if (len > MLX_MAX_STRING)
+		return ((void*)mlx_error(MLX_STRTOBIG));	
+	if (!(strimage = mlx_new_image(mlx, len * FONT_WIDTH, FONT_HEIGHT)))
 		return (NULL);
 
 	// Draw the text itself
 	int32_t imgoffset = 0;
-	for (size_t i = 0; str[i] != '\0'; i++, imgoffset += FONT_WIDTH)
+	for (size_t i = 0; i < len; i++, imgoffset += FONT_WIDTH)
 		mlx_draw_char(strimage, mlx_get_texoffset(str[i]), imgoffset);
 
 	if (mlx_image_to_window(mlx, strimage, x, y) == -1)

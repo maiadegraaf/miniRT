@@ -12,13 +12,14 @@ PATHSU	=	src/utils/
 BUILD_PATHS = $(PATHB) $(PATHO)
 
 src	=	src/main.c\
-		src/utils/vec3_utils.c \
-		src/utils/vec3_dot_cross.c \
+		src/utils/vec_utils.c \
+		src/utils/color_utils.c \
 		src/utils/ray_utils.c \
-		src/utils/utils.c \
-		src/utils/sphere_utils.c \
-		src/utils/hit_utils.c \
-		src/utils/hittable_lst_utils.c \
+		# src/utils/vec3_dot_cross.c \
+		# src/utils/utils.c \
+		# src/utils/sphere_utils.c \
+		# src/utils/hit_utils.c \
+		# src/utils/hittable_lst_utils.c \
 		# src/ray_tracer/test.c
 
 OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))

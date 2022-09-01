@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/01 23:20:13 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/05/03 15:36:17 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/06/29 15:34:25 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //= Private =//
 
-static void mlx_scroll_cb(GLFWwindow* window, float xoffset, float yoffset)
+static void mlx_scroll_cb(GLFWwindow* window, double xoffset, double yoffset)
 {
 	const mlx_t* mlx = glfwGetWindowUserPointer(window);
 	const mlx_scroll_t scroll_hook = ((mlx_ctx_t*)mlx->context)->scroll_hook;
@@ -30,7 +30,7 @@ static void mlx_mouse_cb(GLFWwindow* window, int32_t button, int32_t action, int
 	mouse_hook.func(button, action, mods, mouse_hook.param);
 }
 
-static void mlx_cursor_cb(GLFWwindow* window, float xpos, float ypos)
+static void mlx_cursor_cb(GLFWwindow* window, double xpos, double ypos)
 {
 	const mlx_t* mlx = glfwGetWindowUserPointer(window);
 	const mlx_cursor_t cursor_hook = ((mlx_ctx_t*)mlx->context)->cursor_hook;
@@ -42,8 +42,8 @@ static void mlx_cursor_cb(GLFWwindow* window, float xpos, float ypos)
 
 void mlx_scroll_hook(mlx_t* mlx, mlx_scrollfunc func, void* param)
 {
-	MLX_ASSERT(!mlx);
-	MLX_ASSERT(!func);
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(func);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
 	mlxctx->scroll_hook.func = func;
@@ -53,8 +53,8 @@ void mlx_scroll_hook(mlx_t* mlx, mlx_scrollfunc func, void* param)
 
 void mlx_mouse_hook(mlx_t* mlx, mlx_mousefunc func, void* param)
 {
-	MLX_ASSERT(!mlx);
-	MLX_ASSERT(!func);
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(func);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
 	mlxctx->mouse_hook.func = func;
@@ -64,8 +64,8 @@ void mlx_mouse_hook(mlx_t* mlx, mlx_mousefunc func, void* param)
 
 void mlx_cursor_hook(mlx_t* mlx, mlx_cursorfunc func, void* param)
 {
-	MLX_ASSERT(!mlx);
-	MLX_ASSERT(!func);
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(func);
 
 	mlx_ctx_t* const mlxctx = mlx->context;
 	mlxctx->cursor_hook.func = func;
@@ -75,26 +75,26 @@ void mlx_cursor_hook(mlx_t* mlx, mlx_cursorfunc func, void* param)
 
 bool mlx_is_mouse_down(mlx_t* mlx, mouse_key_t key)
 {
-	MLX_ASSERT(!mlx);
+	MLX_NONNULL(mlx);
 
 	return (glfwGetMouseButton(mlx->window, key) == GLFW_PRESS);
 }
 
 void mlx_set_mouse_pos(mlx_t* mlx, int32_t x, int32_t y)
 {
-	MLX_ASSERT(!mlx);
+	MLX_NONNULL(mlx);
 
-	glfwSetCursorPos(mlx->window, (float)x, (float)y);
+	glfwSetCursorPos(mlx->window, (double)x, (double)y);
 }
 
-void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x_out, int32_t* y_out)
+void mlx_get_mouse_pos(mlx_t* mlx, int32_t* x, int32_t* y)
 {
-	MLX_ASSERT(!mlx);
-	MLX_ASSERT(!x_out);
-	MLX_ASSERT(!y_out);
+	MLX_NONNULL(mlx);
+	MLX_NONNULL(x);
+	MLX_NONNULL(y);
 
-	float	x, y;
-	glfwGetCursorPos(mlx->window, &x, &y);
-	*x_out = (int32_t)x;
-	*y_out = (int32_t)y;
+	double xd, yd;
+	glfwGetCursorPos(mlx->window, &xd, &yd);
+	*x = (int32_t)xd;
+	*y = (int32_t)yd;
 }
