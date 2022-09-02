@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/08/31 18:22:02 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/02 10:09:15 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	main(void)
 
 	win.w = WIDTH;
 	win.h = (int)(win.w / ASPECT_RATIO);
-	printf("W = %d, H = %d\n", win.w, win.h);
 	mlx = mlx_init(win.w, win.h, "miniRT", true);
 	g_img = mlx_new_image(mlx, win.w, win.h);
 	cam = setup_cam();

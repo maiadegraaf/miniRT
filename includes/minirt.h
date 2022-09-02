@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/08/31 18:16:43 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/02 09:57:56 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define ASPECT_RATIO (16.0 / 9.0)
 # define WIDTH 800
 
+typedef struct s_ray t_ray;
 typedef float t_vec4 __attribute__ ((vector_size (16)));
 
 # include "ray.h"
@@ -44,6 +45,8 @@ typedef struct s_cam
 	t_vec4 vert;
 	t_vec4 btm_left_cnr;
 } t_cam;
+
+float hit_sphere(const t_vec4 center, float radius, t_ray r);
 
 //color_utils
 void	write_color(t_vec4 color, int x, int y, t_win win);
