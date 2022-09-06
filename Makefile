@@ -21,6 +21,7 @@ src	=	src/main.c\
 		src/utils/hit_record_utils.c \
 		src/utils/hittable_lst_utils.c \
 		src/utils/utils.c \
+		src/utils/lighting_utils.c \
 		# src/utils/vec3_dot_cross.c \
 		# src/ray_tracer/test.c
 
@@ -35,8 +36,9 @@ MLX42	=	MLX42/libmlx42.a
 HEADER	=	.includes/minirt.h \
 			.includes/ray.h \
 			.includes/hittable.h \
-			.includes/shpere.h \
-			.includes/hittable_lst.h
+			.includes/sphere.h \
+			.includes/hittable_lst.h \
+			.includes/lighting.h
 	
 INCLUDES =	-Iincludes -I$(LIBFTP)
 

@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 17:34:40 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 14:07:19 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/06 18:24:17 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,22 @@ t_vec4 ray_color(t_ray r, t_hittable_lst *world)
 {
 	t_vec4			unit_dir;
 	float			t;
-	t_hit_record	rec;
 	t_hittable		hit;
+	t_lighting		lighting;
 
-	hit = hittable_init(&r, 0, INFINITY, &rec);
-	if (hit_hittable_list(hit, world))
-		return (0.5 * (rec.n + (t_vec4){1, 1, 1, 0}));
+
+	hit = hittable_init(&r, 0, INFINITY, hit_rec_init_empty());
+	while (world)
+	{
+		if (hit_hittable_list(hit, world))
+		{
+			// t_vec4 hit_point = hit.r->orig + hit.r->dir
+			lighting = get_point_light(point_light_init((t_vec4){0.05, 0, 0, 0},
+						world->color, 0.2), hit);
+			return (world->color + lighting.diff + lighting.spec);
+		}
+		world = world->next;
+	}
 	unit_dir = unit_vector(r.dir);
 	t = (float)0.5 * (unit_dir[1] + (float)1.0);
 	return (((float)1 - t) * (t_vec4){1, 1, 1, 0} + t * (t_vec4){0.5, 0.7, 1.0, 0});

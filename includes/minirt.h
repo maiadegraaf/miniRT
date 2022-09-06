@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 13:34:25 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/06 17:46:52 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include <memory.h>
 # include <math.h>
 # define ASPECT_RATIO (16.0 / 9.0)
-# define WIDTH 800
+# define WIDTH 1200
 
 typedef float t_vec4 __attribute__ ((vector_size (16)));
 typedef struct s_ray t_ray;
 
-
+# include "lighting.h"
 # include "ray.h"
 # include "hittable.h"
 # include "sphere.h"

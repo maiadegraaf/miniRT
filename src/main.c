@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 13:49:32 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/06 15:52:24 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ int	main(void)
 
 	world = NULL;
 	create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
-		(t_vec4){1, 0.4, 0, 0});
+		(t_vec4){1, 0.4, 1, 0});
 	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 	create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
-		(t_vec4){1, 1, 1, 0});
+		(t_vec4){0.5, 0, 1, 0});
 	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 
 	cam = setup_cam();

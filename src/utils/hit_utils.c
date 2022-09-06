@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 09:45:47 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/06 13:26:26 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/06 15:24:40 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ bool	hit_hittable_list(t_hittable hit, t_hittable_lst *lst)
 
 	hit_anything = false;
 	closest_so_far = hit.t_max;
-	while (lst)
+	if (sphere_hit(hit, lst->s))
 	{
-		if (sphere_hit(hit, lst->s))
-		{
-			hit_anything = true;
-			closest_so_far = tmp_rec.t;
-			hit.rec = &tmp_rec;
-		}
-		lst = lst->next;
+		hit_anything = true;
+		closest_so_far = tmp_rec.t;
+		hit.rec = &tmp_rec;
 	}
 	return (hit_anything);
 }

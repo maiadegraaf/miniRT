@@ -6,11 +6,25 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 15:14:48 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/02 15:28:38 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/06 14:58:43 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hittable.h"
+
+t_hit_record	*hit_rec_init_empty(void)
+{
+	t_hit_record *rec;
+
+	rec = malloc(sizeof(t_hit_record));
+	if (!rec)
+		perror("OH NO A MALLOC ERROR:");
+	rec->p = (t_vec4){0};
+	rec->n = (t_vec4){0};
+	rec->t = 0;
+	rec->front_face = false;
+	return (rec);
+}
 
 void	set_face_normal(t_hit_record *rec, const t_ray r, const t_vec4 outward_normal)
 {

@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 13:59:45 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/02 16:34:32 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/06 14:58:56 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_hittable
 t_hittable	hittable_init(t_ray *r, float t_min, float t_max, t_hit_record *rec);
 
 //hit_record utils
-void	set_face_normal(t_hit_record *rec, const t_ray r, const t_vec4 outward_normal);
+void			set_face_normal(t_hit_record *rec, const t_ray r, const t_vec4 outward_normal);
+t_hit_record	*hit_rec_init_empty(void);
 
 #endif // HITTABLE_H
