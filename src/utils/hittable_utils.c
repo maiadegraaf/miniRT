@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ray.h                                              :+:    :+:            */
+/*   hittable_utils.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/31 17:31:15 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 13:49:57 by mgraaf        ########   odam.nl         */
+/*   Created: 2022/09/02 14:40:10 by mgraaf        #+#    #+#                 */
+/*   Updated: 2022/09/02 16:33:45 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
-# include "minirt.h"
+#include "hittable.h"
 
-typedef struct s_hittable_lst t_hittable_lst;
-typedef struct s_cam t_cam;
-
-typedef struct s_ray
+t_hittable	hittable_init(t_ray *r, float t_min, float t_max, t_hit_record *rec)
 {
-	t_vec4	orig;
-	t_vec4	dir;
-} t_ray;
+	t_hittable 		h;
 
-
-t_vec4	ray_at(t_ray r, float t);
-t_ray	ray_init(t_vec4 o, t_vec4 d);
-t_vec4	ray_color(t_ray r, t_hittable_lst *world);
-t_ray	get_ray(t_cam cam, float u, float v);
-
-#endif // RAY_H
+	h.r = r;
+	h.t_min = t_min;
+	h.t_max = t_max;
+	h.rec = rec;
+	return (h);
+}

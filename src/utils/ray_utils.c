@@ -6,27 +6,22 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 17:34:40 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/02 10:17:02 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/06 14:07:19 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
 
-
-t_vec4 ray_color(t_ray r)
+t_vec4 ray_color(t_ray r, t_hittable_lst *world)
 {
-	t_vec4	unit_dir;
-	float	t;
-	t_vec4	n;
+	t_vec4			unit_dir;
+	float			t;
+	t_hit_record	rec;
+	t_hittable		hit;
 
-	t = hit_sphere((t_vec4){0, 0, -1, 0}, 0.5, r);
-	if (t > (float)0)
-	{
-		n = unit_vector(ray_at(r, t) - (t_vec4){0, 0, -1, 0});
-		n = (float)0.5 * (n + (float)1.0);
-		printf("{%f, %f, %f}\n", n[0], n[1], n[2]);
-		return (n);
-	}
+	hit = hittable_init(&r, 0, INFINITY, &rec);
+	if (hit_hittable_list(hit, world))
+		return (0.5 * (rec.n + (t_vec4){1, 1, 1, 0}));
 	unit_dir = unit_vector(r.dir);
 	t = (float)0.5 * (unit_dir[1] + (float)1.0);
 	return (((float)1 - t) * (t_vec4){1, 1, 1, 0} + t * (t_vec4){0.5, 0.7, 1.0, 0});
@@ -43,4 +38,9 @@ t_ray ray_init(t_vec4 o, t_vec4 d)
 	r.orig = o;
 	r.dir = d;
 	return (r);
+}
+
+t_ray	get_ray(t_cam cam, float u, float v)
+{
+	return (ray_init(cam.orig, cam.btm_left_cnr + (u * cam.horiz) + (v * cam.vert) - cam.orig));
 }

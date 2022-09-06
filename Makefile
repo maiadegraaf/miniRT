@@ -16,34 +16,40 @@ src	=	src/main.c\
 		src/utils/color_utils.c \
 		src/utils/ray_utils.c \
 		src/utils/hit_utils.c \
+		src/utils/sphere_utils.c \
+		src/utils/hittable_utils.c \
+		src/utils/hit_record_utils.c \
+		src/utils/hittable_lst_utils.c \
+		src/utils/utils.c \
 		# src/utils/vec3_dot_cross.c \
-		# src/utils/utils.c \
-		# src/utils/sphere_utils.c \
-		# src/utils/hittable_lst_utils.c \
 		# src/ray_tracer/test.c
 
 OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))
 
-FLAGS	=	-Wall -Werror -Wextra -g #-fsanitize=address
+FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
 
 LIBFT	=	libft/libft.a
 
 MLX42	=	MLX42/libmlx42.a
 
 HEADER	=	.includes/minirt.h \
-			.includes/ray.h
+			.includes/ray.h \
+			.includes/hittable.h \
+			.includes/shpere.h \
+			.includes/hittable_lst.h
 	
 INCLUDES =	-Iincludes -I$(LIBFTP)
 
-GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib #-L /Users/$(USER)/.brew/opt/glfw/lib/
+GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/
+#-L /opt/homebrew/Cellar/glfw/3.3.6/lib 
 
 all: $(BUILD_PATHS) $(NAME)
 
-$(PATHO)%.o:: $(PATHS)%.c
+$(PATHO)%.o:: $(PATHS)%.c $(HEADERS)
 	@echo "Compiling ${notdir $<}			in	$(PATHS)"
 	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 
-$(PATHO)%.o:: $(PATHSU)%.c
+$(PATHO)%.o:: $(PATHSU)%.c $(HEADERS)
 	@echo "Compiling ${notdir $<}			in	$(PATHSU)"
 	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 
@@ -66,7 +72,7 @@ $(PATHO):
 clean:
 	@echo "Cleaning"
 	@rm -f $(OBJS)
-	@rmdir $(PATHO) $(PATHB)
+	@rm -r $(PATHO) $(PATHB)
 	@make fclean -C libft
 
 fclean: clean

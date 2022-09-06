@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/02 10:09:15 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/06 13:49:32 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,36 @@ t_cam setup_cam(void)
 	return (n);
 }
 
+void	create_obj(t_hittable_lst **world, t_sphere *sphere, t_vec4 color)
+{
+	t_hittable_lst	*node;
+
+	node = ft_hittable_lstnew(sphere, color);
+	if (!node)
+		perror("malloc ");
+	ft_hittable_lstadd_back(world, node);
+}
+
 int	main(void)
 {
-	mlx_t	*mlx;
-	t_win	win;
-	t_cam	cam;
+	mlx_t			*mlx;
+	t_win			win;
+	t_cam			cam;
+	t_hittable_lst	*world;
 
 	win.w = WIDTH;
 	win.h = (int)(win.w / ASPECT_RATIO);
 	mlx = mlx_init(win.w, win.h, "miniRT", true);
 	g_img = mlx_new_image(mlx, win.w, win.h);
+
+	world = NULL;
+	create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
+		(t_vec4){1, 0.4, 0, 0});
+	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
+	create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
+		(t_vec4){1, 1, 1, 0});
+	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
+
 	cam = setup_cam();
 	int j = 0;
 	while (j < win.h)
@@ -42,10 +62,22 @@ int	main(void)
 		int i = 0;
 		while (i < win.w)
 		{
-			float u = ((float) i) / (win.w - 1);
-			float v = ((float) j) / (win.h - 1);
-			t_ray r = ray_init(cam.orig, cam.btm_left_cnr + u * cam.horiz + v * cam.vert - cam.orig);
-			t_vec4 color = ray_color(r);
+			t_vec4 color = (t_vec4){0, 0, 0, 0};
+			float s = 0.1;
+			while (s < 1)
+			{
+				float u = ((float) i + s) / (win.w - 1);
+				float t = 0.1;
+				while (t < 1)
+				{
+					float v = ((float) j + t) / (win.h - 1);
+					t_ray r = get_ray(cam, u, v);
+					color = color + ray_color(r, world);
+					t += 0.1;
+				}
+				s += 0.1;
+			}
+			// printf("[%d, %d]\n", i, j);
 			write_color(color, i, j, win);
 			i++;
 		}

@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ray.h                                              :+:    :+:            */
+/*   sphere.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/31 17:31:15 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 13:49:57 by mgraaf        ########   odam.nl         */
+/*   Created: 2022/09/02 14:34:21 by mgraaf        #+#    #+#                 */
+/*   Updated: 2022/09/06 13:26:32 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#ifndef SPHERE_H
+# define SPHERE_H
 # include "minirt.h"
+# include "hittable.h"
 
-typedef struct s_hittable_lst t_hittable_lst;
-typedef struct s_cam t_cam;
+typedef struct s_hittable t_hittable;
 
-typedef struct s_ray
+typedef struct s_sphere
 {
-	t_vec4	orig;
-	t_vec4	dir;
-} t_ray;
+	t_vec4		center;
+	float		radius;
+}	t_sphere;
 
+t_sphere	*sphere_init(t_vec4 center, float radius);
+bool sphere_hit(t_hittable hit, t_sphere *s);
 
-t_vec4	ray_at(t_ray r, float t);
-t_ray	ray_init(t_vec4 o, t_vec4 d);
-t_vec4	ray_color(t_ray r, t_hittable_lst *world);
-t_ray	get_ray(t_cam cam, float u, float v);
-
-#endif // RAY_H
+#endif // SPHERE_H
