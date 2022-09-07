@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 15:41:52 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 13:11:16 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/07 13:24:06 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_hittable_lst
 	t_hittable				*hit;
 	t_vec4					color;
 	struct s_hittable_lst	*next;
+	struct s_hittable_lst	*prev;
 }	t_hittable_lst;
 
 //hittable_lst_utils

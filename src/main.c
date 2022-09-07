@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 15:52:24 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/07 15:30:03 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_cam setup_cam(void)
 {
 	t_cam n;
+	n.theta = deg_to_rad(vfow);
 	n.vp_h = 2.0;
 	n.vp_w = ASPECT_RATIO * n.vp_h;
 	n.focal_len = 1.0;

@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 17:46:52 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/07 15:27:09 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,16 @@ typedef struct s_win
 
 typedef struct s_cam
 {
-	float vp_h;
-	float vp_w;
-	float focal_len;
-	t_vec4 orig;
-	t_vec4 horiz;
-	t_vec4 vert;
-	t_vec4 btm_left_cnr;
+	float	vfov;
+	float	theta;
+	float	h;
+	float	vp_h;
+	float	vp_w;
+	float	focal_len;
+	t_vec4	orig;
+	t_vec4	horiz;
+	t_vec4	vert;
+	t_vec4	btm_left_cnr;
 } t_cam;
 
 //utils
