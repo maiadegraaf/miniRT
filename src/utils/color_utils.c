@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 17:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 13:54:07 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/08 16:29:24 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	create_rgba(int r, int g, int b, int a)
 
 void	write_color(t_vec4 color, int x, int y, t_win win)
 {
-	float	scale;
+	// float	scale;
 	int		ir;
 	int		ig;
 	int		ib;
 
-	scale = 0.01;
+	// scale = 0.01;
 
-	color = color * scale;
+	// color = color * scale;
 
 	// printf("(%f, %f, %f)\n", color[0], color[1], color[2]);
 

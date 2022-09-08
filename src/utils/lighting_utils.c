@@ -6,11 +6,39 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:20:28 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 10:13:11 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/08 14:44:23 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lighting.h"
+
+// bool world_in_order(t_hittable_lst world)
+// {
+// 	while (world)
+// 	{
+// 		if (D object-light < D1 object-light)
+// 			return (false);
+// 	}
+// 	return(true);
+// }
+
+// t_hittable_lst closest_(t_hittable_lst *world, t_hittable light_hit)
+// {
+// 	while (world_in_order(world) != true)
+// 	{
+// 		while (world)
+// 		{
+// 			if (D object-light < D1 object-light)
+// 			{
+// 				//get min_t ray
+				
+// 			}
+// 			world = world->next;
+// 		}
+// 		while (world->prev != NULL)
+// 			world = world->prev;
+// 	}
+// }
 
 t_point_light point_light_init(t_vec4	position, t_vec4 color, float power)
 {

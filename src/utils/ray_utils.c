@@ -6,11 +6,52 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 17:34:40 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 10:55:14 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/08 16:40:50 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
+
+t_hittable_lst	*find_world_touched_first(t_ray r, t_hittable_lst *world)
+{
+	t_hittable		hit;
+	t_hit_record	*tmp_hit;
+	int	i;
+	t_hittable_lst	*start;
+	int 			j;
+	bool			ret;
+
+	i = 0;
+	j = 0;
+	start = world;
+	tmp_hit = hit_rec_init_empty();
+	tmp_hit->t = INFINITY;
+	hit = hittable_init(&r, 0, INFINITY, hit_rec_init_empty());
+	ret = false;
+	while (start)
+	{
+		if (hit_hittable_list(hit, start))
+		{
+			if (hit.rec->t < tmp_hit->t)
+			{
+				tmp_hit->t = hit.rec->t;
+				i = j;
+			}
+			ret = true;
+		}
+		j++;
+		start = start->next;
+	}
+	j = 0;
+	while (i != 0 && world && j < i)
+	{
+		world = world->next;
+		j++;
+	}
+	if (ret == true)
+		return (world);
+	return (NULL);
+}
 
 t_vec4 ray_color(t_ray r, t_hittable_lst *world)
 {
@@ -20,18 +61,14 @@ t_vec4 ray_color(t_ray r, t_hittable_lst *world)
 	t_lighting		lighting;
 
 	hit = hittable_init(&r, 0, INFINITY, hit_rec_init_empty());
-	while (world)
+	world = find_world_touched_first(r, world);
+	if (world)
 	{
-		if (hit_hittable_list(hit, world))
-		{
-			// t_vec4 hit_point = hit.r->orig + hit.r->dir
-			lighting = get_point_light(point_light_init((t_vec4){3, 0, -0.5, 0},
-						world->color, 5), hit, world);
-			if (lighting.if_s == true)
-				return (lighting.shadow);
-			return (world->color + lighting.diff + lighting.spec);
-		}
-		world = world->next;
+		lighting = get_point_light(point_light_init((t_vec4){3, 0, -0.5, 0},
+				world->color, 5), hit, world);
+		if (lighting.if_s == true)
+			return (lighting.shadow);
+		return (world->color + lighting.diff + lighting.spec);
 	}
 	unit_dir = unit_vector(r.dir);
 	t = (float)0.5 * (unit_dir[1] + (float)1.0);
