@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 17:34:40 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 15:50:33 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/08 18:06:25 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_vec4 ray_color(t_ray r, t_hittable_lst *world)
 		if (hit_hittable_list(hit, world))
 		{
 			// t_vec4 hit_point = hit.r->orig + hit.r->dir
-			lighting = get_point_light(point_light_init((t_vec4){0.5, 0.5, 0.5, 0},
+			lighting = get_point_light(point_light_init((t_vec4){2, 2, 2, 0},
 						(t_vec4){1, 1, 1, 0}, 2), hit, world);
-			// if (lighting.if_s == true)
-			// 	return (lighting.shadow);
+			if (lighting.if_s == true)
+				return (lighting.shadow);
 			// if (lighting.diff[0] <= 0 && lighting.diff[1] <= 0 && lighting.diff[2] <= 0)
 			// 	lighting.diff -= (float)1;
-			return ((world->color * (t_vec4){0.2, 0.2, 0.2, 0}) +  lighting.diff + lighting.spec);
+			return ((world->color * (t_vec4){0.5, 0.5, 0.5, 0}) +  lighting.diff + lighting.spec);
 		}
 		world = world->next;
 	}

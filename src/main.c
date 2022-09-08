@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 15:52:07 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/08 20:54:24 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(void)
 	create_obj(&world, sphere_init((t_vec4){1, 0, -1, 0}, 0.5),
 		(t_vec4){0.8, 0.6, 0.2});
 	create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
-		(t_vec4){0.8, 0.8, 0.8});
+		(t_vec4){1, 1, 1});
 
 	// create_obj(&world, sphere_init((t_vec4){r, 0, -1, 0}, r),
 	// 	(t_vec4){1, 0, 0, 0});
@@ -81,7 +81,7 @@ int	main(void)
 	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 
-	cam = setup_cam((t_vec4){-3, 2, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 100);
+	cam = setup_cam((t_vec4){-2, 2, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 100);
 	int j = 0;
 	while (j < win.h)
 	{
