@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:20:28 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 15:15:26 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/08 15:21:44 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ t_lighting get_point_light(t_point_light light, t_hittable hittable, t_hittable_
 		distance *= distance;
 		intensity = clamp(dot(hittable.rec->n, light_dir), 0, 1);
 		l.diff = world->color * intensity * light.diff_color * light.diff_power / distance;
-		h = unit_vector(light_dir - hittable.r->dir);
+		h = unit_vector(-light_dir + hittable.r->dir);
 		intensity = pow((float)dot(hittable.rec->n, h), 120);
-		l.spec = intensity * light.spec_color;
+		l.spec = intensity * light.spec_color / distance;
 		check_shadow(world, ray_init(light.position, -light_dir), &l, light.diff_color, distance);
 	}
 	return (l);
