@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 16:48:03 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/08 17:04:14 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(void)
 	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 
-	cam = setup_cam((t_vec4){-3, 2, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 100);
+	cam = setup_cam((t_vec4){-3, 1, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 90);
 	int j = 0;
 	while (j < win.h)
 	{

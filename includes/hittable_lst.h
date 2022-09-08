@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 15:41:52 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/07 13:24:06 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/08 17:42:26 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_hittable_lst
 	t_sphere				*s;
 	t_hittable				*hit;
 	t_vec4					color;
+	int						i;
 	struct s_hittable_lst	*next;
 	struct s_hittable_lst	*prev;
 }	t_hittable_lst;
@@ -33,5 +34,7 @@ t_hittable_lst	*ft_hittable_lstnew(t_sphere *s, t_vec4 color);
 void			ft_hittable_lstadd_back(t_hittable_lst **lst, t_hittable_lst *new);
 void			ft_hittable_lst_rm_first(t_hittable_lst **lst);
 void			ft_hittable_lstclear(t_hittable_lst **lst);
+t_hittable_lst	*ft_hittable_lstfirst(t_hittable_lst *map);
+t_hittable_lst	*ft_hittable_lstlast(t_hittable_lst *map);
 
 #endif // HITTABLE_LST_H
