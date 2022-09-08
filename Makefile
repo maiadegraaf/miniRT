@@ -42,8 +42,8 @@ HEADER	=	.includes/minirt.h \
 	
 INCLUDES =	-Iincludes -I$(LIBFTP)
 
-# GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
-GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # HOME
+GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
+# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # HOME
 
 all: $(BUILD_PATHS) $(NAME)
 

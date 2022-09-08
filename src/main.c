@@ -6,25 +6,32 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 15:19:20 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/08 15:52:07 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cam setup_cam(float vfov)
+t_cam setup_cam(t_vec4 look_from, t_vec4 look_at, t_vec4 vup, float vfov)
 {
-	t_cam n;
+	t_cam	n;
+	t_vec4	w;
+	t_vec4	u;
+	t_vec4	v;
+
 	n.vfov = vfov;
 	n.theta = deg_to_rad(n.vfov);
 	n.h = tan((float)n.theta/2);
 	n.vp_h = (float)(2.0 * n.h);
 	n.vp_w = ASPECT_RATIO * n.vp_h;
 	n.focal_len = 1.0;
-	n.orig = (t_vec4){0, 0, 0, 0};
-	n.horiz = (t_vec4){n.vp_w, 0, 0, 0};
-	n.vert = (t_vec4){0, n.vp_h, 0, 0};
-	n.btm_left_cnr = n.orig - n.horiz/2 - n.vert/2 - (t_vec4){0, 0, n.focal_len, 0};
+	w = unit_vector(look_from - look_at);
+	u = unit_vector(cross(vup, w));
+	v = cross(w, u);
+	n.orig = look_from;
+	n.horiz = n.vp_w * u;
+	n.vert = n.vp_h * v;
+	n.btm_left_cnr = n.orig - n.horiz/2 - n.vert/2 - w;
 	return (n);
 }
 
@@ -53,19 +60,28 @@ int	main(void)
 	world = NULL;
 	// float	r = cos((float)(M_PI/4));
 
+	create_obj(&world, sphere_init((t_vec4){-1, 0, -1, 0}, 0.5),
+		(t_vec4){0.5, 0.2, 0.1});
+	create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
+		(t_vec4){0.1, 0.2, 0.5});
+	create_obj(&world, sphere_init((t_vec4){1, 0, -1, 0}, 0.5),
+		(t_vec4){0.8, 0.6, 0.2});
+	create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
+		(t_vec4){0.8, 0.8, 0.8});
+
 	// create_obj(&world, sphere_init((t_vec4){r, 0, -1, 0}, r),
 	// 	(t_vec4){1, 0, 0, 0});
 	// create_obj(&world, sphere_init((t_vec4){-r, 0, -1, 0}, r),
 	// 	(t_vec4){0, 0, 1, 0});
 
-	create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
-		(t_vec4){0.8, 0.4, 0.8, 0});
-	create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
-		(t_vec4){0.3, 0.1, 0.8, 0});
+	// create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
+	// 	(t_vec4){0.8, 0.4, 0.8, 0});
+	// create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
+	// 	(t_vec4){0.3, 0.1, 0.8, 0});
 	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 
-	cam = setup_cam(90);
+	cam = setup_cam((t_vec4){-3, 2, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 100);
 	int j = 0;
 	while (j < win.h)
 	{
