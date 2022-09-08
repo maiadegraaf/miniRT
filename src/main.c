@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/07 15:34:24 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/08 11:26:26 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_cam setup_cam(float vfov)
 	t_cam n;
 	n.vfov = vfov;
 	n.theta = deg_to_rad(n.vfov);
-	n.h = tan(n.theta/2);
-	n.vp_h = 2.0 * n.h;
+	n.h = tan((float)n.theta/2);
+	n.vp_h = (float)(2.0 * n.h);
 	n.vp_w = ASPECT_RATIO * n.vp_h;
 	n.focal_len = 1.0;
 	n.orig = (t_vec4){0, 0, 0, 0};
@@ -51,13 +51,18 @@ int	main(void)
 	g_img = mlx_new_image(mlx, win.w, win.h);
 
 	world = NULL;
-	float	r = cos(M_PI/4);
+	float	r = cos((float)(M_PI/4));
 
 	create_obj(&world, sphere_init((t_vec4){-r, 0, -1, 0}, r),
 		(t_vec4){0, 0, 1, 0});
-	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 	create_obj(&world, sphere_init((t_vec4){r, 0, -1, 0}, r),
 		(t_vec4){1, 0, 0, 0});
+
+	// create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
+	// 	(t_vec4){1, 0.4, 1, 0});
+	// create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
+	// 	(t_vec4){0.5, 0, 1, 0});
+	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
 
 	cam = setup_cam(90);

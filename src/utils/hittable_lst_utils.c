@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 15:49:10 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/07 13:25:41 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/08 09:24:50 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_hittable_lst	*ft_hittable_lstnew(t_sphere *s, t_vec4 color)
 void	ft_hittable_lstadd_back(t_hittable_lst **lst, t_hittable_lst *new)
 {
 	t_hittable_lst	*tmp;
-	t_hittable_lst	*prev;
+	// t_hittable_lst	*prev;
 
 	tmp = *lst;
 	if (*lst == NULL)
@@ -39,7 +39,7 @@ void	ft_hittable_lstadd_back(t_hittable_lst **lst, t_hittable_lst *new)
 	}
 	while (tmp->next != NULL)
 	{
-		prev = tmp;
+		// prev = tmp;
 		tmp = tmp->next;
 	}
 	tmp->next = new;
