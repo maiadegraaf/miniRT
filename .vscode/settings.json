@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"sphere.h": "c",
+		"hittable_lst.h": "c",
+		"hittable.h": "c",
+		"minirt.h": "c"
+	}
+}

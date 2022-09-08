@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 14:36:47 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 13:26:45 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/08 12:32:44 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ bool sphere_hit(t_hittable hit, t_sphere *s)
 		return (false);
 	sqrtd = sqrt(discriminant);
 	root = (-half_b - sqrtd) / a;
+	hit.rec->root2 = 0;
 	if (root < hit.t_min || hit.t_max < root)
 	{
-		root = (-half_b - sqrtd) / a;
+		root = (-half_b + sqrtd) / a;
+		hit.rec->root2 = (-half_b + sqrtd) / a;
 		if (root < hit.t_min || hit.t_max < root)
 			return (false);
 	}
