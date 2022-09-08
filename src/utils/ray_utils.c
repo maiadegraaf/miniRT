@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 17:34:40 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 10:55:14 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/08 14:39:05 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,20 @@ t_vec4 ray_color(t_ray r, t_hittable_lst *world)
 		if (hit_hittable_list(hit, world))
 		{
 			// t_vec4 hit_point = hit.r->orig + hit.r->dir
-			lighting = get_point_light(point_light_init((t_vec4){3, 0, -0.5, 0},
-						world->color, 5), hit, world);
+			lighting = get_point_light(point_light_init((t_vec4){0.5, 0.5, 0.5, 0},
+						(t_vec4){0.8, 1, 1, 0}, 2), hit, world);
 			if (lighting.if_s == true)
 				return (lighting.shadow);
-			return (world->color + lighting.diff + lighting.spec);
+			// if (lighting.diff[0] <= 0 && lighting.diff[1] <= 0 && lighting.diff[2] <= 0)
+			// 	lighting.diff -= (float)1;
+			return ((world->color * (t_vec4){0.1, 0.3, 0.1, 0}) +  lighting.diff + lighting.spec);
 		}
 		world = world->next;
 	}
 	unit_dir = unit_vector(r.dir);
 	t = (float)0.5 * (unit_dir[1] + (float)1.0);
 	return (((float)1 - t) * (t_vec4){1, 1, 1, 0} + t * (t_vec4){0.5, 0.7, 1.0, 0});
+	// return ((BLACK));
 }
 
 t_vec4 ray_at(t_ray r, float t)

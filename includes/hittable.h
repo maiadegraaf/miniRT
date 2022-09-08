@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 13:59:45 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 14:58:56 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/08 11:58:53 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_hit_record
 	t_vec4	p;
 	t_vec4	n;
 	float	t;
+	float	root2;
 	bool	front_face;
 } t_hit_record;
 
