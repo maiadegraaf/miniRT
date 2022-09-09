@@ -26,7 +26,13 @@ src	=	src/main.c\
 		src/utils/lighting_utils.c \
 		src/utils/elements_utils.c \
 		src/error/error.c \
-		src/parser/*.c \
+		src/parser/ambient.c \
+		src/parser/camera.c \
+		src/parser/light.c \
+		src/parser/object.c \
+		src/parser/parser.c \
+		src/parser/utils.c \
+		src/parser/vec4_parse.c \
 		# src/utils/vec3_dot_cross.c \
 		# src/ray_tracer/test.c
 
@@ -50,8 +56,8 @@ HEADER	=	.includes/minirt.h \
 INCLUDES =	-Iincludes -I$(LIBFTP)
 
 # GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
-# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # HOME
-GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # HOME
+GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # HOME
+# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # HOME
 
 all: $(BUILD_PATHS) $(NAME)
 
