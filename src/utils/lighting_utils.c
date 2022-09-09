@@ -6,79 +6,35 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:20:28 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 17:51:41 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/09 14:20:48 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lighting.h"
 
-// bool world_in_order(t_hittable_lst world)
-// {
-// 	while (world)
-// 	{
-// 		if (D object-light < D1 object-light)
-// 			return (false);
-// 	}
-// 	return(true);
-// }
-
-// t_hittable_lst closest_(t_hittable_lst *world, t_hittable light_hit)
-// {
-// 	while (world_in_order(world) != true)
-// 	{
-// 		while (world)
-// 		{
-// 			if (D object-light < D1 object-light)
-// 			{
-// 				//get min_t ray
-				
-// 			}
-// 			world = world->next;
-// 		}
-// 		while (world->prev != NULL)
-// 			world = world->prev;
-// 	}
-// }
-
-t_hittable_lst	*find_shadow_touched_first(t_ray r, int index, t_hittable_lst *world)
+bool	find_object_in_front(t_hittable light_hit, t_ray r, t_hittable_lst *world)
 {
 	t_hittable		hit;
 	float	tmp_t;
-	int	i;
 	t_hittable_lst	*start;
-	int 			j;
 	bool			ret;
 
-	index = 2;
 	hit = hittable_init(&r, 0, INFINITY, hit_rec_init_empty());
-	i = 0;
-	j = 0;
 	start = world;
-	tmp_t = INFINITY;
+	hit_hittable_list(light_hit, world);
+	tmp_t = light_hit.rec->t;
 	ret = false;
+	world = ft_hittable_lstlast(world);
 	while (start)
 	{
-		if (start->i != index && hit_hittable_list(hit, start))
+		if (hit_hittable_list(hit, start))
 		{
 			if (hit.rec->t < tmp_t)
-			{
-				tmp_t = hit.rec->t;
-				i = j;
-			}
-			ret = true;
+				ret = true;
 		}
-		j++;
 		start = start->prev;
 	}
-	j = i;
-	while (i != 0 && world && j > 0)
-	{
-		world = world->next;
-		j--;
-	}
-	if (ret == true)
-		return (world);
-	return (NULL);
+	return (ret);
 }
 
 t_point_light point_light_init(t_vec4	position, t_vec4 color, float power)
@@ -97,9 +53,8 @@ void	check_shadow(t_hittable_lst *world, t_ray light_r, t_lighting *l, t_vec4 l_
 {
 	t_hittable light_hit;
 
-	world = find_shadow_touched_first(light_r, world->i, ft_hittable_lstlast(world));
 	light_hit = hittable_init(&light_r, 0, INFINITY, hit_rec_init_empty());
-	if (world && hit_hittable_list(light_hit, world))
+	if (find_object_in_front(light_hit, light_r, world))
 	{
 		l->if_s = true;
 		// float	intensity = -((distance - light_hit.rec->t)/200 - hit_sphere(world->s, *light_hit.r)) / 50;
