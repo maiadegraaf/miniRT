@@ -8,6 +8,8 @@ PATHB	=	build/
 PATHO	=	build/objs/
 PATHS	=	src/
 PATHSU	=	src/utils/
+PATHSE	=	src/error/
+PATHSP	=	src/parser/
 
 BUILD_PATHS = $(PATHB) $(PATHO)
 
@@ -22,12 +24,15 @@ src	=	src/main.c\
 		src/utils/hittable_lst_utils.c \
 		src/utils/utils.c \
 		src/utils/lighting_utils.c \
+		src/utils/elements_utils.c \
+		src/error/error.c \
+		src/parser/*.c \
 		# src/utils/vec3_dot_cross.c \
 		# src/ray_tracer/test.c
 
 OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))
 
-FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
+FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address 
 
 LIBFT	=	libft/libft.a
 
@@ -38,12 +43,15 @@ HEADER	=	.includes/minirt.h \
 			.includes/hittable.h \
 			.includes/sphere.h \
 			.includes/hittable_lst.h \
-			.includes/lighting.h
+			.includes/lighting.h \
+			.includes/parser.h \
+			.includes/error.h
 	
 INCLUDES =	-Iincludes -I$(LIBFTP)
 
 # GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
-GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # HOME
+# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # HOME
+GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # HOME
 
 all: $(BUILD_PATHS) $(NAME)
 
@@ -52,6 +60,14 @@ $(PATHO)%.o:: $(PATHS)%.c $(HEADERS)
 	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 
 $(PATHO)%.o:: $(PATHSU)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSU)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSE)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSU)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSP)%.c $(HEADERS)
 	@echo "Compiling ${notdir $<}			in	$(PATHSU)"
 	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 

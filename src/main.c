@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 20:54:24 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/09 16:10:51 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,86 +35,85 @@ t_cam setup_cam(t_vec4 look_from, t_vec4 look_at, t_vec4 vup, float vfov)
 	return (n);
 }
 
-void	create_obj(t_hittable_lst **world, t_sphere *sphere, t_vec4 color)
+
+
+int	main(int argc, char **argv)
 {
-	t_hittable_lst	*node;
+	t_elements elements;
 
-	node = ft_hittable_lstnew(sphere, color);
-	if (!node)
-		perror("malloc ");
-	ft_hittable_lstadd_back(world, node);
-}
+	if (argc != 2)
+		ft_error(3);
+	elements = parse_input(argv[1]);
+	printf("AMBIENT STRENGTH = %f\n", elements.ambient->strength);
+	printf("AMBIENT COLOR = {%f, %f, %f}\n", elements.ambient->color[0], elements.ambient->color[1], elements.ambient->color[2]);
+	// mlx_t			*mlx;
+	// t_win			win;
+	// t_cam			cam;
+	// t_hittable_lst	*world;
 
-int	main(void)
-{
-	mlx_t			*mlx;
-	t_win			win;
-	t_cam			cam;
-	t_hittable_lst	*world;
+	// win.w = WIDTH;
+	// win.h = (int)(win.w / ASPECT_RATIO);
+	// mlx = mlx_init(win.w, win.h, "miniRT", true);
+	// g_img = mlx_new_image(mlx, win.w, win.h);
 
-	win.w = WIDTH;
-	win.h = (int)(win.w / ASPECT_RATIO);
-	mlx = mlx_init(win.w, win.h, "miniRT", true);
-	g_img = mlx_new_image(mlx, win.w, win.h);
+	// world = NULL;
+	// // float	r = cos((float)(M_PI/4));
 
-	world = NULL;
-	// float	r = cos((float)(M_PI/4));
-
-	create_obj(&world, sphere_init((t_vec4){-1, 0, -1, 0}, 0.5),
-		(t_vec4){0.5, 0.2, 0.1});
-	create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
-		(t_vec4){0.1, 0.2, 0.5});
-	create_obj(&world, sphere_init((t_vec4){1, 0, -1, 0}, 0.5),
-		(t_vec4){0.8, 0.6, 0.2});
-	create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
-		(t_vec4){1, 1, 1});
-
-	// create_obj(&world, sphere_init((t_vec4){r, 0, -1, 0}, r),
-	// 	(t_vec4){1, 0, 0, 0});
-	// create_obj(&world, sphere_init((t_vec4){-r, 0, -1, 0}, r),
-	// 	(t_vec4){0, 0, 1, 0});
-
+	// create_obj(&world, sphere_init((t_vec4){-1, 0, -1, 0}, 0.5),
+	// 	(t_vec4){0.5, 0.2, 0.1});
 	// create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
-	// 	(t_vec4){0.8, 0.4, 0.8, 0});
+	// 	(t_vec4){0.1, 0.2, 0.5});
+	// create_obj(&world, sphere_init((t_vec4){1, 0, -1, 0}, 0.5),
+	// 	(t_vec4){0.8, 0.6, 0.2});
 	// create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
-	// 	(t_vec4){0.3, 0.1, 0.8, 0});
-	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
-	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
+	// 	(t_vec4){1, 1, 1});
 
-	cam = setup_cam((t_vec4){-2, 2, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 100);
-	int j = 0;
-	while (j < win.h)
-	{
-		int i = 0;
-		while (i < win.w)
-		{
-			float u = ((float) i) / (win.w - 1);
-			float v = ((float) j) / (win.h - 1);
-			t_ray r = get_ray(cam, u, v);
-			t_vec4 color = ray_color(r, world);
+	// // create_obj(&world, sphere_init((t_vec4){r, 0, -1, 0}, r),
+	// // 	(t_vec4){1, 0, 0, 0});
+	// // create_obj(&world, sphere_init((t_vec4){-r, 0, -1, 0}, r),
+	// // 	(t_vec4){0, 0, 1, 0});
 
-			// float s = 0.1;
-			// while (s < 1)
-			// {
-			// 	float u = ((float) i + s) / (win.w - 1);
-			// 	float t = 0.1;
-			// 	while (t < 1)
-			// 	{
-			// 		float v = ((float) j + t) / (win.h - 1);
-			// 		t_ray r = get_ray(cam, u, v);
-			// 		color = color + ray_color(r, world);
-			// 		t += 0.1;
-			// 	}
-			// 	s += 0.1;
-			// }
-			// printf("[%d, %d]\n", i, j);
-			write_color(color, i, j, win);
-			i++;
-		}
-		j++;
-	}
-	mlx_image_to_window(mlx, g_img, 0, 0);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	// // create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
+	// // 	(t_vec4){0.8, 0.4, 0.8, 0});
+	// // create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
+	// // 	(t_vec4){0.3, 0.1, 0.8, 0});
+	// // printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
+	// // printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
+
+	// cam = setup_cam((t_vec4){-2, 2, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 100);
+	// int j = 0;
+	// while (j < win.h)
+	// {
+	// 	int i = 0;
+	// 	while (i < win.w)
+	// 	{
+	// 		float u = ((float) i) / (win.w - 1);
+	// 		float v = ((float) j) / (win.h - 1);
+	// 		t_ray r = get_ray(cam, u, v);
+	// 		t_vec4 color = ray_color(r, world);
+
+	// 		// float s = 0.1;
+	// 		// while (s < 1)
+	// 		// {
+	// 		// 	float u = ((float) i + s) / (win.w - 1);
+	// 		// 	float t = 0.1;
+	// 		// 	while (t < 1)
+	// 		// 	{
+	// 		// 		float v = ((float) j + t) / (win.h - 1);
+	// 		// 		t_ray r = get_ray(cam, u, v);
+	// 		// 		color = color + ray_color(r, world);
+	// 		// 		t += 0.1;
+	// 		// 	}
+	// 		// 	s += 0.1;
+	// 		// }
+	// 		// printf("[%d, %d]\n", i, j);
+	// 		write_color(color, i, j, win);
+	// 		i++;
+	// 	}
+	// 	j++;
+	// }
+	// mlx_image_to_window(mlx, g_img, 0, 0);
+	// mlx_loop(mlx);
+	// mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
