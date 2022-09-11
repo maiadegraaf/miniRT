@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:41 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 13:50:24 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/09 16:50:37 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ t_cam cam_init(t_vec4 look_from, t_vec4 look_at, t_vec4 vup, float vfov)
 
 t_cam	*cam_assign(char *line)
 {
-	
+	t_cam	*new = NULL;
+	(void) line;
+	return (new);
 }

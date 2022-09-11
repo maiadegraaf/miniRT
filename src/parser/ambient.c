@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:44 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 16:06:12 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/09 17:05:35 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_ambient *ambient_assign(char *line)
 	line_tmp = find_next_chunk(line);
 	if (!line_tmp)
 		ft_error(4);
+	
 	if (ctof(line_to_chunk(line_tmp), &f))
 	{
 		ft_printf("Float conversion impossiblein line: '%s'\n", line);

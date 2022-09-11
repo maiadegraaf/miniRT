@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   parser_utils.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:20:52 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 15:33:19 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/09 17:23:36 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	check_file_type(char *input)
 	if (ft_strncmp("rt", split[1], ft_strlen(split[1])))
 		i++;
 	free_arr(split);
-	free(split);
 	if (i != 0)
 		ft_error(0);
 	return (i);
@@ -32,24 +31,27 @@ int	check_file_type(char *input)
 
 t_tokens	return_type(char *s)
 {
-	if (ft_strncmp(s, 'A', ft_strlen(s)))
-		return (A);
-	else if (ft_strncmp(s, 'C', ft_strlen(s)))
-		return (C);
-	else if (ft_strncmp(s, 'L', ft_strlen(s)))
-		return (L);
-	else if (ft_strncmp(s, 'sp', ft_strlen(s)))
-		return (SP);
-	else if (ft_strncmp(s, 'pl', ft_strlen(s)))
-		return (PL);
-	else if (ft_strncmp(s, 'cy', ft_strlen(s)))
-		return (CY);
+	t_tokens	t;
+	t = 0;
+	if (!ft_strncmp(s, "A", ft_strlen(s)))
+		t = A;
+	else if (!ft_strncmp(s, "C", ft_strlen(s)))
+		t = C;
+	else if (!ft_strncmp(s, "L", ft_strlen(s)))
+		t = L;
+	else if (!ft_strncmp(s, "sp", ft_strlen(s)))
+		t = SP;
+	else if (!ft_strncmp(s, "pl", ft_strlen(s)))
+		t = PL;
+	else if (!ft_strncmp(s, "cy", ft_strlen(s)))
+		t = CY;
 	else
 	{
 		ft_printf("%s", s);
 		ft_error(2);
 	}
 	free(s);
+	return (t);
 }
 
 int	chunk_len(char *line)
@@ -65,20 +67,20 @@ int	chunk_len(char *line)
 char *line_to_chunk(char *line)
 {
 	char	*chunk;
-	int		len;
+	size_t	len;
 
-	skip_spaces(line);
-	len = chuck_len(line);
+	line = skip_spaces(line);
+	len = chunk_len(line);
 	chunk = ft_calloc(len, sizeof(char));
 	if (!chunk)
 		ft_error(10);
-	chunk = ft_strlcpy(chunk, line, len);
+	chunk = ft_substr(line, 0, len);
 	return (chunk);
 }
 
 char	*find_next_chunk(char *line)
 {
-	skip_spaces(line);
+	line = skip_spaces(line);
 	while(line && *line != ' ')
 		line++;
 	return (line);

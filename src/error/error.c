@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:11:40 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 15:43:48 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/09 17:05:25 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ void	ft_error(int i)
 		ft_printf("Incomplete line\n");
 	if (i == 10)
 		ft_printf("MALLOC ERROR\n");
+	if (i == 20)
+		ft_printf("No input\n");
 	exit(EXIT_FAILURE);
 }

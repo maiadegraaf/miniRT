@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/09 16:10:51 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/09 17:33:07 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ int	main(int argc, char **argv)
 	t_elements elements;
 
 	if (argc != 2)
-		ft_error(3);
+		ft_error(20);
 	elements = parse_input(argv[1]);
+	
 	printf("AMBIENT STRENGTH = %f\n", elements.ambient->strength);
 	printf("AMBIENT COLOR = {%f, %f, %f}\n", elements.ambient->color[0], elements.ambient->color[1], elements.ambient->color[2]);
 	// mlx_t			*mlx;
