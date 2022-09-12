@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:20:52 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/12 11:43:58 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/12 14:24:52 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ char	*read_float(char *line, float *o, float min, float max)
 		ft_printf("Float conversion impossible near line: '%s'\n", line);
 		ft_error(-1);
 	}
-	if (f < min || f > max)
+	if (min < max && (f < min || f > max))
+	{
+		ft_printf(">%s<\n", line);
 		ft_error(3);
+	}
 	*o = f;
 	return (line);
 }
@@ -84,10 +87,13 @@ char	*read_vec4(char *line, t_vec4 *o, float min, float max)
 		ft_printf("Vec3 conversion impossible near line: '%s'\n", line);
 		ft_error(-1);
 	}
-	if (vec4[0] < min || vec4[0] > max
+	if (min < max && (vec4[0] < min || vec4[0] > max
 		|| vec4[1] < min || vec4[1] > max
-		|| vec4[2] < min || vec4[2] > max)
+		|| vec4[2] < min || vec4[2] > max))
+	{
+		ft_printf(">%s<\n", line);
 		ft_error(3);
+	}
 	*o = vec4;
 	return (line);
 }

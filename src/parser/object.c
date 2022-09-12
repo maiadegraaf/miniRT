@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:31 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/12 11:31:55 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/12 14:22:36 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_sphere	*parse_sphere(char *line, t_vec4 *color)
 	new = malloc(sizeof(t_sphere));
 	if (!new)
 		ft_error(10);
-	line = read_vec4(line, &new->center, FLT_MIN, FLT_MAX);
-	line = read_float(line, &new->radius, FLT_MIN, FLT_MAX);
+	line = read_vec4(line, &new->center, 1, 0);
+	line = read_float(line, &new->radius, 1, 0);
 	line = read_vec4(line, &c, 0, 255);
 	*color = c;
 	return (new);
@@ -35,10 +35,10 @@ t_cylinder *parse_cylinder(char *line, t_vec4 *color)
 	new = malloc(sizeof(t_cylinder));
 	if (!new)
 		ft_error(10);
-	line = read_vec4(line, &new->center, FLT_MIN, FLT_MAX);
+	line = read_vec4(line, &new->center, 1, 0);
 	line = read_vec4(line, &new->orientation, -1, 1);
-	line = read_float(line, &new->diameter, FLT_MIN, FLT_MAX);
-	line = read_float(line, &new->height, FLT_MIN, FLT_MAX);
+	line = read_float(line, &new->diameter, 1, 0);
+	line = read_float(line, &new->height, 1, 0);
 	line = read_vec4(line, &c, 0, 255);
 	*color = c;
 	return (new);
@@ -52,7 +52,7 @@ t_plain	*parse_plain(char *line, t_vec4 *color)
 	new = malloc(sizeof(t_plain));
 	if (!new)
 		ft_error(10);
-	line = read_vec4(line, &new->center, FLT_MIN, FLT_MAX);
+	line = read_vec4(line, &new->center, 1, 0);
 	line = read_vec4(line, &new->orientation, -1, 1);
 	line = read_vec4(line, &c, 0, 255);
 	*color = c;
