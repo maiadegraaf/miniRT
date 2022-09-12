@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 17:04:14 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/12 14:45:40 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,83 +35,60 @@ t_cam setup_cam(t_vec4 look_from, t_vec4 look_at, t_vec4 vup, float vfov)
 	return (n);
 }
 
-void	create_obj(t_hittable_lst **world, t_sphere *sphere, t_vec4 color)
+t_win	setup_win(mlx_t **mlx)
 {
-	t_hittable_lst	*node;
-
-	node = ft_hittable_lstnew(sphere, color);
-	if (!node)
-		perror("malloc ");
-	ft_hittable_lstadd_back(world, node);
-}
-
-int	main(void)
-{
-	mlx_t			*mlx;
-	t_win			win;
-	t_cam			cam;
-	t_hittable_lst	*world;
+	t_win	win;
 
 	win.w = WIDTH;
 	win.h = (int)(win.w / ASPECT_RATIO);
-	mlx = mlx_init(win.w, win.h, "miniRT", true);
-	g_img = mlx_new_image(mlx, win.w, win.h);
+	*mlx = mlx_init(win.w, win.h, "miniRT", true);
+	win.img = mlx_new_image(*mlx, win.w, win.h);
+	win.x = 0;
+	win.y = 0;
+	return (win);
+}
 
-	world = NULL;
-	// float	r = cos((float)(M_PI/4));
+int	main(int argc, char **argv)
+{
+	mlx_t			*mlx;
+	t_elements		elements;
+	t_win			win;
+	t_cam			cam;
 
-	create_obj(&world, sphere_init((t_vec4){-1, 0, -1, 0}, 0.5),
-		(t_vec4){0.5, 0.2, 0.1});
-	create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
-		(t_vec4){0.1, 0.2, 0.5});
-	create_obj(&world, sphere_init((t_vec4){1, 0, -1, 0}, 0.5),
-		(t_vec4){0.8, 0.6, 0.2});
-	create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
-		(t_vec4){0.8, 0.8, 0.8});
+	if (argc != 2)
+		ft_error(20);
+	elements = parse_input(argv[1]);
 
-	// create_obj(&world, sphere_init((t_vec4){r, 0, -1, 0}, r),
-	// 	(t_vec4){1, 0, 0, 0});
-	// create_obj(&world, sphere_init((t_vec4){-r, 0, -1, 0}, r),
-	// 	(t_vec4){0, 0, 1, 0});
-
-	// create_obj(&world, sphere_init((t_vec4){0, 0, -1, 0}, 0.5),
-	// 	(t_vec4){0.8, 0.4, 0.8, 0});
-	// create_obj(&world, sphere_init((t_vec4){0, -100.5, -1, 0}, 100),
-	// 	(t_vec4){0.3, 0.1, 0.8, 0});
-	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
-	// printf("{%f, %f, %f}\n", world->s->center[0], world->s->center[1], world->s->center[2]);
-
-	cam = setup_cam((t_vec4){-3, 1, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 90);
-	int j = 0;
-	while (j < win.h)
+	cam = setup_cam((t_vec4){-2, 2, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 100);
+	while (win.y < win.h)
 	{
-		int i = 0;
-		while (i < win.w)
+		win.x = 0;
+		while (win.x < win.w)
 		{
-			float u = ((float) i) / (win.w - 1);
-			float v = ((float) j) / (win.h - 1);
+			float u = ((float) win.x) / (win.w - 1);
+			float v = ((float) win.y) / (win.h - 1);
 			t_ray r = get_ray(cam, u, v);
 			t_vec4 color = ray_color(r, world);
 
 			// float s = 0.1;
 			// while (s < 1)
 			// {
-			// 	float u = ((float) i + s) / (win.w - 1);
+			// 	float u = ((float) win.x + s) / (win.w - 1);
 			// 	float t = 0.1;
 			// 	while (t < 1)
 			// 	{
-			// 		float v = ((float) j + t) / (win.h - 1);
+			// 		float v = ((float) win.y + t) / (win.h - 1);
 			// 		t_ray r = get_ray(cam, u, v);
 			// 		color = color + ray_color(r, world);
 			// 		t += 0.1;
 			// 	}
 			// 	s += 0.1;
 			// }
-			// printf("[%d, %d]\n", i, j);
-			write_color(color, i, j, win);
-			i++;
+			// printf("[%d, %d]\n", win.x, win.y);
+			write_color(color, win);
+			win.x++;
 		}
-		j++;
+		win.y++;
 	}
 	mlx_image_to_window(mlx, g_img, 0, 0);
 	mlx_loop(mlx);
