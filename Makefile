@@ -18,13 +18,15 @@ src	=	src/main.c\
 		src/utils/color_utils.c \
 		src/utils/ray_utils.c \
 		src/utils/hit_utils.c \
-		src/utils/sphere_utils.c \
 		src/utils/hittable_utils.c \
 		src/utils/hit_record_utils.c \
 		src/utils/hittable_lst_utils.c \
 		src/utils/utils.c \
 		src/utils/lighting_utils.c \
 		src/utils/elements_utils.c \
+		src/utils/sphere_utils.c \
+		src/utils/plain_utils.c \
+		src/utils/cylinder_utils.c \
 		src/error/error.c \
 		src/parser/ambient.c \
 		src/parser/camera.c \
@@ -33,6 +35,7 @@ src	=	src/main.c\
 		src/parser/parser.c \
 		src/parser/parser_utils.c \
 		src/parser/vec4_parse.c \
+		src/parser/chunk_utils.c \
 		# src/utils/vec3_dot_cross.c \
 		# src/ray_tracer/test.c
 
@@ -47,17 +50,19 @@ MLX42	=	MLX42/libmlx42.a
 HEADER	=	.includes/minirt.h \
 			.includes/ray.h \
 			.includes/hittable.h \
-			.includes/sphere.h \
 			.includes/hittable_lst.h \
 			.includes/lighting.h \
 			.includes/parser.h \
-			.includes/error.h
+			.includes/error.h \
+			.includes/sphere.h \
+			.includes/plain.h \
+			.includes/cylinder.h 
 	
 INCLUDES =	-Iincludes -I$(LIBFTP)
 
 # GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
-# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # HOME
-GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # HOME
+GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # pro
+# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # iMac
 
 all: $(BUILD_PATHS) $(NAME)
 

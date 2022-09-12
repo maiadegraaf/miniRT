@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:20:52 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 17:23:36 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/12 11:43:58 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,34 +54,40 @@ t_tokens	return_type(char *s)
 	return (t);
 }
 
-int	chunk_len(char *line)
+char	*read_float(char *line, float *o, float min, float max)
 {
-	int	i;
+	float	f;
 
-	i = 0;
-	while (line[i] && line[i] != ' ')
-		i++;
-	return (i);
+	line = find_next_chunk(line);
+	if (!line)
+		ft_error(4);
+	if (ctof(line_to_chunk(line), &f))
+	{
+		ft_printf("Float conversion impossible near line: '%s'\n", line);
+		ft_error(-1);
+	}
+	if (f < min || f > max)
+		ft_error(3);
+	*o = f;
+	return (line);
 }
 
-char *line_to_chunk(char *line)
+char	*read_vec4(char *line, t_vec4 *o, float min, float max)
 {
-	char	*chunk;
-	size_t	len;
+	t_vec4	vec4;
 
-	line = skip_spaces(line);
-	len = chunk_len(line);
-	chunk = ft_calloc(len, sizeof(char));
-	if (!chunk)
-		ft_error(10);
-	chunk = ft_substr(line, 0, len);
-	return (chunk);
-}
-
-char	*find_next_chunk(char *line)
-{
-	line = skip_spaces(line);
-	while(line && *line != ' ')
-		line++;
+	line = find_next_chunk(line);
+	if (!line)
+		ft_error(4);
+	if (ctovec4(line_to_chunk(line), &vec4))
+	{
+		ft_printf("Vec3 conversion impossible near line: '%s'\n", line);
+		ft_error(-1);
+	}
+	if (vec4[0] < min || vec4[0] > max
+		|| vec4[1] < min || vec4[1] > max
+		|| vec4[2] < min || vec4[2] > max)
+		ft_error(3);
+	*o = vec4;
 	return (line);
 }

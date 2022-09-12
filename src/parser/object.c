@@ -6,26 +6,74 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:31 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 16:51:38 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/12 11:31:55 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	create_obj(t_hittable_lst **world, t_sphere *sphere, t_vec4 color)
+t_sphere	*parse_sphere(char *line, t_vec4 *color)
 {
-	t_hittable_lst	*node;
+	t_sphere	*new;
+	t_vec4		c;
 
-	node = ft_hittable_lstnew(sphere, color);
-	if (!node)
-		perror("malloc ");
-	ft_hittable_lstadd_back(world, node);
+	new = malloc(sizeof(t_sphere));
+	if (!new)
+		ft_error(10);
+	line = read_vec4(line, &new->center, FLT_MIN, FLT_MAX);
+	line = read_float(line, &new->radius, FLT_MIN, FLT_MAX);
+	line = read_vec4(line, &c, 0, 255);
+	*color = c;
+	return (new);
 }
 
-t_hittable_lst	*hittable_lst_assign(char *line, t_tokens t)
+t_cylinder *parse_cylinder(char *line, t_vec4 *color)
 {
-	t_hittable_lst	*new = NULL;
-	(void) t;
-	(void) line;
+	t_cylinder	*new;
+	t_vec4		c;
+
+	new = malloc(sizeof(t_cylinder));
+	if (!new)
+		ft_error(10);
+	line = read_vec4(line, &new->center, FLT_MIN, FLT_MAX);
+	line = read_vec4(line, &new->orientation, -1, 1);
+	line = read_float(line, &new->diameter, FLT_MIN, FLT_MAX);
+	line = read_float(line, &new->height, FLT_MIN, FLT_MAX);
+	line = read_vec4(line, &c, 0, 255);
+	*color = c;
 	return (new);
+}
+
+t_plain	*parse_plain(char *line, t_vec4 *color)
+{
+	t_plain	*new;
+	t_vec4	c;
+
+	new = malloc(sizeof(t_plain));
+	if (!new)
+		ft_error(10);
+	line = read_vec4(line, &new->center, FLT_MIN, FLT_MAX);
+	line = read_vec4(line, &new->orientation, -1, 1);
+	line = read_vec4(line, &c, 0, 255);
+	*color = c;
+	return (new);
+}
+
+int	*hittable_lst_assign(char *line, t_tokens t, t_hittable_lst **objs)
+{
+	t_hittable_lst	*node;
+	t_vec4			color;
+	t_hittable_lst	*tmp;
+
+	node = NULL;
+	if (t == SP)
+		node = ft_hittable_lstnew(parse_sphere(line, &color), NULL, NULL, color);
+	else if(t == PL)
+		node = ft_hittable_lstnew(NULL, parse_plain(line, &color), NULL, color);
+	else if (t == CY)
+		node = ft_hittable_lstnew(NULL, NULL, parse_cylinder(line, &color), color);
+	tmp = *objs;
+	ft_hittable_lstadd_back(&tmp, node);
+	*objs = tmp;
+	return (EXIT_SUCCESS);
 }

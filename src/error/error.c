@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:11:40 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 17:05:25 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/12 09:53:41 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_error(int i)
 	if (i == 2)
 		ft_printf(" is not an existing element.\n");
 	if (i == 3)
-		ft_printf("Ambient light strength out of range.\n");
+		ft_printf("Out of range.\n");
 	if (i == 4)
 		ft_printf("Incomplete line\n");
 	if (i == 10)

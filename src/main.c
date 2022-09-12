@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/09 17:33:07 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/12 10:16:02 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ t_cam setup_cam(t_vec4 look_from, t_vec4 look_at, t_vec4 vup, float vfov)
 	n.btm_left_cnr = n.orig - n.horiz/2 - n.vert/2 - w;
 	return (n);
 }
-
-
 
 int	main(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 12:33:28 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 16:03:17 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/12 11:31:59 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ t_elements		parse_input(char *file);
 // parser utils
 int				check_file_type(char *input);
 t_tokens		return_type(char *s);
+char			*read_float(char *line, float *o, float min, float max);
+char			*read_vec4(char *line, t_vec4 *o, float min, float max);
+
+
+// chunk utils
 char			*find_next_chunk(char *line);
 char 			*line_to_chunk(char *line);
 
@@ -36,6 +41,5 @@ t_cam			*cam_assign(char *line);
 t_point_light	*point_light_assign(char *line);
 
 //object
-t_hittable_lst	*hittable_lst_assign(char *list, t_tokens t);
-
+int				*hittable_lst_assign(char *line, t_tokens t, t_hittable_lst **objs);
 #endif // PARSER_H

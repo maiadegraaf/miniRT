@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 12:28:29 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 17:33:00 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/12 11:29:29 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	assign_element(char *line, t_tokens t, t_elements *element)
 			ft_error(23);
 	}
 	else if (t == SP || t == PL || t == CY)
-		element->objs = hittable_lst_assign(line, t);
+		hittable_lst_assign(line, t, &element->objs);
 } 
 
 t_elements	parse_input(char *file)

@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/09 16:16:29 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/12 10:51:40 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct s_point_light t_point_light;
 # include "ray.h"
 # include "hittable.h"
 # include "sphere.h"
+# include "cylinder.h"
+# include "plain.h"
 # include "hittable_lst.h"
 # include "parser.h"
 # include "error.h"
