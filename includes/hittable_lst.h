@@ -27,6 +27,7 @@ typedef struct s_hittable_lst
 	t_cylinder				*c;
 	t_hittable				*hit;
 	t_vec4					color;
+	int						i;
 	struct s_hittable_lst	*next;
 	struct s_hittable_lst	*prev;
 }	t_hittable_lst;
@@ -37,5 +38,7 @@ t_hittable_lst	*ft_hittable_lstnew(t_sphere *s, t_plain *p, t_cylinder *c, t_vec
 void			ft_hittable_lstadd_back(t_hittable_lst **lst, t_hittable_lst *new);
 void			ft_hittable_lst_rm_first(t_hittable_lst **lst);
 void			ft_hittable_lstclear(t_hittable_lst **lst);
+t_hittable_lst	*ft_hittable_lstfirst(t_hittable_lst *map);
+t_hittable_lst	*ft_hittable_lstlast(t_hittable_lst *map);
 
 #endif // HITTABLE_LST_H

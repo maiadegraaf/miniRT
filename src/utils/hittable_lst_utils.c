@@ -15,6 +15,7 @@
 t_hittable_lst	*ft_hittable_lstnew(t_sphere *s, t_plain *p, t_cylinder *c, t_vec4 color)
 {
 	t_hittable_lst	*new_element;
+	static int		i = 0;
 
 	new_element = (t_hittable_lst *)malloc(sizeof(t_hittable_lst));
 	if (!new_element)
@@ -23,6 +24,7 @@ t_hittable_lst	*ft_hittable_lstnew(t_sphere *s, t_plain *p, t_cylinder *c, t_vec
 	new_element->p = p;
 	new_element->c = c;
 	new_element->color = color;
+	new_element->i = i++;
 	new_element->next = NULL;
 	new_element->prev = NULL;
 	return (new_element);
@@ -74,17 +76,32 @@ void	ft_hittable_lstclear(t_hittable_lst **lst)
 	*lst = NULL;
 }
 
-// t_hittable_lst	*ft_hittable_lstfirst(t_hittable_lst *map)
-// {
-// 	int	i;
+t_hittable_lst	*ft_hittable_lstfirst(t_hittable_lst *map)
+{
+	int	i;
 
-// 	i = 0;
-// 	if (!map)
-// 		return (NULL);
-// 	while (map->prev != NULL)
-// 	{
-// 		map = map->prev;
-// 		i++;
-// 	}
-// 	return (map);
-// }
+	i = 0;
+	if (!map)
+		return (NULL);
+	while (map->prev != NULL)
+	{
+		map = map->prev;
+		i++;
+	}
+	return (map);
+}
+
+t_hittable_lst	*ft_hittable_lstlast(t_hittable_lst *map)
+{
+	int	i;
+
+	i = 0;
+	if (!map)
+		return (NULL);
+	while (map->next != NULL)
+	{
+		map = map->next;
+		i++;
+	}
+	return (map);
+}
