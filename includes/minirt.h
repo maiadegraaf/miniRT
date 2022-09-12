@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/12 14:39:16 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/12 14:56:53 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ typedef struct s_point_light t_point_light;
 # include "hittable_lst.h"
 # include "parser.h"
 # include "error.h"
-
-mlx_image_t	*g_img;
 
 typedef enum s_tokens
 {
@@ -101,7 +99,7 @@ bool		hit_hittable_list(t_hittable hit, t_hittable_lst *lst);
 float		hit_sphere(t_sphere *s, t_ray r);
 
 //color_utils
-void		write_color(t_vec4 color, int x, int y, t_win win);
+void		write_color(t_vec4 color, t_win *win);
 
 //vec_utils
 float		length_squared(t_vec4 v);

@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/12 14:45:40 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/12 15:14:27 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		ft_error(20);
 	elements = parse_input(argv[1]);
-
-	cam = setup_cam((t_vec4){-2, 2, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 100);
+	mlx = NULL;
+	win = setup_win(&mlx);
+	cam = setup_cam((t_vec4){-2, 2, 1}, (t_vec4){0, 0, -1}, (t_vec4){0, 1, 0}, 90);
 	while (win.y < win.h)
 	{
 		win.x = 0;
@@ -68,7 +69,7 @@ int	main(int argc, char **argv)
 			float u = ((float) win.x) / (win.w - 1);
 			float v = ((float) win.y) / (win.h - 1);
 			t_ray r = get_ray(cam, u, v);
-			t_vec4 color = ray_color(r, world);
+			t_vec4 color = ray_color(r, &elements);
 
 			// float s = 0.1;
 			// while (s < 1)
@@ -85,12 +86,12 @@ int	main(int argc, char **argv)
 			// 	s += 0.1;
 			// }
 			// printf("[%d, %d]\n", win.x, win.y);
-			write_color(color, win);
+			write_color(color, &win);
 			win.x++;
 		}
 		win.y++;
 	}
-	mlx_image_to_window(mlx, g_img, 0, 0);
+	mlx_image_to_window(mlx, win.img, 0, 0);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
