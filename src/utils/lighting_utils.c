@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:20:28 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/13 13:11:39 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/13 17:52:44 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,13 @@ t_point_light point_light_init(t_vec4 position, t_vec4 color, float power)
 	return (node);
 }
 
-void	check_shadow(t_hittable_lst *world, t_ray light_r, t_lighting *l, t_vec4 l_color, float distance)
+void	check_shadow(t_hittable_lst *world, t_ray light_r, t_lighting *l)
 {
 	t_hittable light_hit;
 
 	light_hit = hittable_init(&light_r, 0, INFINITY, hit_rec_init_empty());
 	if (find_object_in_front(light_hit, light_r, world))
-	{
 		l->if_s = true;
-		// float	intensity = -((distance - light_hit.rec->t)/200 - hit_sphere(world->s, *light_hit.r)) / 50;
-		float intensity = clamp(dot(light_hit.rec->n, -light_hit.r->dir), 0, 1);
-		// printf("intenstiy = %f\n", intensity);
-		// (void) distance;
-		l->shadow = world->color / (1 - intensity * l_color / distance);
-		l->shadow[0] = clamp(l->shadow[0], 0, l->diff[0] + l->spec[0]);
-		l->shadow[1] = clamp(l->shadow[1], 0, l->diff[1] + l->spec[1]);
-		l->shadow[2] = clamp(l->shadow[2], 0, l->diff[2] + l->spec[2]);
-	}
 }
 
 t_lighting get_point_light(t_point_light light, t_hittable hittable, t_hittable_lst *world)
@@ -76,8 +66,8 @@ t_lighting get_point_light(t_point_light light, t_hittable hittable, t_hittable_
 	float		intensity;
 	t_vec4		h;
 
-	l.diff = (t_vec4){0, 0, 0, 0};
-	l.spec = (t_vec4){0, 0, 0, 0};
+	l.diff = BLACK;
+	l.spec = BLACK;
 	l.if_s = false;
 	if (light.diff_power > 0)
 	{
@@ -90,7 +80,7 @@ t_lighting get_point_light(t_point_light light, t_hittable hittable, t_hittable_
 		h = unit_vector(-light_dir + hittable.r->dir);
 		intensity = pow((float)dot(hittable.rec->n, h), 120);
 		l.spec = intensity * light.spec_color / distance;
-		check_shadow(world, ray_init(light.position, -light_dir), &l, light.diff_color, distance);
+		check_shadow(world, ray_init(light.position, -light_dir), &l);
 	}
 	return (l);
 }

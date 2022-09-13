@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/13 13:21:25 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/13 17:55:28 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ typedef enum s_tokens
 
 typedef struct s_win
 {
-	int h;
-	int w;
+	int			h;
+	int			w;
+	mlx_image_t	*img;
 }	t_win;
 
 typedef struct s_cam
