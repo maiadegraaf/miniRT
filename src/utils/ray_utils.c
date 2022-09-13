@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 17:34:40 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/12 15:16:53 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/13 11:28:36 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_vec4 ray_color(t_ray r, t_elements *elements)
 		lighting = get_point_light(*elements->light, hit, elements->objs);
 		if (lighting.if_s == true)
 			return (lighting.shadow);
-		return ((elements->objs->color * elements->ambient->color * elements->ambient->strength) +  lighting.diff + lighting.spec);
+		return ((elements->ambient->color * elements->ambient->strength) +  lighting.diff + lighting.spec);
 	}
 	// unit_dir = unit_vector(r.dir);
 	// t = (float)0.5 * (unit_dir[1] + (float)1.0);
