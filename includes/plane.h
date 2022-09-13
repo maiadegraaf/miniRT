@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ambient.c                                          :+:    :+:            */
+/*   plain.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/09 13:34:44 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/13 13:18:33 by mgraaf        ########   odam.nl         */
+/*   Created: 2022/09/12 10:22:37 by maiadegraaf   #+#    #+#                 */
+/*   Updated: 2022/09/13 13:21:25 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#ifndef plane_H
+# define plane_H
+# include "minirt.h"
 
-t_ambient *ambient_assign(char *line)
+typedef struct	s_plane
 {
-	t_ambient	*new;
+	t_vec4	center;
+	t_vec4	orientation;
+} t_plane;
 
-	new = malloc(sizeof(t_ambient));
-	if (!new)
-		ft_error(10);
-	line = read_float(line, &new->strength, 0, 1);
-	line = read_vec4(line, &new->color, 0, 255);
-	new->color /= 255;
-	new->color *= new->strength;
-	return (new);
-}
+#endif // plane_H

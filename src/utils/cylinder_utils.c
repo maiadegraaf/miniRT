@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ambient.c                                          :+:    :+:            */
+/*   cylinder_utils.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/09 13:34:44 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/13 13:18:33 by mgraaf        ########   odam.nl         */
+/*   Created: 2022/09/12 10:57:57 by maiadegraaf   #+#    #+#                 */
+/*   Updated: 2022/09/12 11:28:38 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "cylinder.h"
 
-t_ambient *ambient_assign(char *line)
+t_cylinder	*cylinder_init(t_vec4 center, t_vec4 orientation, float diameter, float height)
 {
-	t_ambient	*new;
-
-	new = malloc(sizeof(t_ambient));
-	if (!new)
+	t_cylinder *c;
+	
+	c = malloc(sizeof(t_cylinder));
+	if (!c)
 		ft_error(10);
-	line = read_float(line, &new->strength, 0, 1);
-	line = read_vec4(line, &new->color, 0, 255);
-	new->color /= 255;
-	new->color *= new->strength;
-	return (new);
+	c->center = center;
+	c->orientation = orientation;
+	c->diameter = diameter;
+	c->height = height;
+	return (c);
 }

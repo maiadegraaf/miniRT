@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ambient.c                                          :+:    :+:            */
+/*   plain_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/09 13:34:44 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/13 13:18:33 by mgraaf        ########   odam.nl         */
+/*   Created: 2022/09/12 11:00:02 by maiadegraaf   #+#    #+#                 */
+/*   Updated: 2022/09/13 13:21:25 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "plane.h"
 
-t_ambient *ambient_assign(char *line)
+t_plane	*plane_init(t_vec4 center, t_vec4 orientation)
 {
-	t_ambient	*new;
-
-	new = malloc(sizeof(t_ambient));
-	if (!new)
+	t_plane *p;
+	
+	p = malloc(sizeof(t_plane));
+	if (!p)
 		ft_error(10);
-	line = read_float(line, &new->strength, 0, 1);
-	line = read_vec4(line, &new->color, 0, 255);
-	new->color /= 255;
-	new->color *= new->strength;
-	return (new);
+	p->center = center;
+	p->orientation = orientation;
+	return (p);
 }

@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 15:41:38 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/13 13:21:25 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,43 @@
 # include <unistd.h>
 # include <memory.h>
 # include <math.h>
+# include <fcntl.h>
+# include <float.h>
+# include "../libft/libft.h"
 # define ASPECT_RATIO (16.0 / 9.0)
 # define WIDTH 1200
 # define BLACK (t_vec4){0, 0, 0, 0}
 
 typedef float t_vec4 __attribute__ ((vector_size (16)));
 typedef struct s_ray t_ray;
+typedef enum s_tokens t_tokens;
+typedef struct s_elements t_elements;
+typedef struct s_cam t_cam;
+typedef struct s_ambient t_ambient;
+typedef struct s_lighting t_lighting;
+typedef struct s_point_light t_point_light;
 
 # include "lighting.h"
 # include "ray.h"
 # include "hittable.h"
 # include "sphere.h"
+# include "cylinder.h"
+# include "plane.h"
+# include "parser.h"
 # include "hittable_lst.h"
+# include "error.h"
+
 
 mlx_image_t	*g_img;
 
 typedef enum s_tokens
 {
-	SPHERE = 1,
+	A = 1,
+	C,
+	L,
+	SP,
+	PL,
+	CY
 }	t_tokens;
 
 typedef struct s_win
@@ -58,9 +77,21 @@ typedef struct s_cam
 	t_vec4	btm_left_cnr;
 } t_cam;
 
+typedef struct s_elements
+{
+	t_ambient		*ambient;
+	t_cam			*cam;
+	t_point_light	*light;
+	t_hittable_lst	*objs;
+}	t_elements;
+
 //utils
+int			ctof(char *s, float *f);
 float	deg_to_rad(float deg);
 float	clamp(float x, float min, float max);
+
+//element utils
+t_elements	elements_init_empty(void);
 
 // hit_utils
 bool	hit_hittable_list(t_hittable hit, t_hittable_lst *lst);

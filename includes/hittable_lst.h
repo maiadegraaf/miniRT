@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 15:41:52 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 17:42:26 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/13 13:21:25 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 # include "hittable.h"
 
 typedef struct s_sphere t_sphere;
+typedef struct s_plane t_plane;
+typedef struct s_cylinder t_cylinder;
 typedef struct s_hittable t_hittable;
 
 typedef struct s_hittable_lst
 {
 	t_sphere				*s;
+	t_plane					*p;
+	t_cylinder				*c;
 	t_hittable				*hit;
 	t_vec4					color;
 	int						i;

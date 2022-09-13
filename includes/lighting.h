@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:17:10 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/07 14:01:41 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/13 13:10:52 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 
 typedef struct s_hittable t_hittable;
 typedef struct s_hittable_lst t_hittable_lst;
+
+typedef struct s_ambient
+{
+	float	strength;
+	t_vec4	color;
+}	t_ambient;
 
 typedef struct s_lighting
 {

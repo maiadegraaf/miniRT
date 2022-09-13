@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:20:52 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/13 12:49:23 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/13 13:04:44 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*read_vec4(char *line, t_vec4 *o, float min, float max)
 	return (line);
 }
 
-char *skip_spaces(char *s)
+char	*skip_spaces(char *s)
 {
 	while (*s && *s == ' ')
 		s++;

@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ambient.c                                          :+:    :+:            */
+/*   error.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/09 13:34:44 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/13 13:18:33 by mgraaf        ########   odam.nl         */
+/*   Created: 2022/09/09 13:11:22 by maiadegraaf   #+#    #+#                 */
+/*   Updated: 2022/09/09 16:13:52 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#ifndef ERROR_H
+# define ERROR_H
+# include "minirt.h"
 
-t_ambient *ambient_assign(char *line)
-{
-	t_ambient	*new;
+void	ft_error(int i);
 
-	new = malloc(sizeof(t_ambient));
-	if (!new)
-		ft_error(10);
-	line = read_float(line, &new->strength, 0, 1);
-	line = read_vec4(line, &new->color, 0, 255);
-	new->color /= 255;
-	new->color *= new->strength;
-	return (new);
-}
+#endif // ERROR_H

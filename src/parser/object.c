@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:31 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/12 15:04:37 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/13 13:21:25 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ t_cylinder *parse_cylinder(char *line, t_vec4 *color)
 	return (new);
 }
 
-t_plain	*parse_plain(char *line, t_vec4 *color)
+t_plane	*parse_plane(char *line, t_vec4 *color)
 {
-	t_plain	*new;
+	t_plane	*new;
 	t_vec4	c;
 
-	new = malloc(sizeof(t_plain));
+	new = malloc(sizeof(t_plane));
 	if (!new)
 		ft_error(10);
 	line = read_vec4(line, &new->center, 1, 0);
@@ -67,11 +67,11 @@ int	*hittable_lst_assign(char *line, t_tokens t, t_hittable_lst **objs)
 
 	node = NULL;
 	if (t == SP)
-		node = ft_hittable_lstnew(parse_sphere(line, &color), NULL, NULL, color);
-	else if(t == PL)
-		node = ft_hittable_lstnew(NULL, parse_plain(line, &color), NULL, color);
-	else if (t == CY)
-		node = ft_hittable_lstnew(NULL, NULL, parse_cylinder(line, &color), color);
+		node = ft_hittable_lstnew(parse_sphere(line, &color), color);
+	// else if(t == PL)
+	// 	node = ft_hittable_lstnew(NULL, parse_plane(line, &color), NULL, color);
+	// else if (t == CY)
+	// 	node = ft_hittable_lstnew(NULL, NULL, parse_cylinder(line, &color), color);
 	tmp = *objs;
 	ft_hittable_lstadd_back(&tmp, node);
 	*objs = tmp;
