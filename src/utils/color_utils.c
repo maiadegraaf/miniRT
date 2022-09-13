@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 17:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 16:48:08 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/12 15:03:42 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	create_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	write_color(t_vec4 color, int x, int y, t_win win)
+void	write_color(t_vec4 color, t_win *win)
 {
 	// float	scale;
 	int		ir;
@@ -36,6 +36,6 @@ void	write_color(t_vec4 color, int x, int y, t_win win)
 
 	// printf("(%d, %d, %d)\n", ir, ig, ib);
 
-	mlx_put_pixel(g_img, x, win.h - y - 1, create_rgba(ir, ig, ib, 255));
+	mlx_put_pixel(win->img, win->x, win->h - win->y - 1, create_rgba(ir, ig, ib, 255));
 }
 
