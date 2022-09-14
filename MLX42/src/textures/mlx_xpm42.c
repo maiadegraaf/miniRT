@@ -6,7 +6,7 @@
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 03:42:29 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/06/27 19:58:33 by lde-la-h      ########   odam.nl         */
+/*   Updated: 2022/09/13 13:21:25 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static uint8_t mlx_parse_hex_channel(char* channel)
  */
 static bool mlx_insert_xpm_entry(xpm_t* xpm, char* line, uint32_t* ctable, size_t s)
 {
-	// NOTE: uintptr because windows likes to complain...
+	// NOTE: uintptr because windows likes to complane...
 	// Verify the length of the Pixel string by checking backwards for the first
 	// occurence of a space and then check the distance by comparing with cpp.
 	if (((uintptr_t)strrchr(line, ' ') - (uintptr_t)line) != (uint64_t)xpm->cpp)

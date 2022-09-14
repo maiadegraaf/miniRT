@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:11:22 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 16:13:52 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 15:53:52 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ERROR_H
 # include "minirt.h"
 
+void	ft_error_str(int i, char *str);
 void	ft_error(int i);
 
 #endif // ERROR_H

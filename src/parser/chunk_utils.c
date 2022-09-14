@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 09:34:48 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/12 11:43:20 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 15:55:09 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	chunk_len(char *line)
 }
 
 // returns copy of next chunk
-char *line_to_chunk(char *line)
+char	*line_to_chunk(char *line)
 {
 	char	*chunk;
 	size_t	len;
@@ -41,7 +41,7 @@ char *line_to_chunk(char *line)
 char	*find_next_chunk(char *line)
 {
 	line = skip_spaces(line);
-	while(line && *line != ' ')
+	while (line && *line != ' ')
 		line++;
 	return (line);
 }

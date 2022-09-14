@@ -6,7 +6,7 @@
 #    By: pvan-dij <pvan-dij@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/09 21:04:31 by pvan-dij      #+#    #+#                  #
-#    Updated: 2022/02/23 16:48:19 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/09/14 15:47:33 by maiadegraaf   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ colours = {
 	"misty rose":"ffe4e1",
 	"mistyrose":"ffe4e1",
 	"white":"ffffff",
-	"black":"000000",
+	"(t_vec4){0, 0, 0, 0}":"000000",
 	"dark slate":"2f4f4f",
 	"darkslategray":"2f4f4f",
 	"dark slate":"2f4f4f",

@@ -10,34 +10,35 @@ PATHS	=	src/
 PATHSU	=	src/utils/
 PATHSE	=	src/error/
 PATHSP	=	src/parser/
+PATHSR	=	src/ray/
 
 BUILD_PATHS = $(PATHB) $(PATHO)
 
-src	=	src/main.c\
-		src/utils/vec_utils.c \
-		src/utils/color_utils.c \
-		src/utils/ray_utils.c \
-		src/utils/hit_utils.c \
-		src/utils/hittable_utils.c \
-		src/utils/hit_record_utils.c \
-		src/utils/hittable_lst_utils.c \
-		src/utils/utils.c \
-		src/utils/lighting_utils.c \
-		src/utils/elements_utils.c \
-		src/utils/sphere_utils.c \
-		src/utils/plain_utils.c \
-		src/utils/cylinder_utils.c \
+src	=	src/main.c \
 		src/error/error.c \
 		src/parser/ambient.c \
 		src/parser/camera.c \
+		src/parser/chunk_utils.c \
 		src/parser/light.c \
 		src/parser/object.c \
-		src/parser/parser.c \
 		src/parser/parser_utils.c \
+		src/parser/parser.c \
 		src/parser/vec4_parse.c \
-		src/parser/chunk_utils.c \
-		# src/utils/vec3_dot_cross.c \
-		# src/ray_tracer/test.c
+		src/ray/ray_utils.c \
+		src/ray/ray.c \
+		src/utils/color_utils.c \
+		src/utils/cylinder_utils.c \
+		src/utils/elements_utils.c \
+		src/utils/hit_record_utils.c \
+		src/utils/hit_utils.c \
+		src/utils/hittable_list_create_utils.c \
+		src/utils/hittable_lst_utils.c \
+		src/utils/hittable_utils.c \
+		src/utils/lighting_utils.c \
+		src/utils/plane_utils.c \
+		src/utils/sphere_utils.c \
+		src/utils/utils.c \
+		src/utils/vec_utils.c
 
 OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))
 
@@ -61,8 +62,8 @@ HEADER	=	.includes/minirt.h \
 INCLUDES =	-Iincludes -I$(LIBFTP)
 
 # GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
-GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # pro
-# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # iMac
+# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # pro
+GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # iMac
 
 all: $(BUILD_PATHS) $(NAME)
 
@@ -80,6 +81,10 @@ $(PATHO)%.o:: $(PATHSE)%.c $(HEADERS)
 
 $(PATHO)%.o:: $(PATHSP)%.c $(HEADERS)
 	@echo "Compiling ${notdir $<}			in	$(PATHSP)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSR)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSR)"
 	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 
 $(NAME): $(LIBFT) $(OBJS) $(MLX42) $(HEADERS)

@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cylinder.h                                         :+:    :+:            */
+/*   plane_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/12 10:22:24 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 15:53:44 by maiadegraaf   ########   odam.nl         */
+/*   Created: 2022/09/12 11:00:02 by maiadegraaf   #+#    #+#                 */
+/*   Updated: 2022/09/14 14:52:03 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CYLINDER_H
-# define CYLINDER_H
-# include "minirt.h"
+#include "plane.h"
 
-typedef float	t_vec4 __attribute__ ((vector_size (16)));
-
-typedef struct s_cylinder
+t_plane	*plane_init(t_vec4 center, t_vec4 orientation)
 {
-	t_vec4	center;
-	t_vec4	orientation;
-	float	diameter;
-	float	height;
-}	t_cylinder;
+	t_plane	*p;
 
-#endif // CYLINDER_H
+	p = malloc(sizeof(t_plane));
+	if (!p)
+		ft_error(10);
+	p->center = center;
+	p->orientation = orientation;
+	return (p);
+}

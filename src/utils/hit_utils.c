@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 09:45:47 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/08 09:24:06 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 14:58:25 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ bool	hit_hittable_list(t_hittable hit, t_hittable_lst *lst)
 {
 	t_hit_record	tmp_rec;
 	bool			hit_anything;
-	// double			closest_so_far;
+	double			closest_so_far;
 
 	hit_anything = false;
-	// closest_so_far = hit.t_max;
+	closest_so_far = hit.t_max;
 	if (sphere_hit(hit, lst->s))
 	{
 		hit_anything = true;
-		// closest_so_far = tmp_rec.t;
+		if (tmp_rec.t < closest_so_far)
+			closest_so_far = tmp_rec.t;
 		hit.rec = &tmp_rec;
 	}
 	return (hit_anything);
@@ -39,7 +40,7 @@ float	hit_sphere(t_sphere *s, t_ray r)
 	float	c;
 	float	disc;
 
-	oc = r.orig - s->center; 
+	oc = r.orig - s->center;
 	a = length_squared(r.dir);
 	half_b = dot(oc, r.dir);
 	c = length_squared(oc) - (s->radius * s->radius);

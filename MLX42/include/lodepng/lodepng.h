@@ -16,7 +16,7 @@ freely, subject to the following restrictions:
     in a product, an acknowledgment in the product documentation would be
     appreciated but is not required.
 
-    2. Altered source versions must be plainly marked as such, and must not be
+    2. Altered source versions must be planely marked as such, and must not be
     misrepresented as being the original software.
 
     3. This notice may not be removed or altered from any source
@@ -1519,7 +1519,7 @@ of bits per pixel is: amount of channels * bitdepth.
 6.2. color conversions
 ----------------------
 
-As explained in the sections about the encoder and decoder, you can specify
+As explaneed in the sections about the encoder and decoder, you can specify
 color types and bit depths in info_png and info_raw to change the default
 behaviour.
 

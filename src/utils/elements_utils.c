@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:15:42 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/09 16:17:11 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 15:56:39 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_elements	elements_init_empty(void)
 {
-	t_elements new;
+	t_elements	new;
 
 	new.ambient = NULL;
 	new.cam = NULL;
