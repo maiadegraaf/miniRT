@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   plain_utils.c                                      :+:    :+:            */
+/*   plane_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 11:00:02 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/13 13:21:25 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/14 14:52:03 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_plane	*plane_init(t_vec4 center, t_vec4 orientation)
 {
-	t_plane *p;
-	
+	t_plane	*p;
+
 	p = malloc(sizeof(t_plane));
 	if (!p)
 		ft_error(10);

@@ -6,13 +6,13 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:41 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/13 17:47:46 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/14 14:59:40 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_cam cam_init(t_vec4 look_from, t_vec4 orientation, float fov)
+t_cam	cam_init(t_vec4 look_from, t_vec4 orientation, float fov)
 {
 	t_cam	cam;
 	t_vec4	up;
@@ -21,15 +21,16 @@ t_cam cam_init(t_vec4 look_from, t_vec4 orientation, float fov)
 	up = (t_vec4){0, 1, 0};
 	if (orientation[0] == 0 && orientation[2] == 0)
 		up = (t_vec4){0, 0, 1};
-	cam.vp_w = tan(deg_to_rad(fov)/2);
+	cam.vp_w = tan(deg_to_rad(fov) / 2);
 	cam.vp_h = (cam.vp_w / ASPECT_RATIO);
 	right = unit_vector(cross(up, orientation));
 	cam.orig = look_from;
 	cam.horiz = right * cam.vp_w;
 	cam.vert = cam.vp_h * up;
-	cam.btm_left_cnr = cam.orig - cam.horiz/2 - cam.vert/2 + orientation;
+	cam.btm_left_cnr = cam.orig - cam.horiz / 2
+		- cam.vert / 2 + orientation;
 	return (cam);
- }
+}
 
 t_cam	*cam_assign(char *line)
 {

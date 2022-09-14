@@ -2668,7 +2668,7 @@ void lodepng_color_mode_init(LodePNGColorMode* info) {
   info->palettesize = 0;
 }
 
-/*allocates palette memory if needed, and initializes all colors to black*/
+/*allocates palette memory if needed, and initializes all colors to (t_vec4){0, 0, 0, 0}*/
 static void lodepng_color_mode_alloc_palette(LodePNGColorMode* info) {
   size_t i;
   /*if the palette is already allocated, it will have size 1024 so no reallocation needed in that case*/
@@ -2676,8 +2676,8 @@ static void lodepng_color_mode_alloc_palette(LodePNGColorMode* info) {
   if(!info->palette) info->palette = (unsigned char*)lodepng_malloc(1024);
   if(!info->palette) return; /*alloc fail*/
   for(i = 0; i != 256; ++i) {
-    /*Initialize all unused colors with black, the value used for invalid palette indices.
-    This is an error according to the PNG spec, but common PNG decoders make it black instead.
+    /*Initialize all unused colors with (t_vec4){0, 0, 0, 0}, the value used for invalid palette indices.
+    This is an error according to the PNG spec, but common PNG decoders make it (t_vec4){0, 0, 0, 0} instead.
     That makes color conversion slightly faster due to no error handling needed.*/
     info->palette[i * 4 + 0] = 0;
     info->palette[i * 4 + 1] = 0;

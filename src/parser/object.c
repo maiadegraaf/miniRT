@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:31 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 11:14:25 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 15:03:50 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_sphere	*parse_sphere(char *line, t_vec4 *color)
 	return (new);
 }
 
-t_cylinder *parse_cylinder(char *line, t_vec4 *color)
+t_cylinder	*parse_cylinder(char *line, t_vec4 *color)
 {
 	t_cylinder	*new;
 	t_vec4		c;
@@ -67,11 +67,14 @@ int	*hittable_lst_assign(char *line, t_tokens t, t_hittable_lst **objs)
 
 	node = NULL;
 	if (t == SP)
-		node = ft_hittable_lstnew(parse_sphere(line, &color), NULL, NULL, color);
-	else if(t == PL)
-		node = ft_hittable_lstnew(NULL, parse_plane(line, &color), NULL, color);
-	// else if (t == CY)
-	// 	node = ft_hittable_lstnew(NULL, NULL, parse_cylinder(line, &color), color);
+		node = ft_hittable_lstnew(parse_sphere(line, &color),
+				NULL, NULL, color);
+	else if (t == PL)
+		node = ft_hittable_lstnew(NULL, parse_plane(line, &color),
+				NULL, color);
+	else if (t == CY)
+		node = ft_hittable_lstnew(NULL, NULL,
+				parse_cylinder(line, &color), color);
 	tmp = *objs;
 	ft_hittable_lstadd_back(&tmp, node);
 	*objs = tmp;

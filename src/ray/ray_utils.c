@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   color_utils.c                                      :+:    :+:            */
+/*   ray_utils.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/31 17:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 14:53:10 by maiadegraaf   ########   odam.nl         */
+/*   Created: 2022/08/31 17:34:40 by mgraaf        #+#    #+#                 */
+/*   Updated: 2022/09/14 14:50:44 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "ray.h"
 
-int	create_rgba(int r, int g, int b, int a)
+t_vec4	ray_at(t_ray r, float t)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	return (r.orig + (t * r.dir));
 }
 
-void	write_color(t_vec4 color, int x, int y, t_win win)
+t_ray	ray_init(t_vec4 o, t_vec4 d)
 {
-	int	ir;
-	int	ig;
-	int	ib;
+	t_ray	r;
 
-	ir = (int)(255.99 * clamp(color[0], 0, 0.999));
-	ig = (int)(255.99 * clamp(color[1], 0, 0.999));
-	ib = (int)(255.99 * clamp(color[2], 0, 0.999));
-	mlx_put_pixel(win.img, x, win.h - y - 1, create_rgba(ir, ig, ib, 255));
+	r.orig = o;
+	r.dir = d;
+	return (r);
+}
+
+t_ray	get_ray(t_cam cam, float i, float j, t_win	win)
+{
+	float	u;
+	float	v;
+
+	u = ((float) i) / (win.w - 1);
+	v = ((float) j) / (win.h - 1);
+	return (ray_init(cam.orig, cam.btm_left_cnr
+			+ (u * cam.horiz) + (v * cam.vert) - cam.orig));
 }

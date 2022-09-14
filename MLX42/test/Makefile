@@ -6,7 +6,7 @@
 #    By: lde-la-h <lde-la-h@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/07/19 08:43:31 by lde-la-h      #+#    #+#                  #
-#    Updated: 2022/07/21 10:34:17 by lde-la-h      ########   odam.nl          #
+#    Updated: 2022/09/14 15:47:33 by maiadegraaf   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ rwildcard = $(subst \,/,$(sort $(foreach d,$(wildcard $1/*),$(call rwildcard,$d,
 #//= Colors =//#
 
 BOLD	:= \033[1m
-BLACK	:= \033[30;1m
+(t_vec4){0, 0, 0, 0}	:= \033[30;1m
 RED		:= \033[31;1m
 GREEN	:= \033[32;1m
 YELLOW	:= \033[33;1m

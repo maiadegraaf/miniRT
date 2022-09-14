@@ -6,13 +6,13 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:44 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/13 13:18:33 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/14 14:58:46 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_ambient *ambient_assign(char *line)
+t_ambient	*ambient_assign(char *line)
 {
 	t_ambient	*new;
 

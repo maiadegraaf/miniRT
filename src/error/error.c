@@ -6,11 +6,29 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:11:40 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/12 09:53:41 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 15:26:06 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
+
+void	ft_error_str(int i, char *str)
+{
+	ft_printf("Error\n");
+	if (i == 21)
+		ft_printf("%s can only be declared once in the scene.\n", str);
+	if (i == 1)
+		ft_printf("Vec3 conversion impossible near line: '%s'\n", str);
+	if (i == 2)
+		ft_printf("Float conversion impossible near line: '%s'\n", str);
+	if (i == 3)
+		ft_printf("Float is out of range near line: '%s'\n", str);
+	if (i == 4)
+		ft_printf("Vec3 is out of range near line: '%s'\n", str);
+	if (i == 5)
+		ft_printf("%s is not an existing element.\n", str);
+	exit(EXIT_FAILURE);
+}
 
 void	ft_error(int i)
 {
@@ -19,16 +37,6 @@ void	ft_error(int i)
 		ft_printf("Incorrect file type\n");
 	if (i == 1)
 		ft_printf("Empty file\n");
-	if (i > 20)
-	{
-		if (i == 21)
-			ft_printf("Ambient light ");
-		else if (i == 22)
-			ft_printf("A camera ");
-		else if (i == 23)
-			ft_printf("A light ");
-		ft_printf("can only be declared once in the scene.\n");
-	}
 	if (i == 2)
 		ft_printf(" is not an existing element.\n");
 	if (i == 3)

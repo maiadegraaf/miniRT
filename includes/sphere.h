@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 14:34:21 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 13:26:32 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/14 15:39:01 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "minirt.h"
 # include "hittable.h"
 
-typedef struct s_hittable t_hittable;
+typedef struct s_hittable	t_hittable;
 
 typedef struct s_sphere
 {
@@ -24,6 +24,6 @@ typedef struct s_sphere
 }	t_sphere;
 
 t_sphere	*sphere_init(t_vec4 center, float radius);
-bool sphere_hit(t_hittable hit, t_sphere *s);
+bool		sphere_hit(t_hittable hit, t_sphere *s);
 
 #endif // SPHERE_H

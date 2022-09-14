@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 14:36:47 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 12:32:44 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 14:32:43 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_sphere	*sphere_init(t_vec4 center, float radius)
 {
-	t_sphere *s;
-	
+	t_sphere	*s;
+
 	s = malloc(sizeof(t_sphere));
 	if (!s)
 		perror("OH NO!!\n");
@@ -24,37 +24,35 @@ t_sphere	*sphere_init(t_vec4 center, float radius)
 	return (s);
 }
 
-bool sphere_hit(t_hittable hit, t_sphere *s)
+float	set_discriminant(float a, float half_b, float c)
+{
+	return (half_b * half_b - a * c);
+}
+
+bool	sphere_hit(t_hittable hit, t_sphere *s)
 {
 	t_vec4	oc;
 	float	a;
 	float	half_b;
-	float	c;
 	float	discriminant;
 	float	sqrtd;
-	float	root;
-	t_vec4	outward_normal;
 
 	oc = hit.r->orig - s->center;
 	a = length_squared(hit.r->dir);
 	half_b = dot(oc, hit.r->dir);
-	c = length_squared(oc) - (s->radius * s->radius);
-	discriminant = half_b * half_b - a * c;
+	discriminant = set_discriminant(a, half_b,
+			length_squared(oc) - (s->radius * s->radius));
 	if (discriminant < 0)
 		return (false);
 	sqrtd = sqrt(discriminant);
-	root = (-half_b - sqrtd) / a;
-	hit.rec->root2 = 0;
-	if (root < hit.t_min || hit.t_max < root)
+	hit.rec->t = (-half_b - sqrtd) / a;
+	if (hit.rec->t < hit.t_min || hit.t_max < hit.rec->t)
 	{
-		root = (-half_b + sqrtd) / a;
-		hit.rec->root2 = (-half_b + sqrtd) / a;
-		if (root < hit.t_min || hit.t_max < root)
+		hit.rec->t = (-half_b + sqrtd) / a;
+		if (hit.rec->t < hit.t_min || hit.t_max < hit.rec->t)
 			return (false);
 	}
-	hit.rec->t = root;
 	hit.rec->p = ray_at(*hit.r, hit.rec->t);
-	outward_normal = (hit.rec->p - s->center) / s->radius;
-	set_face_normal(hit.rec, *hit.r, outward_normal);
+	set_face_normal(hit.rec, *hit.r, (hit.rec->p - s->center) / s->radius);
 	return (true);
 }
