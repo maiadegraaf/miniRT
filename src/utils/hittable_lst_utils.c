@@ -6,13 +6,13 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 15:49:10 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/08 17:42:48 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/14 11:12:03 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hittable_lst.h"
 
-t_hittable_lst	*ft_hittable_lstnew(t_sphere *s, t_vec4 color)
+t_hittable_lst	*ft_hittable_lstnew(t_sphere *s, t_plane *p, t_cylinder *c, t_vec4 color)
 {
 	t_hittable_lst	*new_element;
 	static int		i = 0;
@@ -21,6 +21,8 @@ t_hittable_lst	*ft_hittable_lstnew(t_sphere *s, t_vec4 color)
 	if (!new_element)
 		return (0);
 	new_element->s = s;
+	new_element->p = p;
+	new_element->c = c;
 	new_element->color = color;
 	new_element->i = i++;
 	new_element->next = NULL;

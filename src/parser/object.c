@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:31 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/13 13:21:25 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/14 11:14:25 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	*hittable_lst_assign(char *line, t_tokens t, t_hittable_lst **objs)
 
 	node = NULL;
 	if (t == SP)
-		node = ft_hittable_lstnew(parse_sphere(line, &color), color);
-	// else if(t == PL)
-	// 	node = ft_hittable_lstnew(NULL, parse_plane(line, &color), NULL, color);
+		node = ft_hittable_lstnew(parse_sphere(line, &color), NULL, NULL, color);
+	else if(t == PL)
+		node = ft_hittable_lstnew(NULL, parse_plane(line, &color), NULL, color);
 	// else if (t == CY)
 	// 	node = ft_hittable_lstnew(NULL, NULL, parse_cylinder(line, &color), color);
 	tmp = *objs;

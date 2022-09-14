@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/13 18:18:25 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/14 11:13:58 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	print_img(t_win	win, t_elements elements)
 		while (i < win.w)
 		{
 			// NON ANTIALIASING:
-			// color = ray_color(get_ray(*elements.cam, i, j, win), &elements);
+			color = ray_color(get_ray(*elements.cam, i, j, win), &elements);
 			// ANTIALIASING:
-			color = antialiasing(i, j, elements, win);
+			// color = antialiasing(i, j, elements, win);
 			write_color(color, i, j, win);
 			i++;
 		}
