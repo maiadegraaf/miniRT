@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 11:00:02 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 12:03:13 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/14 16:31:54 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,21 @@ t_plane	*plane_init(t_vec4 point, t_vec4 vector)
 
 bool plane_hit(t_hittable hit, t_plane *p)
 {
-	t_vec4	substract_ray;
-	float	discriminant;
-
-	substract_ray = hit.r->orig - hit.r->dir - p->point;
-	discriminant = dot(p->vector, substract_ray);
-	if (discriminant == 0)
-		return true;
-	return (false);
+	float denominator;
+	float t;
+	t_vec4 difference;
+	
+	denominator = dot(p->vector, hit.r->dir);
+	if (fabs(denominator) < 0.0001)
+		return (false);
+   	difference = p->point - hit.r->orig;
+    t = dot(difference, p->vector) / denominator;
+	if (t <= 0.0001 || t > hit.rec->t)
+		return (false);
+	hit.rec->n = p->vector;
+	if (denominator > 0)
+		hit.rec->n = p->vector * -1;
+	hit.rec->p = ray_at(*hit.r, t);
+	hit.rec->t = t;
+	return (true);
 }
