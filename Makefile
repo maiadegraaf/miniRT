@@ -42,7 +42,7 @@ src	=	src/main.c \
 
 OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))
 
-FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
+FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address 
 
 LIBFT	=	libft/libft.a
 
@@ -51,9 +51,13 @@ MLX42	=	MLX42/libmlx42.a
 HEADER	=	.includes/minirt.h \
 			.includes/ray.h \
 			.includes/hittable.h \
-			.includes/sphere.h \
 			.includes/hittable_lst.h \
-			.includes/lighting.h
+			.includes/lighting.h \
+			.includes/parser.h \
+			.includes/error.h \
+			.includes/sphere.h \
+			.includes/plain.h \
+			.includes/cylinder.h 
 	
 INCLUDES =	-Iincludes -I$(LIBFTP)
 

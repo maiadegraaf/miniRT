@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cylinder.h                                         :+:    :+:            */
+/*   plain.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/12 10:22:24 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 15:53:44 by maiadegraaf   ########   odam.nl         */
+/*   Created: 2022/09/12 10:22:37 by maiadegraaf   #+#    #+#                 */
+/*   Updated: 2022/09/12 10:49:41 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CYLINDER_H
-# define CYLINDER_H
+#ifndef PLAIN_H
+# define PLAIN_H
 # include "minirt.h"
 
-typedef float	t_vec4 __attribute__ ((vector_size (16)));
-
-typedef struct s_cylinder
+typedef struct	s_plain
 {
 	t_vec4	center;
 	t_vec4	orientation;
-	float	diameter;
-	float	height;
-}	t_cylinder;
+} t_plain;
 
-#endif // CYLINDER_H
+#endif // PLAIN_H

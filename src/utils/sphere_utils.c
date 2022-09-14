@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 14:36:47 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 14:32:43 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 15:57:16 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_sphere	*sphere_init(t_vec4 center, float radius)
 
 	s = malloc(sizeof(t_sphere));
 	if (!s)
-		perror("OH NO!!\n");
+		ft_error(10);
 	s->center = center;
 	s->radius = radius;
 	return (s);
