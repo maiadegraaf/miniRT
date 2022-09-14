@@ -1,63 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lighting_utils.c                                   :+:    :+:            */
+/*   lighting.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
+/*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/06 14:20:28 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 15:56:50 by maiadegraaf   ########   odam.nl         */
+/*   Created: 2022/09/14 16:05:55 by maiadegraaf   #+#    #+#                 */
+/*   Updated: 2022/09/14 16:06:07 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lighting.h"
-
-bool	find_object_in_front(t_hittable light_hit, t_ray r,
-	t_hittable_lst *world)
-{
-	t_hittable		hit;
-	float			tmp_t;
-	t_hittable_lst	*start;
-	bool			ret;
-
-	hit = hittable_init(&r, 0, INFINITY, hit_rec_init_empty());
-	start = world;
-	hit_hittable_list(light_hit, world);
-	tmp_t = light_hit.rec->t;
-	ret = false;
-	world = ft_hittable_lstlast(world);
-	while (start)
-	{
-		if (hit_hittable_list(hit, start))
-		{
-			if (hit.rec->t < tmp_t)
-				ret = true;
-		}
-		start = start->prev;
-	}
-	return (ret);
-}
-
-t_point_light	point_light_init(t_vec4 position, t_vec4 color, float power)
-{
-	t_point_light	node;
-
-	node.position = position;
-	node.diff_color = color;
-	node.diff_power = power;
-	node.spec_color = (t_vec4){1, 1, 1, 1};
-	node.spec_power = 2;
-	return (node);
-}
-
-void	check_shadow(t_hittable_lst *world, t_ray light_r, t_lighting *l)
-{
-	t_hittable	light_hit;
-
-	light_hit = hittable_init(&light_r, 0, INFINITY, hit_rec_init_empty());
-	if (find_object_in_front(light_hit, light_r, world))
-		l->if_s = true;
-}
 
 t_lighting	get_point_light(t_point_light light,
 	t_hittable hittable, t_hittable_lst *world)

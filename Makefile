@@ -11,11 +11,15 @@ PATHSU	=	src/utils/
 PATHSE	=	src/error/
 PATHSP	=	src/parser/
 PATHSR	=	src/ray/
+PATHSL	=	src/lighting/
 
 BUILD_PATHS = $(PATHB) $(PATHO)
 
 src	=	src/main.c \
 		src/error/error.c \
+		src/lighting/lighting_utils.c \
+		src/lighting/lighting.c \
+		src/lighting/shadow.c \
 		src/parser/ambient.c \
 		src/parser/camera.c \
 		src/parser/chunk_utils.c \
@@ -34,7 +38,6 @@ src	=	src/main.c \
 		src/utils/hittable_list_create_utils.c \
 		src/utils/hittable_lst_utils.c \
 		src/utils/hittable_utils.c \
-		src/utils/lighting_utils.c \
 		src/utils/plane_utils.c \
 		src/utils/sphere_utils.c \
 		src/utils/utils.c \
@@ -85,6 +88,10 @@ $(PATHO)%.o:: $(PATHSP)%.c $(HEADERS)
 
 $(PATHO)%.o:: $(PATHSR)%.c $(HEADERS)
 	@echo "Compiling ${notdir $<}			in	$(PATHSR)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSL)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSL)"
 	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 
 $(NAME): $(LIBFT) $(OBJS) $(MLX42) $(HEADERS)

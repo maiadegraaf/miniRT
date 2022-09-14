@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:17:10 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 16:00:09 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 16:07:59 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ typedef struct s_point_light
 t_point_light	point_light_init(t_vec4	position, t_vec4 color, float power);
 t_lighting		get_point_light(t_point_light light,
 					t_hittable hittable, t_hittable_lst *world);
+
+//shadow
+void			check_shadow(t_hittable_lst *world, t_ray light_r, t_lighting *l);
 
 #endif // LIGHTING_H
