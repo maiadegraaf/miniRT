@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:11:40 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 15:54:51 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 16:51:24 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_error(int i)
 		ft_printf("Out of range.\n");
 	if (i == 4)
 		ft_printf("Incomplete line\n");
+	if (i == 5)
+		ft_printf("The rt file does not include a camera.\n");
 	if (i == 10)
 		ft_printf("MALLOC ERROR\n");
 	if (i == 20)

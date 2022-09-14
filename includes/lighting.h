@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:17:10 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 16:07:59 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 16:54:36 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 typedef float					t_vec4 __attribute__ ((vector_size (16)));
 typedef struct s_hittable		t_hittable;
 typedef struct s_hittable_lst	t_hittable_lst;
+typedef struct s_ray			t_ray;
 
 typedef struct s_ambient
 {
