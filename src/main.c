@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 15:54:41 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/15 18:23:41 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,51 +23,6 @@ t_win	setup_win(mlx_t **mlx)
 	return (win);
 }
 
-t_vec4	antialiasing(int i, int j, t_elements elements, t_win win)
-{
-	float	s;
-	float	t;
-	t_vec4	color;
-
-	s = 0.1;
-	while (s < 1)
-	{
-		t = 0.1;
-		while (t < 1)
-		{
-			color = color + ray_color(
-					get_ray(*elements.cam, i + s, j + t, win), &elements);
-			t += 0.1;
-		}
-		s += 0.1;
-	}
-	color *= (float)0.01;
-	return (color);
-}
-
-void	print_img(t_win	win, t_elements elements)
-{
-	int		j;
-	int		i;
-	t_vec4	color;
-
-	j = 0;
-	while (j < win.h)
-	{
-		i = 0;
-		while (i < win.w)
-		{
-			// NON ANTIALIASING:
-			color = ray_color(get_ray(*elements.cam, i, j, win), &elements);
-			// ANTIALIASING:
-			// color = antialiasing(i, j, elements, win);
-			write_color(color, i, j, win);
-			i++;
-		}
-		j++;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	mlx_t			*mlx;
@@ -78,7 +33,7 @@ int	main(int argc, char **argv)
 		ft_error(20);
 	elements = parse_input(argv[1]);
 	win = setup_win(&mlx);
-	print_img(win, elements);
+	paint_img(win, elements);
 	mlx_image_to_window(mlx, win.img, 0, 0);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

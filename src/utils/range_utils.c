@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   color_utils.c                                      :+:    :+:            */
+/*   range_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/31 17:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/15 18:22:37 by mgraaf        ########   odam.nl         */
+/*   Created: 2022/09/15 16:27:07 by mgraaf        #+#    #+#                 */
+/*   Updated: 2022/09/15 16:28:22 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	create_rgba(int r, int g, int b, int a)
+t_range	range_init(int min, int max)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
-}
+	t_range	new;
 
-void	write_color(t_vec4 color, int x, int y, t_win win)
-{
-	int	ir;
-	int	ig;
-	int	ib;
-
-	ir = (int)(255.99 * clamp(color[0], 0, 0.999));
-	ig = (int)(255.99 * clamp(color[1], 0, 0.999));
-	ib = (int)(255.99 * clamp(color[2], 0, 0.999));
-	mlx_put_pixel(win.img, x, win.h - y - 1, create_rgba(ir, ig, ib, 255));
+	new.min = min;
+	new.max = max;
+	return (new);
 }
