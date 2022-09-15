@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 11:00:02 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 16:31:54 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/15 11:30:37 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool plane_hit(t_hittable hit, t_plane *p)
 		return (false);
    	difference = p->point - hit.r->orig;
     t = dot(difference, p->vector) / denominator;
-	if (t <= 0.0001 || t > hit.rec->t)
+	if (t <= 0.0001)
 		return (false);
 	hit.rec->n = p->vector;
 	if (denominator > 0)
