@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/15 11:38:52 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/15 16:18:31 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "hittable_lst.h"
 # include "error.h"
 # define ASPECT_RATIO 1.7777777778
-# define WIDTH 1200
+# define WIDTH 1080
 
 typedef float					t_vec4 __attribute__ ((vector_size (16)));
 typedef struct s_ray			t_ray;

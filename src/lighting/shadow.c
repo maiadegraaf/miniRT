@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/14 16:06:17 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 16:06:25 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/15 16:30:16 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ bool	find_object_in_front(t_hittable light_hit, t_ray r,
 	t_hittable_lst	*start;
 
 	hit = hittable_init(&r, 0, INFINITY, hit_rec_init_empty());
-	start = world;
+	start = ft_hittable_lstlast(world);
 	hit_hittable_list(light_hit, world);
 	tmp_t = light_hit.rec->t;
-	world = ft_hittable_lstlast(world);
+	// world = ft_hittable_lstlast(world);
 	while (start)
 	{
 		if (hit_hittable_list(hit, start))
