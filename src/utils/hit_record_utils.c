@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 15:14:48 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/06 14:58:43 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/14 14:52:25 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_hit_record	*hit_rec_init_empty(void)
 {
-	t_hit_record *rec;
+	t_hit_record	*rec;
 
 	rec = malloc(sizeof(t_hit_record));
 	if (!rec)
@@ -26,7 +26,8 @@ t_hit_record	*hit_rec_init_empty(void)
 	return (rec);
 }
 
-void	set_face_normal(t_hit_record *rec, const t_ray r, const t_vec4 outward_normal)
+void	set_face_normal(t_hit_record *rec, const t_ray r,
+	const t_vec4 outward_normal)
 {
 	rec->front_face = dot(r.dir, outward_normal) < 0;
 	if (rec->front_face)

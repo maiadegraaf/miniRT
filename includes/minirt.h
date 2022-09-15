@@ -6,13 +6,14 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 12:52:11 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/15 11:38:52 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 # include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -21,19 +22,6 @@
 # include <fcntl.h>
 # include <float.h>
 # include "../libft/libft.h"
-# define ASPECT_RATIO (16.0 / 9.0)
-# define WIDTH 1200
-# define BLACK (t_vec4){0, 0, 0, 0}
-
-typedef float t_vec4 __attribute__ ((vector_size (16)));
-typedef struct s_ray t_ray;
-typedef enum s_tokens t_tokens;
-typedef struct s_elements t_elements;
-typedef struct s_cam t_cam;
-typedef struct s_ambient t_ambient;
-typedef struct s_lighting t_lighting;
-typedef struct s_point_light t_point_light;
-
 # include "lighting.h"
 # include "ray.h"
 # include "hittable.h"
@@ -43,9 +31,17 @@ typedef struct s_point_light t_point_light;
 # include "parser.h"
 # include "hittable_lst.h"
 # include "error.h"
+# define ASPECT_RATIO 1.7777777778
+# define WIDTH 1200
 
-
-mlx_image_t	*g_img;
+typedef float					t_vec4 __attribute__ ((vector_size (16)));
+typedef struct s_ray			t_ray;
+typedef enum s_tokens			t_tokens;
+typedef struct s_elements		t_elements;
+typedef struct s_cam			t_cam;
+typedef struct s_ambient		t_ambient;
+typedef struct s_lighting		t_lighting;
+typedef struct s_point_light	t_point_light;
 
 typedef enum s_tokens
 {
@@ -76,7 +72,7 @@ typedef struct s_cam
 	t_vec4	horiz;
 	t_vec4	vert;
 	t_vec4	btm_left_cnr;
-} t_cam;
+}	t_cam;
 
 typedef struct s_elements
 {
@@ -88,25 +84,24 @@ typedef struct s_elements
 
 //utils
 int			ctof(char *s, float *f);
-float	deg_to_rad(float deg);
-float	clamp(float x, float min, float max);
+float		deg_to_rad(float deg);
+float		clamp(float x, float min, float max);
 
 //element utils
 t_elements	elements_init_empty(void);
 
 // hit_utils
-bool	hit_hittable_list(t_hittable hit, t_hittable_lst *lst);
-float	hit_sphere(t_sphere *s, t_ray r);
+bool		hit_hittable_list(t_hittable hit, t_hittable_lst *lst);
+float		hit_sphere(t_sphere *s, t_ray r);
 
 //color_utils
-void	write_color(t_vec4 color, int x, int y, t_win win);
+void		write_color(t_vec4 color, int x, int y, t_win win);
 
 //vec_utils
-float	length_squared(t_vec4 v);
-float	length(t_vec4 v);
-float dot(const t_vec4 u, const t_vec4 v);
-t_vec4 cross(const t_vec4 u, const t_vec4 v);
-t_vec4 unit_vector(t_vec4 v);
-bool plane_hit(t_hittable hit, t_plane *p);
-
+float		length_squared(t_vec4 v);
+float		length(t_vec4 v);
+float		dot(const t_vec4 u, const t_vec4 v);
+t_vec4		cross(const t_vec4 u, const t_vec4 v);
+t_vec4		unit_vector(t_vec4 v);
+bool		plane_hit(t_hittable hit, t_plane *p);
 #endif // MINIRT_H

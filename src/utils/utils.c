@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 16:18:56 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/13 13:03:10 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/14 15:57:29 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ctof_dec(char *s, double *d)
 
 	f = 0;
 	mul = 1;
-	while(ft_isdigit(*s))
+	while (ft_isdigit(*s))
 	{
 		mul /= 10;
 		f = f * 10 + (*s - '0');
@@ -56,7 +56,7 @@ int	ctof(char *s, float *f)
 	if (*s == '.' && ctof_dec(++s, &d) && *s)
 		return (EXIT_FAILURE);
 	*f = d * sign;
-	return (EXIT_SUCCESS);	
+	return (EXIT_SUCCESS);
 }
 
 float	deg_to_rad(float deg)

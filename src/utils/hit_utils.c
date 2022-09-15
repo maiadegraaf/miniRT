@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 09:45:47 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 13:06:27 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/15 11:39:53 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ float	hit_sphere(t_sphere *s, t_ray r)
 	float	c;
 	float	disc;
 
-	oc = r.orig - s->center; 
+	oc = r.orig - s->center;
 	a = length_squared(r.dir);
 	half_b = dot(oc, r.dir);
 	c = length_squared(oc) - (s->radius * s->radius);

@@ -1,46 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ray_utils.c                                        :+:    :+:            */
+/*   ray.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
+/*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/31 17:34:40 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/13 18:16:15 by mgraaf        ########   odam.nl         */
+/*   Created: 2022/09/14 14:49:06 by maiadegraaf   #+#    #+#                 */
+/*   Updated: 2022/09/15 09:51:35 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
 
-t_hittable_lst	*find_world_touched_first(t_ray r, t_hittable_lst *world)
+int	closest_obj(t_ray r, t_hittable_lst *world, bool *ret)
 {
+	int				i;
+	int				j;
 	t_hittable		hit;
-	float	tmp_t;
-	int	i;
-	t_hittable_lst	*start;
-	int 			j;
-	bool			ret;
+	float			tmp_t;
 
 	hit = hittable_init(&r, 0, INFINITY, hit_rec_init_empty());
 	i = 0;
 	j = 0;
-	start = world;
 	tmp_t = INFINITY;
-	ret = false;
-	while (start)
+	while (world)
 	{
-		if (hit_hittable_list(hit, start))
+		if (hit_hittable_list(hit, world))
 		{
 			if (hit.rec->t < tmp_t)
 			{
 				tmp_t = hit.rec->t;
 				i = j;
 			}
-			ret = true;
+			*ret = true;
 		}
 		j++;
-		start = start->next;
+		world = world->next;
 	}
+	return (i);
+}
+
+t_hittable_lst	*find_world_touched_first(t_ray r, t_hittable_lst *world)
+{
+	int				i;
+	int				j;
+	bool			ret;
+
+	ret = false;
+	i = closest_obj(r, world, &ret);
 	j = 0;
 	while (i != 0 && world && j < i)
 	{
@@ -52,7 +59,7 @@ t_hittable_lst	*find_world_touched_first(t_ray r, t_hittable_lst *world)
 	return (NULL);
 }
 
-t_vec4 ray_color(t_ray r, t_elements *elements)
+t_vec4	ray_color(t_ray r, t_elements *elements)
 {
 	t_hittable		hit;
 	t_lighting		lighting;
@@ -65,31 +72,9 @@ t_vec4 ray_color(t_ray r, t_elements *elements)
 	{
 		lighting = get_point_light(*elements->light, hit, world);
 		if (lighting.if_s == true)
-			return (BLACK + elements->ambient->color);
-		return ((world->color * elements->ambient->color) +  lighting.diff + lighting.spec);
+			return ((world->color * elements->ambient->color) / 2);
+		return ((world->color * elements->ambient->color)
+			+ lighting.diff + lighting.spec);
 	}
-	return ((BLACK));
-}
-
-t_vec4 ray_at(t_ray r, float t)
-{
-	return (r.orig + (t * r.dir));
-}
-
-t_ray ray_init(t_vec4 o, t_vec4 d)
-{
-	t_ray	r;
-	r.orig = o;
-	r.dir = d;
-	return (r);
-}
-
-t_ray	get_ray(t_cam cam, float i, float j, t_win	win)
-{
-	float	u;
-	float	v;
-
-	u = ((float) i) / (win.w - 1);
-	v = ((float) j) / (win.h - 1);
-	return (ray_init(cam.orig, cam.btm_left_cnr + (u * cam.horiz) + (v * cam.vert) - cam.orig));
+	return ((t_vec4){0, 0, 0, 0});
 }

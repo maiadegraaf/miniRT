@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   hittable_utils.c                                   :+:    :+:            */
+/*   lighting_utils.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/02 14:40:10 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 14:56:44 by maiadegraaf   ########   odam.nl         */
+/*   Created: 2022/09/06 14:20:28 by mgraaf        #+#    #+#                 */
+/*   Updated: 2022/09/14 16:06:32 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hittable.h"
+#include "lighting.h"
 
-t_hittable	hittable_init(t_ray *r, float t_min, float t_max, t_hit_record *rec)
+t_point_light	point_light_init(t_vec4 position, t_vec4 color, float power)
 {
-	t_hittable	h;
+	t_point_light	node;
 
-	h.r = r;
-	h.t_min = t_min;
-	h.t_max = t_max;
-	h.rec = rec;
-	return (h);
+	node.position = position;
+	node.diff_color = color;
+	node.diff_power = power;
+	node.spec_color = (t_vec4){1, 1, 1, 1};
+	node.spec_power = 2;
+	return (node);
 }

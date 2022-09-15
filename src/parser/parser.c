@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 12:28:29 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/12 11:29:29 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/15 09:33:26 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,37 @@ void	assign_element(char *line, t_tokens t, t_elements *element)
 		if (element->ambient == NULL)
 			element->ambient = ambient_assign(line);
 		else
-			ft_error(21);
+			ft_error_str(21, "An ambient light");
 	}
 	else if (t == C)
 	{
 		if (element->cam == NULL)
 			element->cam = cam_assign(line);
 		else
-			ft_error(22);
+			ft_error_str(21, "A camera");
 	}
 	else if (t == L)
 	{
 		if (element->light == NULL)
 			element->light = point_light_assign(line);
 		else
-			ft_error(23);
+			ft_error_str(21, "A light");
 	}
 	else if (t == SP || t == PL || t == CY)
 		hittable_lst_assign(line, t, &element->objs);
-} 
+}
+
+void	check_elements(t_elements elements)
+{
+	if (elements.cam == NULL)
+		ft_error(5);
+	if (elements.ambient == NULL)
+		ft_printf("The rt file does not include an ambient light.\n");
+	if (elements.light == NULL)
+		ft_printf("The rt file does not include a light.\n");
+	if (elements.objs == NULL)
+		ft_printf("The rt file does not include objects.\n");
+}
 
 t_elements	parse_input(char *file)
 {
@@ -53,11 +65,13 @@ t_elements	parse_input(char *file)
 	elements = elements_init_empty();
 	while (line)
 	{
-		assign_element(line, 
-			return_type(line_to_chunk(line)), &elements);
+		if (ft_strncmp(line, "\n", ft_strlen(line)))
+			assign_element(line,
+				return_type(line_to_chunk(line)), &elements);
 		free(line);
 		line = get_next_line(fd);
 	}
 	free(line);
+	check_elements(elements);
 	return (elements);
 }

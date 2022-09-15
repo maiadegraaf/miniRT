@@ -6,13 +6,13 @@
 #    By: W2Wizard <w2.wizzard@gmail.com>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/26 21:36:38 by W2Wizard      #+#    #+#                  #
-#    Updated: 2022/07/05 14:53:23 by jobvan-d      ########   odam.nl          #
+#    Updated: 2022/09/14 15:47:33 by maiadegraaf   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 #//= Colors =//#
 BOLD	:= \033[1m
-BLACK	:= \033[30;1m
+(t_vec4){0, 0, 0, 0}	:= \033[30;1m
 RED		:= \033[31;1m
 GREEN	:= \033[32;1m
 YELLOW	:= \033[33;1m

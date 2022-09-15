@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 11:13:58 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/14 15:54:41 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ t_vec4	antialiasing(int i, int j, t_elements elements, t_win win)
 		t = 0.1;
 		while (t < 1)
 		{
-			color = color + ray_color(get_ray(*elements.cam, i + s, j + t, win), &elements);
+			color = color + ray_color(
+					get_ray(*elements.cam, i + s, j + t, win), &elements);
 			t += 0.1;
 		}
 		s += 0.1;
