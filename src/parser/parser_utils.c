@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:20:52 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 17:00:31 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/15 09:40:10 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ t_tokens	return_type(char *s)
 	t = 0;
 	if (!ft_strncmp(s, "A", ft_strlen(s)))
 		t = A;
-	else if (!ft_strncmp(s, "C", ft_strlen(s)))
+	else if (!ft_strncmp(s, "C", 1))
 		t = C;
-	else if (!ft_strncmp(s, "L", ft_strlen(s)))
+	else if (!ft_strncmp(s, "L", 1))
 		t = L;
-	else if (!ft_strncmp(s, "sp", ft_strlen(s)))
+	else if (!ft_strncmp(s, "sp", 2))
 		t = SP;
-	else if (!ft_strncmp(s, "pl", ft_strlen(s)))
+	else if (!ft_strncmp(s, "pl", 2))
 		t = PL;
-	else if (!ft_strncmp(s, "cy", ft_strlen(s)))
+	else if (!ft_strncmp(s, "cy", 2))
 		t = CY;
-	else if (!ft_strncmp(s, "#", ft_strlen(s)))
+	else if (!ft_strncmp(s, "#", 1))
 		t = '#';
 	else
 		ft_error_str(5, s);
