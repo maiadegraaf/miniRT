@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 09:45:47 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/15 11:39:53 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/15 14:46:06 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ bool	hit_hittable_list(t_hittable hit, t_hittable_lst *lst)
 		if (tmp_rec.t < closest_so_far)
 			closest_so_far = tmp_rec.t;
 		hit.rec = &tmp_rec;
+		
 	}
 	return (hit_anything);
 }
