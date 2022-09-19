@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/19 12:55:38 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/19 13:07:46 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,7 @@ bool		plane_hit(t_hittable hit, t_plane *p);
 //paint_img
 void		paint_img(t_win	win, t_elements elements);
 void		create_painters(t_win win, t_elements elements);
-// void		*paint_img(void *tmp);
-// t_vec4		antialiasing(int i, int j, t_elements elements, t_win win);
-t_vec4		send_antialiasing(int i, int j, t_elements elements, t_win win);
-void		*antialiasing(void *tmp);
+t_vec4		antialiasing(int i, int j, t_elements elements, t_win win);
 bool		cylinder_hit(t_hittable hit, t_cylinder *cyl);
 
 
