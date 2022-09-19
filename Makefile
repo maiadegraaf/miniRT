@@ -41,6 +41,7 @@ src	=	src/main.c \
 		src/utils/hittable_list_create_utils.c \
 		src/utils/hittable_lst_utils.c \
 		src/utils/hittable_utils.c \
+		src/utils/math_utils.c \
 		src/utils/plane_utils.c \
 		src/utils/range_utils.c \
 		src/utils/sphere_utils.c \

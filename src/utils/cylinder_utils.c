@@ -6,55 +6,59 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 10:57:57 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/19 12:53:10 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/19 15:59:02 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cylinder.h"
 
-t_cylinder	*cylinder_init(t_vec4 center, t_vec4 orientation,
-	float diameter, float height)
-{
-	t_cylinder	*c;
+// t_cylinder	*cylinder_init(t_vec4 center, t_vec4 n,
+// 	float diameter, float height)
+// {
+// 	t_cylinder	*c;
 
-	c = malloc(sizeof(t_cylinder));
-	if (!c)
-		ft_error(10);
-	c->center = center;
-	c->orientation = orientation;
-	c->diameter = diameter;
-	c->height = height;
-	return (c);
+// 	c = malloc(sizeof(t_cylinder));
+// 	if (!c)
+// 		ft_error(10);
+// 	c->center = center;
+// 	c->n = n;
+// 	c->diameter = diameter;
+// 	c->height = height;
+// 	return (c);
+// }
+
+float	cylinder_infinate(t_hittable hit, t_cylinder *cyl)
+{
+	t_abc	abc;
+	t_ray	rray;
+	float	t;
+	float	y;
+
+	rray.orig = hit.r->orig - cyl->center;
+	rray.orig = rodrigues(rray.orig, cyl->axis, cyl->angle);
+	rray.dir = rodrigues(hit.r->dir, cyl->axis, cyl->angle);
+	abc.a = rray.dir[0] * rray.dir[0] + rray.dir[2] * rray.dir[2];
+	abc.b = 2 * (rray.dir[0] * rray.orig[0] + rray.dir[2] * rray.orig[2]);
+	abc.c = rray.orig[0] * rray.orig[0] + rray.orig[2] * rray.orig[2]
+		- pow(cyl->radius, 2);
+	t = quadratic(abc);
+	if (t < 0)
+		return (-1);
+	y = rray.orig[1] + t * rray.dir[1];
+	if (y < 0 || y > cyl->height)
+		return (-1);
+	return (t);
 }
 
-
-bool cylinder_hit(t_hittable hit, t_cylinder *cyl)
+bool	cylinder_hit(t_hittable hit, t_cylinder *cyl)
 {
-	float	a;
-	float	b;
-	float	c;
-	float	delta;
-	t_vec4	e;
-	t_vec4	f;
-
-	e = hit.r->dir - (dot(hit.r->dir, cyl->orientation) / dot(cyl->orientation, cyl->orientation))*cyl->orientation;
-	f = (hit.r->orig - cyl->center) - (dot(hit.r->orig - cyl->center, cyl->orientation)/ dot(cyl->orientation, cyl->orientation))*cyl->orientation;
-	a = dot(e,e);
-	b = 2*dot(e,f);
-	c = dot(f,f) - pow((cyl->diameter / 2), 2);
-	delta = pow(b, 2) - 4*a*c;
-	hit.rec->t = (-b - sqrt(delta)) / (2*a);
-	if (hit.rec->t < hit.t_min || hit.t_max < hit.rec->t)
+	hit.rec->t = cylinder_infinate(hit, cyl);
+	if (hit.rec->t >= 0)
 	{
-		hit.rec->t = (-b + sqrt(delta)) / (2*a);
-		if (hit.rec->t < hit.t_min || hit.t_max < hit.rec->t)
-			return (false);
+		hit.rec->p = ray_at(*hit.r, hit.rec->t);
+		set_face_normal(hit.rec, *hit.r,
+			(hit.rec->p - (cyl->center + hit.rec->p * cyl->n)));
+		return (true);
 	}
-	hit.rec->p = ray_at(*hit.r, hit.rec->t);
-	// float height_point;
-	// height_point = cyl->height / sqrt(pow(fabs(cyl->orientation[1]), 2));
-	// if (hit.rec->p[1] > cyl->center[1] + height_point || hit.rec->p[1] < cyl->center[1] + height_point)
-	// 	return (false);
-	set_face_normal(hit.rec, *hit.r, (hit.rec->p - (cyl->center + hit.rec->p * cyl->orientation)));
-	return (true);
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:31 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/15 11:39:43 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/19 15:28:09 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,20 @@ t_sphere	*parse_sphere(char *line, t_vec4 *color)
 t_cylinder	*parse_cylinder(char *line, t_vec4 *color)
 {
 	t_cylinder	*new;
+	float		diameter;
 	t_vec4		c;
 
 	new = malloc(sizeof(t_cylinder));
 	if (!new)
 		ft_error(10);
 	line = read_vec4(line, &new->center, 1, 0);
-	line = read_vec4(line, &new->orientation, -1, 1);
-	line = read_float(line, &new->diameter, 1, 0);
+	line = read_vec4(line, &new->n, -1, 1);
+	line = read_float(line, &diameter, 1, 0);
+	new->radius = diameter / 2;
 	line = read_float(line, &new->height, 1, 0);
 	line = read_vec4(line, &c, 0, 255);
+	new->angle = angle(new->n, (t_vec4){0, 1, 0});
+	new->axis = unit_vector(cross(new->n, (t_vec4){0, 1, 0}));
 	*color = c / 255;
 	return (new);
 }
