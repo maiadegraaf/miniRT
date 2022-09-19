@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/15 16:18:31 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/16 12:33:46 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,5 @@ float		dot(const t_vec4 u, const t_vec4 v);
 t_vec4		cross(const t_vec4 u, const t_vec4 v);
 t_vec4		unit_vector(t_vec4 v);
 bool		plane_hit(t_hittable hit, t_plane *p);
+bool		cylinder_hit(t_hittable hit, t_cylinder *cyl);
 #endif // MINIRT_H

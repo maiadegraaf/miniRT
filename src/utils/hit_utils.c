@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 09:45:47 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/15 14:46:06 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/16 12:33:13 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ bool	send_shape(t_hittable hit, t_hittable_lst *lst)
 		return(sphere_hit(hit, lst->s));
 	else if(lst->p)
 		return(plane_hit(hit, lst->p));
+	else if(lst->c)
+		return(cylinder_hit(hit, lst->c));
 	return (false);
 }
 

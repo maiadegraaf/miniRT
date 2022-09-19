@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 11:00:02 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/15 14:36:00 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/16 15:12:05 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ bool plane_hit(t_hittable hit, t_plane *p)
 		hit.rec->n = p->vector * -1;
 	hit.rec->p = ray_at(*hit.r, t);
 	hit.rec->t = t;
+	set_face_normal(hit.rec, *hit.r, p->vector);
 	return (true);
 }
