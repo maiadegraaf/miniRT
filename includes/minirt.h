@@ -6,11 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2022/09/16 12:33:46 by fpolycar      ########   odam.nl         */
-=======
-/*   Updated: 2022/09/16 10:04:34 by mgraaf        ########   odam.nl         */
->>>>>>> a327c016fa92e9759b1467398a5bd256ee4de6e1
+/*   Updated: 2022/09/19 12:55:38 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
