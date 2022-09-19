@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 17:34:40 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 14:50:44 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/15 18:17:50 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_ray	ray_init(t_vec4 o, t_vec4 d)
 	return (r);
 }
 
-t_ray	get_ray(t_cam cam, float i, float j, t_win	win)
+t_ray	get_ray(t_cam cam, float i, float j, t_win win)
 {
 	float	u;
 	float	v;

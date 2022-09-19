@@ -12,6 +12,7 @@ PATHSE	=	src/error/
 PATHSP	=	src/parser/
 PATHSR	=	src/ray/
 PATHSL	=	src/lighting/
+PATHSPI	=	src/paint_img/
 
 BUILD_PATHS = $(PATHB) $(PATHO)
 
@@ -20,6 +21,8 @@ src	=	src/main.c \
 		src/lighting/lighting_utils.c \
 		src/lighting/lighting.c \
 		src/lighting/shadow.c \
+		src/paint_img/antialiasing.c \
+		src/paint_img/paint_img.c \
 		src/parser/ambient.c \
 		src/parser/camera.c \
 		src/parser/chunk_utils.c \
@@ -39,13 +42,15 @@ src	=	src/main.c \
 		src/utils/hittable_lst_utils.c \
 		src/utils/hittable_utils.c \
 		src/utils/plane_utils.c \
+		src/utils/range_utils.c \
 		src/utils/sphere_utils.c \
 		src/utils/utils.c \
 		src/utils/vec_utils.c
 
 OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))
 
-FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address 
+# FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=thread
+FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
 
 LIBFT	=	libft/libft.a
 
@@ -92,6 +97,10 @@ $(PATHO)%.o:: $(PATHSR)%.c $(HEADERS)
 
 $(PATHO)%.o:: $(PATHSL)%.c $(HEADERS)
 	@echo "Compiling ${notdir $<}			in	$(PATHSL)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSPI)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSPI)"
 	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 
 $(NAME): $(LIBFT) $(OBJS) $(MLX42) $(HEADERS)

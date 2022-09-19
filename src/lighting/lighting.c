@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/14 16:05:55 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/15 15:04:10 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/16 10:05:27 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ t_lighting	get_point_light(t_point_light light,
 		light_dir = light.position - hittable.rec->p;
 		distance = length(light_dir);
 		light_dir = unit_vector(light_dir);
-		// distance *= distance;
-		intensity = clamp(dot(hittable.rec->n, light_dir), 0, 1);
-		l.diff = 5 * world->color * intensity * light.diff_color
+		intensity = 4 * (float)clamp(dot(hittable.rec->n, light_dir), 0, 1);
+		l.diff = world->color * intensity * light.diff_color
 			* light.diff_power / distance;
 		h = unit_vector(-light_dir + hittable.r->dir);
 		intensity = pow((float)dot(hittable.rec->n, h), 120);
