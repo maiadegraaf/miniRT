@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/19 15:58:53 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/19 16:20:38 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ bool		plane_hit(t_hittable hit, t_plane *p);
 float		angle(t_vec4 v, t_vec4 u);
 float		quadratic(t_abc abc);
 t_vec4		rodrigues(t_vec4 v, t_vec4 axis, float angle);
+t_vec4		project(t_vec4 v, t_vec4 u);
 
 //paint_img
 void		paint_img(t_win	win, t_elements elements);

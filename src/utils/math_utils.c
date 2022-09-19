@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/19 14:59:10 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/19 16:00:30 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/19 16:24:17 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ float	quadratic(t_abc abc)
 		return (-1);
 	t = (-abc.b - sqrt(delta)) / (2 * abc.a);
 	t2 = (-abc.b + sqrt(delta)) / (2 * abc.a);
-	if (t2 < t || t < 0)
+	if ((t2 < t && t2 >= 0) || t < 0)
 		t = t2;
 	return (t);
 }
@@ -40,4 +40,9 @@ float	quadratic(t_abc abc)
 float	angle(t_vec4 v, t_vec4 u)
 {
 	return (acos(dot(v, u) / (length(v) * length(u))));
+}
+
+t_vec4	project(t_vec4 v, t_vec4 u)
+{
+	return (u * (dot(u, v) / dot(v, u)));
 }

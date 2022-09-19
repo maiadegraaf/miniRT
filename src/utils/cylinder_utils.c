@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 10:57:57 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/19 15:59:02 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/19 17:52:15 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,20 @@ float	cylinder_infinate(t_hittable hit, t_cylinder *cyl)
 	y = rray.orig[1] + t * rray.dir[1];
 	if (y < 0 || y > cyl->height)
 		return (-1);
+	hit.rec->p = ray_at(rray, t);
 	return (t);
+}
+
+t_vec4	cylinder_center(t_cylinder *cyl, t_vec4 point)
+{
+	t_vec4	center;
+
+	center = cyl->center + (t_vec4){0, point[1], 0};
+	// center = point[1] * cyl->center[1];
+	// cyl->center *= (t_vec4){1,0,1};
+	// center = point - cyl->center;
+	return (point - center);
+	// return ((t_vec3){point[0] - center[0], 0, 0);
 }
 
 bool	cylinder_hit(t_hittable hit, t_cylinder *cyl)
@@ -55,9 +68,10 @@ bool	cylinder_hit(t_hittable hit, t_cylinder *cyl)
 	hit.rec->t = cylinder_infinate(hit, cyl);
 	if (hit.rec->t >= 0)
 	{
-		hit.rec->p = ray_at(*hit.r, hit.rec->t);
-		set_face_normal(hit.rec, *hit.r,
-			(hit.rec->p - (cyl->center + hit.rec->p * cyl->n)));
+		// hit.rec->p = ray_at(*hit.r, hit.rec->t);
+		hit.rec->n = unit_vector(cylinder_center(cyl, hit.rec->p));
+		
+		// set_face_normal(hit.rec, *hit.r, cylinder_center(cyl, hit.rec->p));
 		return (true);
 	}
 	return (false);
