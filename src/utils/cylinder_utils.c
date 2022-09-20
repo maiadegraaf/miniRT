@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 10:57:57 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/20 13:21:13 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/20 14:06:52 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,25 @@ t_vec4	cylinder_center(t_cylinder *cyl, t_vec4 point)
 {
 	float	x;
 
-	x = dot(point - cyl->center, unit_vector(cyl->n));
-	printf("%f", x);
-	return (point - (x * unit_vector(cyl->n) + cyl->center));
+	x = dot(point - cyl->center, cyl->n);
+	return (point - (x * cyl->n + cyl->center));
+}
+
+bool	cylinder_cap(t_hittable hit, t_cylinder *cyl)
+{
+	t_plane		*plane;
+
+	// plane = plane_init(cyl->center, cyl->n);
+	// if (plane_hit(hit, plane))
+	// 	if (length(hit.rec->p - plane->point) < cyl->radius)
+	// 		return (true);
+	plane = plane_init(cyl->center + cyl->n * cyl->height, cyl->n);
+	if (plane_hit(hit, plane))
+	{
+		if (length(hit.rec->p - plane->point) < cyl->radius)
+			return (true);
+	}
+	return (false);
 }
 
 bool	cylinder_hit(t_hittable hit, t_cylinder *cyl)
@@ -65,9 +81,8 @@ bool	cylinder_hit(t_hittable hit, t_cylinder *cyl)
 	if (hit.rec->t >= 0)
 	{
 		hit.rec->p = ray_at(*hit.r, hit.rec->t);
-		// printf("%f %f\n", cyl->n[2], unit_vector(cyl->n)[2]);
 		hit.rec->n = unit_vector(cylinder_center(cyl, hit.rec->p));
 		return (true);
 	}
-	return (false);
+	return (cylinder_cap(hit, cyl));
 }

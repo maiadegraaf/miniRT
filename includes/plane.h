@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 10:22:37 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/16 10:04:58 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/20 13:34:52 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ typedef struct s_plane
 {
 	t_vec4	point;
 	t_vec4	vector;
-} t_plane;
+}	t_plane;
+
+t_plane	*plane_init(t_vec4 point, t_vec4 vector);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:31 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/19 15:28:09 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/20 14:06:14 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_cylinder	*parse_cylinder(char *line, t_vec4 *color)
 		ft_error(10);
 	line = read_vec4(line, &new->center, 1, 0);
 	line = read_vec4(line, &new->n, -1, 1);
+	new->n = unit_vector(new->n);
 	line = read_float(line, &diameter, 1, 0);
 	new->radius = diameter / 2;
 	line = read_float(line, &new->height, 1, 0);
