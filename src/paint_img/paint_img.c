@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:16:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/19 13:07:15 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/20 14:31:00 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,13 @@ void	paint_img(t_win	win, t_elements elements)
 			// NON ANTIALIASING:
 			color = ray_color(get_ray(*elements.cam, i, j, win), &elements);
 			// ANTIALIASING:
-			// color = send_antialiasing(i, j, elements, win);
+			// color = antialiasing(i, j, elements, win);
 			write_color(color, i, j, win);
 			i++;
 		}
 		j++;
 	}
 }
-
-
 
 int	join_threads(pthread_t painters[THREADS])
 {
