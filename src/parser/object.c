@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 13:34:31 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/20 14:06:14 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/21 13:07:48 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_plane	*parse_plane(char *line, t_vec4 *color)
 		ft_error(10);
 	line = read_vec4(line, &new->point, 1, 0);
 	line = read_vec4(line, &new->vector, -1, 1);
+	new->vector = unit_vector(new->vector);
 	line = read_vec4(line, &c, 0, 255);
 	*color = c / 255;
 	return (new);

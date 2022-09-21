@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 10:57:57 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/20 15:15:45 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/21 15:05:51 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,32 +65,22 @@ bool	cylinder_cap(t_hittable hit, t_cylinder *cyl)
 	t_hit_record	top;
 
 	plane = plane_init(cyl->center, cyl->n);
+	btm = *hit_rec_init_empty();
 	if (plane_hit(hit, plane))
 		btm = *hit.rec;
 	plane = plane_init(cyl->center + cyl->n * cyl->height, cyl->n);
 	if (plane_hit(hit, plane))
 		top = *hit.rec;
-	else
+	else if (btm.front_face && length(btm.p - plane->point) <= cyl->radius)
 	{
-		if (dot(btm.n, cyl->n) > 0)
-		{
-			// printf("HELLO\n");
-			btm.n = (t_vec4){0, 0, 0};
-		}
 		hit.rec = &btm;
 		return (true);
 	}
 	if (btm.t > top.t && length(top.p - plane->point) <= cyl->radius)
-	{
-		if (length(cylinder_center(cyl, hit.r->orig)) < cyl->radius)
-			hit.rec->n = (t_vec4){0, 0, 0};
 		return (true);
-	}
 	else if (length(btm.p - plane->point) <= cyl->radius)
 	{
 		hit.rec = &btm;
-		if (length(cylinder_center(cyl, hit.r->orig)) < cyl->radius)
-			hit.rec->n = (t_vec4){0, 0, 0};
 		return (true);
 	}
 	return (false);
@@ -103,9 +93,10 @@ bool	cylinder_hit(t_hittable hit, t_cylinder *cyl)
 	{
 		hit.rec->p = ray_at(*hit.r, hit.rec->t);
 		hit.rec->n = unit_vector(cylinder_center(cyl, hit.rec->p));
-		if (length(cylinder_center(cyl, hit.r->orig)) < cyl->radius)
-			hit.rec->n = (t_vec4){0, 0, 0};
+		// if (length(cylinder_center(cyl, hit.r->orig)) < cyl->radius)
+		// 	hit.rec->n = (t_vec4){0, 0, 0};
 		return (true);
 	}
+	// return(false);
 	return (cylinder_cap(hit, cyl));
 }
