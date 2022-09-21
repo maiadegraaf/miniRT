@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 10:57:57 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/21 15:09:40 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/21 15:10:31 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool	cylinder_cap(t_hittable hit, t_cylinder *cyl)
 	plane = plane_init(cyl->center + cyl->n * cyl->height, cyl->n);
 	if (plane_hit(hit, plane))
 		top = *hit.rec;
-	else if (btm.front_face && btm.t > top.t && length(btm.p - plane->point) <= cyl->radius)
+	else if (btm.front_face && length(btm.p - plane->point) <= cyl->radius)
 	{
 		hit.rec = &btm;
 		return (true);
