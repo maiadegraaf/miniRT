@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 10:57:57 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/21 15:10:31 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/21 15:23:05 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ bool	cylinder_cap(t_hittable hit, t_cylinder *cyl)
 		hit.rec = &btm;
 		return (true);
 	}
-	else if (btm.t > top.t && length(top.p - plane->point) <= cyl->radius)
+	if (btm.t > top.t && length(top.p - plane->point) <= cyl->radius)
 		return (true);
 	return (false);
 }
