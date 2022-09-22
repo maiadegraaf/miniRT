@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 10:57:57 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/22 14:25:46 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/22 14:34:10 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,7 @@ t_vec4	cylinder_center(t_cylinder *cyl, t_vec4 point)
 	return (point - (x * cyl->n + cyl->center));
 }
 
-bool	cylinder_cap(t_hittable hit, t_cylinder *cyl)
-{
-	t_plane			*plane;
-	t_hit_record	btm;
-	t_hit_record	top;
-
-	plane = plane_init(cyl->center, cyl->n);
-	if (plane_hit(hit, plane))
-		btm = *hit.rec;
-	plane = plane_init(cyl->center + cyl->n * cyl->height, cyl->n);
-	if (plane_hit(hit, plane))
-		top = *hit.rec;
-	else if (btm.front_face && length(btm.p - plane->point) <= cyl->radius)
-		return (true);
-	if (btm.t > top.t && length(top.p - plane->point) <= cyl->radius)
-		return (true);
-	return (false);
-}
-
-bool	cylinder_hit(t_hittable hit, t_cylinder *cyl)
+bool	cylinder_hit_shape(t_hittable hit, t_cylinder *cyl)
 {
 	hit.rec->t = cylinder_infinate(hit, cyl);
 	if (hit.rec->t >= 0)
@@ -73,6 +54,5 @@ bool	cylinder_hit(t_hittable hit, t_cylinder *cyl)
 			hit.rec->n = (t_vec4){0, 0, 0};
 		return (true);
 	}
-	return(false);
-	// return (cylinder_cap(hit, cyl));
+	return (false);
 }
