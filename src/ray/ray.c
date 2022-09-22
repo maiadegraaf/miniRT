@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/14 14:49:06 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/15 12:35:53 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/22 14:04:28 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_vec4	ray_color(t_ray r, t_elements *elements)
 	{
 		lighting = get_point_light(*elements->light, hit, world);
 		if (lighting.if_s == true)
-			return ((world->color * elements->ambient->color) / 2);
+			return ((world->color * elements->ambient->color));
 		return ((world->color * elements->ambient->color)
 			+ lighting.diff + lighting.spec);
 	}

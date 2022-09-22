@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 15:54:28 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/19 16:20:38 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include <float.h>
+# include <pthread.h>
 # include "../libft/libft.h"
 # include "lighting.h"
 # include "ray.h"
@@ -33,6 +34,7 @@
 # include "error.h"
 # define ASPECT_RATIO 1.7777777778
 # define WIDTH 1200
+# define THREADS 120
 
 typedef float					t_vec4 __attribute__ ((vector_size (16)));
 typedef struct s_ray			t_ray;
@@ -62,12 +64,6 @@ typedef struct s_win
 
 typedef struct s_cam
 {
-	float	vfov;
-	float	theta;
-	float	h;
-	float	vp_h;
-	float	vp_w;
-	float	focal_len;
 	t_vec4	orig;
 	t_vec4	horiz;
 	t_vec4	vert;
@@ -81,6 +77,34 @@ typedef struct s_elements
 	t_point_light	*light;
 	t_hittable_lst	*objs;
 }	t_elements;
+
+// typedef struct s_painter
+// {
+// 	int			x_min;
+// 	int			y_min;
+// 	int			x_max;
+// 	int			y_max;
+// 	int			w;
+// 	int			h;
+// 	t_elements	elements;
+// 	t_win		*win;
+// }	t_painter;
+
+typedef struct s_thread_data
+{
+	int			i;
+	int			j;
+	t_elements	elements;
+	t_win		win;
+	t_vec4		color;
+}	t_thread_data;
+
+typedef struct s_abc
+{
+	float	a;
+	float	b;
+	float	c;
+}	t_abc;
 
 //utils
 int			ctof(char *s, float *f);
@@ -103,5 +127,25 @@ float		length(t_vec4 v);
 float		dot(const t_vec4 u, const t_vec4 v);
 t_vec4		cross(const t_vec4 u, const t_vec4 v);
 t_vec4		unit_vector(t_vec4 v);
+
+//range_utils
+// t_range		range_init(int min, int max);
+
+//plane_utils
+bool		plane_hit(t_hittable hit, t_plane *p);
+
+//math_utils
+float		angle(t_vec4 v, t_vec4 u);
+float		quadratic(t_abc abc);
+t_vec4		rodrigues(t_vec4 v, t_vec4 axis, float angle);
+t_vec4		project(t_vec4 v, t_vec4 u);
+
+//paint_img
+void		paint_img(t_win	win, t_elements elements);
+void		create_painters(t_win win, t_elements elements);
+t_vec4		antialiasing(int i, int j, t_elements elements, t_win win);
+bool		cylinder_hit(t_hittable hit, t_cylinder *cyl);
+
+
 
 #endif // MINIRT_H

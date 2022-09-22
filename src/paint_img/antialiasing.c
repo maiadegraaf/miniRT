@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   color_utils.c                                      :+:    :+:            */
+/*   antialiasing.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/31 17:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/15 18:22:37 by mgraaf        ########   odam.nl         */
+/*   Created: 2022/09/15 14:16:28 by mgraaf        #+#    #+#                 */
+/*   Updated: 2022/09/19 13:07:31 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	create_rgba(int r, int g, int b, int a)
+t_vec4	antialiasing(int i, int j, t_elements elements, t_win win)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
-}
+	float	s;
+	float	t;
+	t_vec4	color;
 
-void	write_color(t_vec4 color, int x, int y, t_win win)
-{
-	int	ir;
-	int	ig;
-	int	ib;
-
-	ir = (int)(255.99 * clamp(color[0], 0, 0.999));
-	ig = (int)(255.99 * clamp(color[1], 0, 0.999));
-	ib = (int)(255.99 * clamp(color[2], 0, 0.999));
-	mlx_put_pixel(win.img, x, win.h - y - 1, create_rgba(ir, ig, ib, 255));
+	s = 0.1;
+	while (s < 1)
+	{
+		t = 0.1;
+		while (t < 1)
+		{
+			color = color + ray_color(
+					get_ray(*elements.cam, i + s, j + t, win), &elements);
+			t += 0.1;
+		}
+		s += 0.1;
+	}
+	color *= (float)0.01;
+	return (color);
 }

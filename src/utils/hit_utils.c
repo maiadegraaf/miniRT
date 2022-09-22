@@ -6,13 +6,24 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 09:45:47 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 14:58:25 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/16 12:33:13 by fpolycar      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// float (*f_hit(t_tokens token))
+bool	send_shape(t_hittable hit, t_hittable_lst *lst)
+{
+	if (!lst)
+		return(false);
+	if (lst->s)
+		return(sphere_hit(hit, lst->s));
+	else if(lst->p)
+		return(plane_hit(hit, lst->p));
+	else if(lst->c)
+		return(cylinder_hit(hit, lst->c));
+	return (false);
+}
 
 bool	hit_hittable_list(t_hittable hit, t_hittable_lst *lst)
 {
@@ -22,12 +33,13 @@ bool	hit_hittable_list(t_hittable hit, t_hittable_lst *lst)
 
 	hit_anything = false;
 	closest_so_far = hit.t_max;
-	if (sphere_hit(hit, lst->s))
+	if (send_shape(hit, lst))
 	{
 		hit_anything = true;
 		if (tmp_rec.t < closest_so_far)
 			closest_so_far = tmp_rec.t;
 		hit.rec = &tmp_rec;
+		
 	}
 	return (hit_anything);
 }
