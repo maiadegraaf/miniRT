@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:08:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/22 12:08:21 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/22 14:26:20 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(mlx, win.img, 0, 0);
 	mlx_key_hook(mlx, (mlx_keyfunc)_mlx_keypress, mlx);
 	free_elements(&elements);
-	system("leaks minirt");
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
