@@ -35,6 +35,7 @@ src	=	src/main.c \
 		src/ray/ray.c \
 		src/utils/color_utils.c \
 		src/utils/cylinder_utils.c \
+		src/utils/cylinder_faces_utils.c \
 		src/utils/elements_utils.c \
 		src/utils/hit_record_utils.c \
 		src/utils/hit_utils.c \
@@ -70,9 +71,9 @@ HEADER	=	.includes/minirt.h \
 	
 INCLUDES =	-Iincludes -I$(LIBFTP)
 
-# GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
+GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
 # GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # pro
-GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # iMac
+# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # iMac
 
 all: $(BUILD_PATHS) $(NAME)
 
