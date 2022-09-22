@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 09:34:48 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 15:55:09 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/22 11:22:27 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ char	*line_to_chunk(char *line)
 
 	line = skip_spaces(line);
 	len = chunk_len(line);
-	chunk = ft_calloc(len, sizeof(char));
-	if (!chunk)
-		ft_error(10);
 	chunk = ft_substr(line, 0, len);
 	return (chunk);
 }

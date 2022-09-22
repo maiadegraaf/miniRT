@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/14 16:06:17 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/15 16:30:16 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/22 13:35:17 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,19 @@ bool	find_object_in_front(t_hittable light_hit, t_ray r,
 	start = ft_hittable_lstlast(world);
 	hit_hittable_list(light_hit, world);
 	tmp_t = light_hit.rec->t;
-	// world = ft_hittable_lstlast(world);
 	while (start)
 	{
 		if (hit_hittable_list(hit, start))
 		{
 			if (hit.rec->t < tmp_t)
+			{
+				free (hit.rec);
 				return (true);
+			}
 		}
 		start = start->prev;
 	}
+	free (hit.rec);
 	return (false);
 }
 
@@ -43,4 +46,5 @@ void	check_shadow(t_hittable_lst *world, t_ray light_r, t_lighting *l)
 	light_hit = hittable_init(&light_r, 0, INFINITY, hit_rec_init_empty());
 	if (find_object_in_front(light_hit, light_r, world))
 		l->if_s = true;
+	free (light_hit.rec);
 }

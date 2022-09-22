@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/14 14:49:06 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/22 14:04:28 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/22 14:33:47 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	closest_obj(t_ray r, t_hittable_lst *world, bool *ret)
 		j++;
 		world = world->next;
 	}
+	free (hit.rec);
 	return (i);
 }
 
@@ -71,10 +72,12 @@ t_vec4	ray_color(t_ray r, t_elements *elements)
 	if (world && hit_hittable_list(hit, world))
 	{
 		lighting = get_point_light(*elements->light, hit, world);
+		free (hit.rec);
 		if (lighting.if_s == true)
-			return ((world->color * elements->ambient->color));
+			return (world->color * elements->ambient->color);
 		return ((world->color * elements->ambient->color)
 			+ lighting.diff + lighting.spec);
 	}
+	free (hit.rec);
 	return ((t_vec4){0, 0, 0, 0});
 }

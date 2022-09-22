@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 15:49:10 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/14 15:56:45 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/22 11:29:36 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void	ft_hittable_lstclear(t_hittable_lst **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
+		if ((*lst)->c)
+			free((*lst)->c);
+		if ((*lst)->s)
+			free((*lst)->s);
+		if ((*lst)->p)
+			free((*lst)->p);
 		free(*lst);
 		*lst = tmp;
 	}

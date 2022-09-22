@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 15:14:48 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/16 15:12:42 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/22 12:14:32 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_hit_record	*hit_rec_init_empty(void)
 
 	rec = malloc(sizeof(t_hit_record));
 	if (!rec)
-		perror("OH NO A MALLOC ERROR:");
+		ft_error(10);
 	rec->p = (t_vec4){0};
 	rec->n = (t_vec4){0};
 	rec->t = 0;

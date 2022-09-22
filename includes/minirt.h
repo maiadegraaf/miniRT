@@ -6,7 +6,7 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 16:12:16 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/19 16:20:38 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/22 13:50:44 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,6 @@ typedef struct s_elements
 	t_point_light	*light;
 	t_hittable_lst	*objs;
 }	t_elements;
-
-// typedef struct s_painter
-// {
-// 	int			x_min;
-// 	int			y_min;
-// 	int			x_max;
-// 	int			y_max;
-// 	int			w;
-// 	int			h;
-// 	t_elements	elements;
-// 	t_win		*win;
-// }	t_painter;
 
 typedef struct s_thread_data
 {
