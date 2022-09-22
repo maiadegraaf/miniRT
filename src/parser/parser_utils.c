@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
 /*   parser_utils.c                                     :+:    :+:            */
@@ -57,12 +57,15 @@ t_tokens	return_type(char *s)
 char	*read_float(char *line, float *o, float min, float max)
 {
 	float	f;
+	char	*s;
 
 	line = find_next_chunk(line);
 	if (!line)
 		ft_error(4);
-	if (ctof(line_to_chunk(line), &f))
+	s = line_to_chunk(line);
+	if (ctof(s, &f))
 		ft_error_str(2, line);
+	free(s);
 	if (min < max && (f < min || f > max))
 		ft_error_str(3, line);
 	*o = f;

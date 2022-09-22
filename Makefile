@@ -13,6 +13,7 @@ PATHSP	=	src/parser/
 PATHSR	=	src/ray/
 PATHSL	=	src/lighting/
 PATHSPI	=	src/paint_img/
+PATHSS	=	src/shapes/
 
 BUILD_PATHS = $(PATHB) $(PATHO)
 
@@ -33,25 +34,25 @@ src	=	src/main.c \
 		src/parser/vec4_parse.c \
 		src/ray/ray_utils.c \
 		src/ray/ray.c \
+		src/shapes/cylinder_utils.c \
+		src/shapes/hittable_list_create_utils.c \
+		src/shapes/hittable_lst_utils.c \
+		src/shapes/plane_utils.c \
+		src/shapes/sphere_utils.c \
 		src/utils/color_utils.c \
-		src/utils/cylinder_utils.c \
 		src/utils/elements_utils.c \
 		src/utils/hit_record_utils.c \
 		src/utils/hit_utils.c \
-		src/utils/hittable_list_create_utils.c \
-		src/utils/hittable_lst_utils.c \
 		src/utils/hittable_utils.c \
 		src/utils/math_utils.c \
-		src/utils/plane_utils.c \
 		src/utils/range_utils.c \
-		src/utils/sphere_utils.c \
 		src/utils/utils.c \
 		src/utils/vec_utils.c
 
 OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))
 
 # FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=thread
-FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=address
+FLAGS	=	-Wall -Werror -Wextra #-g -fsanitize=address
 
 LIBFT	=	libft/libft.a
 
@@ -70,9 +71,9 @@ HEADER	=	.includes/minirt.h \
 	
 INCLUDES =	-Iincludes -I$(LIBFTP)
 
-# GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
+GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
 # GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # pro
-GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # iMac
+# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # iMac
 
 all: $(BUILD_PATHS) $(NAME)
 
@@ -102,6 +103,10 @@ $(PATHO)%.o:: $(PATHSL)%.c $(HEADERS)
 
 $(PATHO)%.o:: $(PATHSPI)%.c $(HEADERS)
 	@echo "Compiling ${notdir $<}			in	$(PATHSPI)"
+	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
+
+$(PATHO)%.o:: $(PATHSS)%.c $(HEADERS)
+	@echo "Compiling ${notdir $<}			in	$(PATHSS)"
 	@$(CC) -c $(FLAGS) $(INCLUDES) $< -o $@
 
 $(NAME): $(LIBFT) $(OBJS) $(MLX42) $(HEADERS)
