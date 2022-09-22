@@ -6,7 +6,7 @@
 /*   By: fpolycar <fpolycar@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 14:21:22 by fpolycar      #+#    #+#                 */
-/*   Updated: 2022/09/22 14:29:04 by fpolycar      ########   odam.nl         */
+/*   Updated: 2022/09/22 15:01:32 by mgraaf        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ bool	cylinder_cap_bottom(t_hittable hit, t_cylinder *cyl)
 	{
 		if (dot(hit.rec->n, cyl->n) > 0)
 			hit.rec->n = (t_vec4){0, 0, 0};
+		free(plane);
 		return (true);
 	}
+	free(plane);
 	return (false);
 }
 
@@ -37,8 +39,10 @@ bool	cylinder_cap_top(t_hittable hit, t_cylinder *cyl)
 	{
 		if (dot(hit.rec->n, cyl->n) < 0)
 			hit.rec->n = (t_vec4){0, 0, 0};
+		free(plane);
 		return (true);
 	}
+	free(plane);
 	return (false);
 }
 
