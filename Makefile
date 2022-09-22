@@ -34,6 +34,7 @@ src	=	src/main.c \
 		src/parser/vec4_parse.c \
 		src/ray/ray_utils.c \
 		src/ray/ray.c \
+		src/shapes/cylinder_faces_utils.c \
 		src/shapes/cylinder_utils.c \
 		src/shapes/hittable_list_create_utils.c \
 		src/shapes/hittable_lst_utils.c \
