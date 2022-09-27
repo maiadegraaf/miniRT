@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 12:28:29 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/22 11:32:25 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/09/27 09:52:45 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,21 @@ void	assign_element(char *line, t_tokens t, t_elements *element)
 		hittable_lst_assign(line, t, &element->objs);
 }
 
-void	check_elements(t_elements elements)
+void	check_elements(t_elements *elements)
 {
-	if (elements.cam == NULL)
+	if (elements->cam == NULL)
 		ft_error(5);
-	if (elements.ambient == NULL)
+	if (elements->ambient == NULL)
+	{
+		elements->ambient = ambient_empty();
 		ft_printf("The rt file does not include an ambient light.\n");
-	if (elements.light == NULL)
+	}
+	if (elements->light == NULL)
+	{
+		elements->light = point_light_empty();
 		ft_printf("The rt file does not include a light.\n");
-	if (elements.objs == NULL)
+	}
+	if (elements->objs == NULL)
 		ft_printf("The rt file does not include objects.\n");
 }
 
@@ -72,6 +78,6 @@ t_elements	parse_input(char *file)
 		line = get_next_line(fd);
 	}
 	free(line);
-	check_elements(elements);
+	check_elements(&elements);
 	return (elements);
 }

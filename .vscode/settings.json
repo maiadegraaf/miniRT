@@ -5,6 +5,7 @@
 		"hittable.h": "c",
 		"minirt.h": "c",
 		"queue": "c",
-		"random": "c"
+		"random": "c",
+		"parser.h": "c"
 	}
 }

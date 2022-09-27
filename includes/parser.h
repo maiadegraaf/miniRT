@@ -6,7 +6,7 @@
 /*   By: maiadegraaf <maiadegraaf@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 12:33:28 by maiadegraaf   #+#    #+#                 */
-/*   Updated: 2022/09/14 15:54:36 by maiadegraaf   ########   odam.nl         */
+/*   Updated: 2022/09/27 09:50:06 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ char			*line_to_chunk(char *line);
 int				ctovec4(char *s, t_vec4 *vec4);
 
 //ambient
+t_ambient		*ambient_empty(void);
 t_ambient		*ambient_assign(char *line);
 
 //camera
 t_cam			*cam_assign(char *line);
 
 //light
+t_point_light	*point_light_empty(void);
 t_point_light	*point_light_assign(char *line);
 
 //object
