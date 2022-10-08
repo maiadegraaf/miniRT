@@ -7,12 +7,19 @@
 ## Table of Contents
 - [The Challenge](#the-challenge)
 - [Implementation](#implementation)
-- [Demonstration](#demonstration)
 - [Installation](#installation)
 
 ## The Challenge
+The goal of miniRT is to create a basic ray tracer that can implement 3 simple geometric objects: **plane**, **sphere**, and a **cylinder**.  The intersections between each object has to be handled correctly, as well as the inside.  The objects as well as the 
 
 ## Implementation
+### Parsing
+
+
+### Setting up the Camera
+### Sphere
+### Cylinder
+### Plane
 
 ## Installation
 ### Clone the repository:

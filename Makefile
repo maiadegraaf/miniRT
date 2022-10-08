@@ -52,8 +52,11 @@ src	=	src/main.c \
 
 OBJS	=	$(addprefix $(PATHO), $(notdir $(patsubst %.c, %.o, $(src))))
 
-# FLAGS	=	-Wall -Werror -Wextra -g -fsanitize=thread
-FLAGS	=	-Wall -Werror -Wextra #-g -fsanitize=address
+ifdef ANTIALIAS
+FLAGS	=	-Wall -Werror -Wextra -DANTI=1
+else
+FLAGS	=	-Wall -Werror -Wextra -DANTI=5
+endif
 
 LIBFT	=	libft/libft.a
 
@@ -73,8 +76,8 @@ HEADER	=	.includes/minirt.h \
 INCLUDES =	-Iincludes -I$(LIBFTP)
 
 # GLFW_LIB = -L /Users/$(USER)/.brew/opt/glfw/lib/ # CODAM
-GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # pro
-# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # iMac
+# GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.6/lib # pro
+GLFW_LIB = -L /opt/homebrew/Cellar/glfw/3.3.8/lib # iMac
 
 all: $(BUILD_PATHS) $(NAME)
 
@@ -125,6 +128,9 @@ $(PATHB):
 
 $(PATHO):
 	@$(MKDIR) $(PATHO)
+
+anti:
+	@$(MAKE) re ANTIALIAS=1
 
 clean:
 	@echo "Cleaning"

@@ -6,13 +6,11 @@
 /*   By: mgraaf <mgraaf@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:16:41 by mgraaf        #+#    #+#                 */
-/*   Updated: 2022/09/22 14:33:08 by mgraaf        ########   odam.nl         */
+/*   Updated: 2022/10/08 16:21:59 by maiadegraaf   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-			// ANTIALIASING:
-			// color = antialiasing(i, j, elements, win);
 
 void	paint_img(t_win	win, t_elements elements)
 {
@@ -26,7 +24,10 @@ void	paint_img(t_win	win, t_elements elements)
 		i = 0;
 		while (i < win.w)
 		{
-			color = ray_color(get_ray(*elements.cam, i, j, win), &elements);
+			if (ANTI == 1)
+				color = antialiasing(i, j, elements, win);
+			else
+				color = ray_color(get_ray(*elements.cam, i, j, win), &elements);
 			write_color(color, i, j, win);
 			i++;
 		}

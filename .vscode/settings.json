@@ -6,6 +6,8 @@
 		"minirt.h": "c",
 		"queue": "c",
 		"random": "c",
-		"parser.h": "c"
+		"parser.h": "c",
+		"iosfwd": "cpp",
+		"string": "cpp"
 	}
 }
