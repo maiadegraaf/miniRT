@@ -16,7 +16,7 @@ The goal of miniRT is to create a basic ray tracer that can implement 3 simple g
 ## Implementation
 This project was quite different from all the projects I had worked on previously as it was very math heavy, which was quite new to me.  So we started by following [this](https://raytracing.github.io/books/RayTracingInOneWeekend.html) tutorial which introduced us to the basic concepts such as the camera and spheres, and all the nitty gritty stuff like vectors, which I had never worked with before.
 
-As vectors form a large part of the calculations in this project we decided to use [``__attribute__ ((vector_size (16)));``](https://gcc.gnu.org/onlinedocs/gcc/Vector-Extensions.html), a GNU library that includes basic math operations such as addition, subtraction, division, and multiplication.  This greatly simplified our code and made it much more readable.
+As vectors form a large part of the calculations in this project we decided to use [``__attribute__ ((vector_size (16)));``](https://gcc.gnu.org/onlinedocs/gcc/Vector-Extensions.html), a GNU library that includes basic math operations such as addition, subtraction, division, and multiplication.  This greatly simplified our code and made it much more readable.  It also meant we didn't have to make a whole library of vector math functions.
 
 ### Parsing
 The first thing our program does is read from the `.rt` file it receives as argument.  Then using `get_next_line()` it reads through the file line by line. 
@@ -90,7 +90,17 @@ Essentially as it reads through each line it checks what the first character is,
 As the camera, light, and ambient light can only be declared once in the scene, the parser throws an error if multiple are declared.  Further if there is no camera, the program also sends an error and exits the program.  However the scene is missing an (ambient) light or objects, it sends a warning but still renders the scene.
 
 ### Setting up the Camera
-As each ray is calculated based upon the bottom left corner of the camera, t
+As each ray is calculated based upon the bottom left corner of the camera, this is determined during the parsing stage using the following formula:
+
+$x = C - \frac{w\cdot\overrightarrow{|r|}}{2} - \frac{h\cdot \overrightarrow{|u|}}{2}$
+
+Where:
+- $x$ is the bottom left corner
+- $C$ is the camera origin
+- $w$ is the viewpoint width. Which is calculated with:
+  - $w = \tan (\frac{fov}{2})$ where $fov$ is `field of view`
+- $R$ is a normalized orientation vector 
+
 
 ### Sphere
 ### Plane
