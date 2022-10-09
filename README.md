@@ -112,7 +112,20 @@ The graphics above shows how we found this formula.
 
 Other important information that is stored is the camera origin, a horizontal vector $w\cdot\overrightarrow{|r|}$, and a vertical vector $h\cdot \overrightarrow{|u|}$.  These four variables (including the bottom left corner) allows us to calculate a ray for each pixel in the scene.
 
-A ray 
+### Rays
+```
+typedef struct s_ray
+{
+	t_vec4	orig;
+	t_vec4	dir;
+}	t_ray;
+```
+
+A ray needs to have both an origin and a direction.  When calculating a ray from the camera, the origin is the camera origin.  The direction is calculated as follows:
+```
+r.dir = cam.btm_left_cnr + (u * cam.horiz) + (v * cam.vert) - cam.orig
+```
+Where `u` is the `x` coordinate of the pixel relative to the image width, and `v` is the `y` coordinate of the pixel relative to the image height.
 
 ### Sphere
 ### Plane
