@@ -15,6 +15,7 @@
 	- [Plane](#plane-1)
 	- [Cylinder](#cylinder-1)
 	- [Lighting](#lighting)
+	- [Final Thoughts](#final-thoughts)
 - [Examples](#examples)
 - [Installation](#installation)
 
