@@ -166,7 +166,16 @@ typedef struct s_cylinder
 }	t_cylinder;
 ```
 
-By far the hardest part of this project was 
+By far the hardest part of this project rendering cylinders.  While rendering them on the y-axis is not that complicated, once you start rotating them it becomes quite difficult.  We solved this by always rendering them along the y-axis and rotating the ray (or the scene) accordingly.
+
+We split the rendering into several steps.
+
+First we rotate the ray so that the cylinder is oriented along the y-axis using [Rodrigues' rotation formula](https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula).
+
+
+![cylinder 001](https://user-images.githubusercontent.com/68693691/194762980-77af0098-d442-4e15-b3e4-113cbec11fd6.png)
+
+As cylinders are essentially a lot of circles stacked on top of each other, as seen in the diagram above.  We can basically just 
 
 ### Lighting
 
