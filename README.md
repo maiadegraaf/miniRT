@@ -128,8 +128,46 @@ r.dir = cam.btm_left_cnr + (u * cam.horiz) + (v * cam.vert) - cam.orig
 Where `u` is the `x` coordinate of the pixel relative to the image width, and `v` is the `y` coordinate of the pixel relative to the image height.
 
 ### Sphere
+```
+typedef struct s_sphere
+{
+	t_vec4		center;
+	float		radius;
+}	t_sphere;
+```
+Using the quadratic equation the program determines wether or not the camera ray hits the sphere.  If the discriminant is less than zero it means the sphere has not been hit, but if it is greater than zero, it has been hit.  As a ray can intersect a sphere twice, the program checks both roots of the quadratic equation and stores the closest one to the camera as `t`.  `t` is then used to evaluate the normal, which is a normalized vector from the center of the sphere to the point where the ray hits the sphere.  This vector will be used later to determine the color of the pixel.
+
 ### Plane
+```
+typedef struct s_plane
+{
+	t_vec4	point;
+	t_vec4	vector;
+}	t_plane;
+```
+A ray-plane intersection can be calculated using the following formula:
+
+$t = \frac{(p - r_o) \cdot |o|}{|o|\cdot r_d} = \frac{(r_o - p) \cdot |o|}{|o|\cdot r_d}$
+
+Where $p$ is the `point` on the plane and $|o|$ is the planes normalized orientation `vector`.
+
+Again, `t` is then used to evaluate the normal, which later is used to calculate the color of the pixel.
+
 ### Cylinder
+```
+typedef struct s_cylinder
+{
+	t_vec4	center;
+	t_vec4	n;
+	float	radius;
+	float	height;
+	float	angle;
+	t_vec4	axis;
+}	t_cylinder;
+```
+
+By far the hardest part of this project was 
+
 ### Lighting
 
 ## Installation
