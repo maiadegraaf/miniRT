@@ -90,17 +90,29 @@ Essentially as it reads through each line it checks what the first character is,
 As the camera, light, and ambient light can only be declared once in the scene, the parser throws an error if multiple are declared.  Further if there is no camera, the program also sends an error and exits the program.  However the scene is missing an (ambient) light or objects, it sends a warning but still renders the scene.
 
 ### Setting up the Camera
-As each ray is calculated based upon the bottom left corner of the camera, this is determined during the parsing stage using the following formula:
 
-$x = C - \frac{w\cdot\overrightarrow{|r|}}{2} - \frac{h\cdot \overrightarrow{|u|}}{2}$
+
+![minirt 001](https://user-images.githubusercontent.com/68693691/194758372-dec2ea14-02f2-48d9-b485-7d79efbc43ee.png)
+![minirt 002](https://user-images.githubusercontent.com/68693691/194758374-027f5848-a486-4b55-90e7-da7bb58dd3b8.png)
+
+As each ray is calculated based upon the bottom left corner of the camera, this is an important coordinate vector that is determined during the parsing stage using the following formula:
+
+$x = C - \frac{w\cdot\overrightarrow{|r|}}{2} - \frac{h\cdot \overrightarrow{|u|}}{2} + |o|$
 
 Where:
 - $x$ is the bottom left corner
 - $C$ is the camera origin
-- $w$ is the viewpoint width. Which is calculated with:
-  - $w = \tan (\frac{fov}{2})$ where $fov$ is `field of view`
-- $R$ is a normalized orientation vector 
+- $w$ is the viewpoint width
+- $|r|$ is a normalized orientation vector facing right
+- $h$ is the viewpoint width
+- $|u|$ is a normalized orientation vector facing up
+- $|o|$ is the normalized orientation of the camera
 
+The graphics above shows how we found this formula.
+
+Other important information that is stored is the camera origin, a horizontal vector $w\cdot\overrightarrow{|r|}$, and a vertical vector $h\cdot \overrightarrow{|u|}$.  These four variables (including the bottom left corner) allows us to calculate a ray for each pixel in the scene.
+
+A ray 
 
 ### Sphere
 ### Plane
