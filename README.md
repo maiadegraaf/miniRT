@@ -172,10 +172,15 @@ We split the rendering into several steps.
 
 First we rotate the ray so that the cylinder is oriented along the y-axis using [Rodrigues' rotation formula](https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula).
 
+<p align="center">
+  <a href="https://github.com/maiadegraaf">
+    <picture>
+    <img alt="cylinder" src="https://user-images.githubusercontent.com/68693691/194762980-77af0098-d442-4e15-b3e4-113cbec11fd6.png" width=400>
+    </picture>
+  </a>
+</p>
 
-![cylinder 001](https://user-images.githubusercontent.com/68693691/194762980-77af0098-d442-4e15-b3e4-113cbec11fd6.png)
-
-As cylinders are essentially a lot of circles stacked on top of each other, as seen in the diagram above.  We can basically just 
+As cylinders are essentially a lot of circles stacked on top of each other, as seen in the diagram above, we can use the quadratic equation to determine the 
 
 ### Lighting
 
