@@ -190,10 +190,13 @@ As cylinders are essentially a lot of circles stacked on top of each other, as s
 <p align="center">
   <a href="https://github.com/maiadegraaf">
     <picture>
-    <img alt="cylinder" src="https://user-images.githubusercontent.com/68693691/194762980-77af0098-d442-4e15-b3e4-113cbec11fd6.png" width=400>
+    <img width="1405" alt="cylinder" src="https://user-images.githubusercontent.com/68693691/195334496-ecc89158-29a6-47f3-aa18-10132a1db29a.png">
     </picture>
   </a>
+
 </p>
+
+
 
 Considering the cylinder has been oriented along the y-axis, this also allows us to easily check if the point that has been hit is within the height parameter.
 
