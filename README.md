@@ -185,7 +185,7 @@ The top and bottom intersections are rendered through creating a plane that uses
 
 The cylinder is rendered by first rotating the ray so that the cylinder is oriented along the y-axis using [Rodrigues' rotation formula](https://en.wikipedia.org/wiki/Rodrigues%27_rotation_formula).
 
-As cylinders are essentially a lot of circles stacked on top of each other, as seen in the diagram bellow, we can use the quadratic equation to determine wether a cylinder has been hit. If the discriminant is positive then solve for the two roots, using the closest root as `t`.
+As cylinders are essentially a lot of circles stacked on top of each other we can use the quadratic equation to determine wether a cylinder has been hit. If the discriminant is positive then solve for the two roots, using the closest root as `t`.  `t` is used to determine point `p` which then can be used to find the normal using the formula's demonstrated in the following diagram.  The vector `|n|` needs to be normalized or else the shading won't work properly.
 
 <p align="center">
   <a href="https://github.com/maiadegraaf">
@@ -198,9 +198,7 @@ As cylinders are essentially a lot of circles stacked on top of each other, as s
 
 
 
-Considering the cylinder has been oriented along the y-axis, this also allows us to easily check if the point that has been hit is within the height parameter.
-
-Using the determined `t`, the normal is then calculated using the original ray, which again, affects the color of the pixel.
+Considering the cylinder has been oriented along the y-axis, this also allows us to easily check if the `y` value of point `p` is less than the `y` value point of point `c`, *i.e.* the bottom of the cylinder, or if its greater than the height of the cylinder. 
 
 ### Lighting
 ```C
@@ -226,9 +224,14 @@ This was quite a challenging project for me as I hadn't worked with a lot of the
 This project has a lot of different aspects to it, as well as many things that can be added to it, and one of the challenges was actually knowing where to stop.  As making a ray tracer was super interesting to me, I was tempted to really tackle the bonuses and go above and beyond however I am also cognizant that C is not necessarily the best language to write a ray tracer in.  We also have an opportunity later in the curriculum to build a far more powerful and full bodied ray tracer in our language of choice so I think I'll wait for that instead.
 
 ## Examples
-<img width="1022" alt="Screenshot 2022-10-08 at 16 00 49" src="https://user-images.githubusercontent.com/68693691/194775115-7ad64ac2-eb06-42ca-84c9-a131a64424e3.png">
-<img width="614" alt="Screenshot 2022-10-08 at 16 20 50" src="https://user-images.githubusercontent.com/68693691/194775119-16b6d966-b931-442d-a6c2-38fe095e81bf.png">
-<img width="614" alt="Screenshot 2022-10-08 at 16 20 50" src="https://user-images.githubusercontent.com/68693691/194775157-acc95a2a-86d0-461c-928b-6b9dc951f71d.jpg">
+<p align="center">
+    <picture>
+		<img width="614" alt="Screenshot 2022-10-08 at 16 00 49" src="https://user-images.githubusercontent.com/68693691/194775115-7ad64ac2-eb06-42ca-84c9-a131a64424e3.png">
+		<img width="614" alt="Screenshot 2022-10-08 at 16 20 50" src="https://user-images.githubusercontent.com/68693691/194775119-16b6d966-b931-442d-a6c2-38fe095e81bf.png">
+		<img width="614" alt="Screenshot 2022-10-08 at 16 20 50" src="https://user-images.githubusercontent.com/68693691/194775157-acc95a2a-86d0-461c-928b-6b9dc951f71d.jpg">
+	</picture>
+</p>
+
 
 ## Installation
 ### Clone the repository:
