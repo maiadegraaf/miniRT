@@ -226,12 +226,16 @@ This project has a lot of different aspects to it, as well as many things that c
 ## Examples
 <p align="center">
     <picture>
-		<img width="614" alt="Screenshot 2022-10-08 at 16 00 49" src="https://user-images.githubusercontent.com/68693691/194775115-7ad64ac2-eb06-42ca-84c9-a131a64424e3.png">
-		<img width="614" alt="Screenshot 2022-10-08 at 16 20 50" src="https://user-images.githubusercontent.com/68693691/194775119-16b6d966-b931-442d-a6c2-38fe095e81bf.png">
-		<img width="614" alt="Screenshot 2022-10-08 at 16 20 50" src="https://user-images.githubusercontent.com/68693691/194775157-acc95a2a-86d0-461c-928b-6b9dc951f71d.jpg">
-	</picture>
-</p>
+		<img width="614" alt="Screenshot 2022-10-08 at 16 00 49" src="https://user-images.githubusercontent.com/68693691/194775115-7ad64ac2-eb06-42ca-84c9-a131a64424e3.png"/>
+    </picture>
+    <picture>
+		<img width="614" alt="Screenshot 2022-10-08 at 16 20 50" src="https://user-images.githubusercontent.com/68693691/194775119-16b6d966-b931-442d-a6c2-38fe095e81bf.png"/>
+    </picture>
+    <picture>
+		<img width="614" alt="Screenshot 2022-10-08 at 16 20 50" src="https://user-images.githubusercontent.com/68693691/194775157-acc95a2a-86d0-461c-928b-6b9dc951f71d.jpg"/>
+   </picture>
 
+</p>
 
 ## Installation
 ### Clone the repository:
